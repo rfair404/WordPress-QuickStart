@@ -101,6 +101,7 @@ Scripts that test complete workflows and system integration.
 ```
 
 ### Using Lando/Composer Commands
+
 ```bash
 # From project root with Lando
 lando composer test          # Runs PHPUnit tests
@@ -115,18 +116,24 @@ lando npm test              # Runs JavaScript/E2E tests
 
 ## Best Practices
 
-1. **Run validation scripts first** before executing tests to ensure environment is properly configured
+1. **Run validation scripts first** before executing tests to ensure
+   environment is properly configured
 2. **Use analysis scripts** to understand test coverage and identify gaps
 3. **Execute integration tests** to verify complete workflows
-4. **Run the comprehensive test suite** (`run-wordpress-tests.sh`) for full project validation
+4. **Run the comprehensive test suite** (`run-wordpress-tests.sh`) for full
+   project validation
 
 ## Environment Requirements
 
-- **Lando/Docker** - Required for WordPress and WooCommerce integration tests
+- **Lando/Docker** - Required for WordPress and WooCommerce integration
+  tests
 - **PHP 8.1+** - Required for unit tests
-- **Composer** - Required for dependency management and test execution
+- **Composer** - Required for dependency management and test
+  execution
 - **Node.js/npm** - Required for E2E tests and JavaScript testing
 
 ## Continuous Integration
 
-All test scripts are designed to work in CI/CD environments. The GitHub Actions workflows in `.github/workflows/` utilize these organized test scripts for automated testing.
+All test scripts are designed to work in CI/CD environments. The GitHub
+Actions workflows in `.github/workflows/` utilize these organized test
+scripts for automated testing.
