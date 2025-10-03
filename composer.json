@@ -51,7 +51,7 @@
         "lint": [
             "@lint:phpcs"
         ],
-        "lint:phpcs": "./vendor/bin/phpcs --standard=.config/linting/phpcs.xml",
+        "lint:phpcs": "./vendor/bin/phpcs --standard=.config/linting/phpcs.xml src/ tests/ custom/",
         "lint:fix": [
             "@lint:phpcbf"
         ],
@@ -119,11 +119,11 @@
         "post-update-cmd": [
             "@setup:standards"
         ],
-        "gh:check": "gh --version || echo 'GitHub CLI not installed. Install from: https://cli.github.com/'",
-        "gh:actions": "gh run list --limit 10",
-        "gh:actions:latest": "gh run view $(gh run list --json databaseId --jq '.[0].databaseId')",
-        "gh:actions:logs": "gh run view $(gh run list --json databaseId --jq '.[0].databaseId') --log-failed",
-        "gh:auth": "gh auth status || gh auth login",
+        "gh:check": "bash scripts/gh-wrapper.sh --version || echo 'GitHub CLI not installed. Install from: https://cli.github.com/'",
+        "gh:actions": "bash scripts/gh-wrapper.sh run list --limit 10",
+        "gh:actions:latest": "bash scripts/gh-wrapper.sh run view $(bash scripts/gh-wrapper.sh run list --json databaseId --jq '.[0].databaseId')",
+        "gh:actions:logs": "bash scripts/gh-wrapper.sh run view $(bash scripts/gh-wrapper.sh run list --json databaseId --jq '.[0].databaseId') --log-failed",
+        "gh:auth": "bash scripts/gh-wrapper.sh auth status || bash scripts/gh-wrapper.sh auth login",
         "wp:install": [
             "@composer install",
             "@wp:config"
