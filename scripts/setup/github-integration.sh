@@ -42,9 +42,9 @@ check_vscode() {
 install_extension() {
     local extension_id="$1"
     local extension_name="$2"
-    
+
     echo -e "${BLUE}Installing ${extension_name}...${NC}"
-    
+
     if code --install-extension "$extension_id" --force; then
         echo -e "${GREEN}✅ ${extension_name} installed successfully${NC}"
         return 0
@@ -57,7 +57,7 @@ install_extension() {
 # Function to check if extension is already installed
 check_extension() {
     local extension_id="$1"
-    
+
     if code --list-extensions | grep -q "^${extension_id}$"; then
         return 0
     else
@@ -80,17 +80,17 @@ setup_github_auth() {
     echo "2. Fine-grained Personal Access Token"
     echo "3. GitHub CLI (gh) authentication"
     echo ""
-    
+
     # Check if GitHub CLI is available
     if command -v gh >/dev/null 2>&1; then
         echo -e "${GREEN}✅ GitHub CLI (gh) is available${NC}"
         echo ""
         read -p "Use GitHub CLI for authentication? (y/n): " use_gh_cli
-        
+
         if [[ "$use_gh_cli" =~ ^[Yy]$ ]]; then
             echo ""
             echo -e "${BLUE}Checking GitHub CLI authentication...${NC}"
-            
+
             if gh auth status >/dev/null 2>&1; then
                 echo -e "${GREEN}✅ Already authenticated with GitHub CLI${NC}"
             else
@@ -98,7 +98,7 @@ setup_github_auth() {
                 echo "Run: gh auth login"
                 echo ""
                 read -p "Run GitHub CLI authentication now? (y/n): " run_gh_auth
-                
+
                 if [[ "$run_gh_auth" =~ ^[Yy]$ ]]; then
                     gh auth login
                 fi
@@ -106,7 +106,7 @@ setup_github_auth() {
             return 0
         fi
     fi
-    
+
     echo ""
     echo -e "${YELLOW}Manual Token Setup Instructions:${NC}"
     echo ""
@@ -134,10 +134,10 @@ setup_github_auth() {
 # Function to configure VS Code settings for GitHub integration
 configure_vscode_settings() {
     echo -e "${BLUE}Configuring VS Code settings for GitHub integration...${NC}"
-    
+
     local vscode_settings_dir
     local settings_file
-    
+
     # Determine VS Code settings directory based on OS
     if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
         # Windows (Git Bash/MSYS2)
@@ -149,17 +149,17 @@ configure_vscode_settings() {
         # Linux
         vscode_settings_dir="$HOME/.config/Code/User"
     fi
-    
+
     settings_file="$vscode_settings_dir/settings.json"
-    
+
     # Create settings directory if it doesn't exist
     mkdir -p "$vscode_settings_dir"
-    
+
     # Create or update settings.json
     if [ ! -f "$settings_file" ]; then
         echo "{}" > "$settings_file"
     fi
-    
+
     # Add GitHub-specific settings using a temporary Python script
     cat > /tmp/update_vscode_settings.py << 'EOF'
 import json
@@ -209,7 +209,7 @@ with open(settings_file, 'w') as f:
 
 print("VS Code settings updated successfully")
 EOF
-    
+
     if command -v python3 >/dev/null 2>&1; then
         python3 /tmp/update_vscode_settings.py "$settings_file"
         rm /tmp/update_vscode_settings.py
@@ -230,9 +230,9 @@ EOF
 # Function to open project in VS Code with GitHub integration
 open_project() {
     echo -e "${BLUE}Opening project in VS Code...${NC}"
-    
+
     cd "$PROJECT_ROOT"
-    
+
     if code .; then
         echo -e "${GREEN}✅ Project opened in VS Code${NC}"
         echo ""
@@ -252,69 +252,69 @@ main() {
     echo "This script will set up GitHub integration in VS Code for monitoring"
     echo "GitHub Actions, managing Pull Requests, and repository integration."
     echo ""
-    
+
     # Check prerequisites
     if ! check_vscode; then
         exit 1
     fi
-    
+
     echo ""
-    
+
     # Install required extensions
     echo -e "${BLUE}📦 Installing GitHub Extensions${NC}"
     echo "--------------------------------"
-    
+
     # GitHub Pull Requests extension
     if check_extension "github.vscode-pull-request-github"; then
         echo -e "${GREEN}✅ GitHub Pull Requests extension already installed${NC}"
     else
         install_extension "github.vscode-pull-request-github" "GitHub Pull Requests"
     fi
-    
+
     # GitHub Actions extension
     if check_extension "github.vscode-github-actions"; then
         echo -e "${GREEN}✅ GitHub Actions extension already installed${NC}"
     else
         install_extension "github.vscode-github-actions" "GitHub Actions"
     fi
-    
+
     # Optional but recommended extensions
     echo ""
     echo -e "${BLUE}📦 Installing Recommended Extensions${NC}"
     echo "-----------------------------------"
-    
+
     # Git Graph
     if ! check_extension "mhutchie.git-graph"; then
         install_extension "mhutchie.git-graph" "Git Graph (Visual Git History)"
     else
         echo -e "${GREEN}✅ Git Graph already installed${NC}"
     fi
-    
+
     # GitHub Repositories (for remote editing)
     if ! check_extension "github.remotehub"; then
         install_extension "github.remotehub" "GitHub Repositories"
     else
         echo -e "${GREEN}✅ GitHub Repositories already installed${NC}"
     fi
-    
+
     echo ""
-    
+
     # Configure VS Code settings
     configure_vscode_settings
-    
+
     echo ""
-    
+
     # Setup authentication
     setup_github_auth
-    
+
     echo ""
-    
+
     # Open project
     read -p "Open project in VS Code now? (y/n): " open_now
     if [[ "$open_now" =~ ^[Yy]$ ]]; then
         open_project
     fi
-    
+
     echo ""
     echo -e "${GREEN}🎉 GitHub Integration Setup Complete!${NC}"
     echo ""

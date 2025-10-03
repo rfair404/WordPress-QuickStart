@@ -89,7 +89,7 @@ echo ==============================
 echo.
 echo You'll need to authenticate with GitHub to access:
 echo • Repository information
-echo • GitHub Actions status  
+echo • GitHub Actions status
 echo • Pull Request management
 echo • Issue tracking
 echo.
@@ -103,7 +103,7 @@ echo.
 echo 3. Select these scopes:
 echo    ☑️  repo (Full control of private repositories)
 echo    ☑️  workflow (Update GitHub Action workflows)
-echo    ☑️  read:org (Read org and team membership)  
+echo    ☑️  read:org (Read org and team membership)
 echo    ☑️  user:email (Access user email addresses)
 echo.
 echo 4. Copy the generated token
@@ -159,7 +159,7 @@ echo What you can now do in VS Code:
 echo.
 echo 📊 GitHub Actions:
 echo    • View workflow status in status bar
-echo    • Monitor CI/CD pipeline runs  
+echo    • Monitor CI/CD pipeline runs
 echo    • See build failures and logs
 echo.
 echo 🔀 Pull Requests:
@@ -174,7 +174,7 @@ echo    • Manage issues and discussions
 echo.
 echo Access these features from:
 echo • GitHub tab in the sidebar
-echo • Status bar GitHub Actions indicator  
+echo • Status bar GitHub Actions indicator
 echo • Command Palette (Ctrl+Shift+P): 'GitHub:'
 echo.
 echo Repository URL: https://github.com/rfair404/WordPress-QuickStart

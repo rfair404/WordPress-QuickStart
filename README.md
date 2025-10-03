@@ -18,7 +18,8 @@ such as user authentication, product management, and shopping cart system.
 - 🧪 **Comprehensive testing setup** (Unit + E2E with Playwright)
 - 🚀 CI/CD pipeline with GitHub Actions
 - 🐳 Docker development environment with Lando
-- 📝 WordPress VIP coding standards compliance
+- � **VS Code GitHub integration** (Actions monitoring, PR management)
+- �📝 WordPress VIP coding standards compliance
 - 🎨 Modern frontend tooling (ESLint, Prettier, Stylelint)
 - 📊 Performance monitoring and health checks
 - 🔧 Automated setup and environment management
@@ -167,7 +168,51 @@ If you prefer to install manually:
    ./scripts/setup/test-setup.sh
    ```
 
-7. **Access your development site**
+7. **Set up VS Code GitHub Integration** (Recommended for Development)
+
+   Enable GitHub Actions monitoring, Pull Request management, and repository
+   integration directly in VS Code:
+
+   ```bash
+   # Windows (Command Prompt/PowerShell)
+   scripts\setup\github-integration.bat
+
+   # Mac/Linux/Git Bash/WSL
+   bash scripts/setup/github-integration.sh
+   ```
+
+   **What this sets up**:
+   - 📦 **Extensions**: GitHub Pull Requests, GitHub Actions, Git Graph, GitHub Repositories
+   - 📊 **CI/CD Monitoring**: Real-time GitHub Actions status in VS Code status bar
+   - 🔀 **PR Management**: Create, review, and merge Pull Requests from VS Code
+   - 📈 **Repository Tools**: Visual git history, branch management, issue tracking
+
+   **GitHub Authentication** (Required after running the script):
+
+   1. **Create Personal Access Token**:
+      - Go to: [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
+      - Click "Generate new token (classic)"
+      - **Required scopes**:
+        - ☑️ `repo` - Full control of private repositories
+        - ☑️ `workflow` - Update GitHub Action workflows
+        - ☑️ `read:org` - Read org and team membership
+        - ☑️ `user:email` - Access user email addresses
+      - Copy the generated token
+
+   2. **Configure in VS Code**:
+      - Press `Ctrl+Shift+P` (Command Palette)
+      - Type: `GitHub: Sign In`
+      - Select "Use Personal Access Token"
+      - Paste your token
+
+   **✨ After authentication, you can**:
+   - Monitor your CI/CD pipeline status in VS Code status bar
+   - View GitHub Actions logs directly in the editor
+   - Create and review Pull Requests without leaving VS Code
+   - Get notifications when builds fail/succeed
+   - Browse repository files and commit history visually
+
+8. **Access your development site**
 
    Once `lando start` completes, your site will be available at these URLs:
 
@@ -324,6 +369,20 @@ The environment setup configures VS Code with:
 - **Format on save** enabled
 - **Custom tasks** for Lando, testing, and linting
 - **File associations** for project files
+- **GitHub integration** with Actions monitoring, PR management, and repository tools
+
+#### Enhanced GitHub Workflow
+
+With the GitHub integration extensions installed, VS Code provides:
+
+- 🔄 **Real-time CI/CD monitoring** - GitHub Actions status in status bar
+- 🔀 **Pull Request management** - Create, review, and merge PRs in editor
+- 📊 **Visual git history** - Interactive commit history and branch visualization
+- 🚨 **Build notifications** - Immediate feedback on test failures/successes
+- 📁 **Repository browser** - Browse remote files without cloning
+- 🏷️ **Issue integration** - Link commits and PRs to GitHub issues
+
+Run the GitHub integration setup script to enable these features (see Quick Start step 7).
 
 ### Available Commands
 

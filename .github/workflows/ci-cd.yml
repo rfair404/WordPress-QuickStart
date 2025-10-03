@@ -279,7 +279,7 @@ jobs:
       - name: Run validation tests
         run: bash tests/test-suite.sh validate
 
-      - name: Run analysis tests  
+      - name: Run analysis tests
         run: bash tests/test-suite.sh analyze
 
       - name: Run unit test analysis
