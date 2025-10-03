@@ -31,7 +31,7 @@ services:
         XDEBUG_MODE: "debug,develop,coverage"
 
   database:
-    portforward: 3307
+    portforward: 3308
     creds:
       user: wordpress
       password: wordpress
