@@ -360,18 +360,41 @@ else
     print_warning "⚠ Git hooks not set up - run './setup-git-hooks.sh'"
 fi
 
-# Test 9: GitHub CLI setup and integration
-print_status "Testing GitHub CLI integration..."
+# Function to detect CI/CD environment
+is_ci_environment() {
+    # Check common CI/CD environment variables
+    [[ -n "${CI:-}" ]] || \
+    [[ -n "${CONTINUOUS_INTEGRATION:-}" ]] || \
+    [[ -n "${GITHUB_ACTIONS:-}" ]] || \
+    [[ -n "${GITLAB_CI:-}" ]] || \
+    [[ -n "${JENKINS_URL:-}" ]] || \
+    [[ -n "${TRAVIS:-}" ]] || \
+    [[ -n "${CIRCLECI:-}" ]] || \
+    [[ -n "${AZURE_PIPELINES:-}" ]] || \
+    [[ -n "${BUILDKITE:-}" ]] || \
+    [[ -n "${DRONE:-}" ]] || \
+    [[ -n "${TEAMCITY_VERSION:-}" ]] || \
+    [[ -n "${APPVEYOR:-}" ]] || \
+    [[ -n "${CODEBUILD_BUILD_ID:-}" ]] || \
+    [[ -n "${WES_CI_MODE:-}" ]]  # Custom override for this project
+}
+
+# Test 9: GitHub CLI setup and integration (local development only)
+if is_ci_environment; then
+    print_info "ℹ️  Skipping GitHub CLI tests (CI/CD environment detected)"
+    print_info "ℹ️  Set WES_CI_MODE=0 to force GitHub CLI tests in CI/CD"
+else
+    print_status "Testing GitHub CLI integration..."
 
 # Check if GitHub CLI is available
 if command -v gh &> /dev/null; then
     local gh_version=$(gh --version | head -n1 | cut -d' ' -f3)
     print_success "✓ GitHub CLI v$gh_version is installed"
-    
+
     # Test GitHub CLI authentication status
     if gh auth status &> /dev/null; then
         print_success "✓ GitHub CLI is authenticated"
-        
+
         # Test repository access if we're in a repo
         if gh repo view &> /dev/null; then
             print_success "✓ GitHub CLI can access repository"
@@ -381,14 +404,14 @@ if command -v gh &> /dev/null; then
     else
         print_warning "⚠ GitHub CLI is installed but not authenticated (run 'gh auth login')"
     fi
-    
+
     # Test GitHub CLI aliases
     if gh alias list | grep -q "actions\|logs\|latest\|status" &> /dev/null; then
         print_success "✓ GitHub CLI aliases are configured"
     else
         print_info "ℹ️  GitHub CLI aliases not configured (will be set up during authentication)"
     fi
-    
+
 else
     print_warning "⚠ GitHub CLI is not installed"
     print_info "ℹ️  Install with: ./scripts/setup/github-cli-setup.sh"
@@ -405,7 +428,7 @@ for script in "${composer_gh_scripts[@]}"; do
     fi
 done
 
-# Test npm GitHub CLI scripts  
+# Test npm GitHub CLI scripts
 if [ -f "package.json" ]; then
     print_status "Testing npm GitHub CLI scripts..."
     npm_gh_scripts=("gh:check" "gh:actions:latest" "gh:actions:logs")
@@ -423,7 +446,7 @@ setup_scripts=("scripts/setup/github-cli-setup.sh" "scripts/setup/github-cli-set
 for script in "${setup_scripts[@]}"; do
     if [ -f "$script" ]; then
         print_success "✓ Setup script '$script' exists"
-        
+
         # Check if script is executable (Unix-like systems)
         if [[ "$script" == *.sh ]] && [[ ! -x "$script" ]]; then
             print_warning "⚠ Script '$script' is not executable (run: chmod +x $script)"
@@ -441,6 +464,8 @@ if command -v lando &> /dev/null && [ -f ".lando.yml" ]; then
         print_warning "⚠ GitHub CLI not found in Lando tooling configuration"
     fi
 fi
+
+fi  # End of GitHub CLI tests (local development only)
 
 echo ""
 

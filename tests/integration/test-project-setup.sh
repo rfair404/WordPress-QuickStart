@@ -205,8 +205,33 @@ test_composer_scripts() {
     fi
 }
 
-# Test GitHub CLI integration
+# Function to detect CI/CD environment
+is_ci_environment() {
+    # Check common CI/CD environment variables
+    [[ -n "${CI:-}" ]] || \
+    [[ -n "${CONTINUOUS_INTEGRATION:-}" ]] || \
+    [[ -n "${GITHUB_ACTIONS:-}" ]] || \
+    [[ -n "${GITLAB_CI:-}" ]] || \
+    [[ -n "${JENKINS_URL:-}" ]] || \
+    [[ -n "${TRAVIS:-}" ]] || \
+    [[ -n "${CIRCLECI:-}" ]] || \
+    [[ -n "${AZURE_PIPELINES:-}" ]] || \
+    [[ -n "${BUILDKITE:-}" ]] || \
+    [[ -n "${DRONE:-}" ]] || \
+    [[ -n "${TEAMCITY_VERSION:-}" ]] || \
+    [[ -n "${APPVEYOR:-}" ]] || \
+    [[ -n "${CODEBUILD_BUILD_ID:-}" ]] || \
+    [[ -n "${WQS_CI_MODE:-}" ]]  # Custom override for this project
+}
+
+# Test GitHub CLI integration (local development only)
 test_github_cli_integration() {
+    if is_ci_environment; then
+        log_info "Skipping GitHub CLI tests (CI/CD environment detected)"
+        log_info "Set WQS_CI_MODE=0 to force GitHub CLI tests in CI/CD"
+        return 0
+    fi
+
     log_step "Testing GitHub CLI integration..."
 
     # Test GitHub CLI setup scripts exist

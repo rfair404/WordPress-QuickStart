@@ -647,6 +647,14 @@ gh run view <run-id> --log-failed # View specific failure logs
 gh run rerun <run-id>            # Rerun failed workflow
 ```
 
+#### CI/CD Behavior
+
+**Note**: GitHub CLI tests automatically skip in CI/CD environments to avoid issues where GitHub CLI might not be available or needed. The system detects CI/CD environments using common environment variables (`CI`, `GITHUB_ACTIONS`, `GITLAB_CI`, etc.).
+
+- ✅ **Local Development**: All GitHub CLI tests and functionality available
+- ⏭️ **CI/CD Pipelines**: GitHub CLI tests skipped automatically
+- 🔧 **Override**: Set `WQS_CI_MODE=0` to force GitHub CLI tests in CI/CD
+
 ### Code Quality & Linting
 
 This project enforces strict coding standards using multiple linting tools:
