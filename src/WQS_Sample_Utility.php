@@ -91,7 +91,7 @@ class WES_Sample_Utility {
 	 */
 	public function sanitize_email( string $email ) {
 		$sanitized_email = sanitize_email( $email );
-		
+
 		if ( ! is_email( $sanitized_email ) ) {
 			return false;
 		}
@@ -116,7 +116,7 @@ class WES_Sample_Utility {
 		];
 
 		$symbol = $currency_symbols[ $currency ] ?? '$';
-		
+
 		return $symbol . number_format( $price, 2 );
 	}
 
@@ -145,7 +145,7 @@ class WES_Sample_Utility {
 		}
 
 		$timestamp = strtotime( $date_string );
-		
+
 		if ( false === $timestamp ) {
 			return '';
 		}

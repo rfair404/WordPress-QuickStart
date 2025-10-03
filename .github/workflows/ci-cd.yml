@@ -52,10 +52,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
 
       - name: Install NPM dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Run PHP Code Sniffer
         run: composer run lint
@@ -203,10 +202,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
 
       - name: Install NPM dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
@@ -265,10 +263,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
 
       - name: Install NPM dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Run comprehensive analysis
         run: composer run analyze
@@ -314,7 +311,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install NPM dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Run Snyk security scan
         uses: snyk/actions/node@master
@@ -343,12 +340,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
 
       - name: Install dependencies
         run: |
           composer install --no-dev --prefer-dist --no-progress --no-suggest --optimize-autoloader
-          npm ci
+          npm install --legacy-peer-deps
 
       - name: Build assets
         run: npm run build
