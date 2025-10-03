@@ -2,11 +2,11 @@
 /**
  * Sample utility class for testing WordPress VIP coding standards
  *
- * @package WordPressEcommerceStarter
+ * @package WordPressQuickstart
  * @since   1.0.0
  */
 
-namespace WordPressEcommerceStarter;
+namespace WordPressQuickstart;
 
 /**
  * Sample utility class demonstrating WordPress VIP coding standards

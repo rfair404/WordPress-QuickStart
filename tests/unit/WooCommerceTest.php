@@ -2,10 +2,10 @@
 /**
  * Tests for WooCommerce integration and functionality
  *
- * @package WordPressEcommerceStarter\Tests
+ * @package WordPressQuickstart\Tests
  */
 
-namespace WordPressEcommerceStarter\Tests\Unit;
+namespace WordPressQuickstart\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;

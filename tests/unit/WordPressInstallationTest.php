@@ -2,10 +2,10 @@
 /**
  * Tests to validate WordPress installation structure and integrity
  *
- * @package WordPressEcommerceStarter\Tests
+ * @package WordPressQuickstart\Tests
  */
 
-namespace WordPressEcommerceStarter\Tests\Unit;
+namespace WordPressQuickstart\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 

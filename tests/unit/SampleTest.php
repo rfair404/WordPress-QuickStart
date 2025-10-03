@@ -2,10 +2,10 @@
 /**
  * Sample test to verify PHPUnit setup
  *
- * @package WordPressEcommerceStarter\Tests
+ * @package WordPressQuickstart\Tests
  */
 
-namespace WordPressEcommerceStarter\Tests\Unit;
+namespace WordPressQuickstart\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
