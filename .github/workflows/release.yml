@@ -1,0 +1,192 @@
+name: Release Management
+
+on:
+  push:
+    tags:
+      - 'v*'
+  release:
+    types: [published]
+
+env:
+  PHP_VERSION: '8.1'
+  NODE_VERSION: '18'
+
+jobs:
+  # Create release build
+  create-release:
+    name: Create Release Build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          composer install --no-dev --prefer-dist --no-progress --optimize-autoloader
+          npm ci
+
+      - name: Build production assets
+        run: npm run build
+
+      - name: Create release package
+        run: |
+          # Create clean release package
+          mkdir -p release
+
+          # Copy necessary files
+          rsync -av \
+            --exclude='.git*' \
+            --exclude='node_modules' \
+            --exclude='tests' \
+            --exclude='docs' \
+            --exclude='.github' \
+            --exclude='build' \
+            --exclude='coverage' \
+            --exclude='*.log' \
+            --exclude='.env*' \
+            --exclude='release' \
+            . release/
+
+          # Create version file
+          echo "${GITHUB_REF#refs/tags/}" > release/VERSION
+
+          # Create installation instructions
+          cat << EOF > release/INSTALL.md
+          # WordPress E-commerce Starter Installation
+
+          ## Quick Start
+
+          1. Extract this package to your desired directory
+          2. Run: \`composer install\`
+          3. Run: \`npm install\`
+          4. Copy \`.env.example\` to \`.env\` and configure
+          5. Run: \`lando start\`
+          6. Run: \`./scripts/wp-manager.sh install:full\`
+
+          ## Requirements
+
+          - PHP 8.1+
+          - Node.js 18+
+          - Docker Desktop
+          - Lando 3.0+
+
+          ## Documentation
+
+          See README.md for complete documentation.
+          EOF
+
+      - name: Create release archive
+        run: |
+          cd release
+          tar -czf ../wordpress-ecommerce-starter-${GITHUB_REF#refs/tags/}.tar.gz .
+          zip -r ../wordpress-ecommerce-starter-${GITHUB_REF#refs/tags/}.zip .
+          cd ..
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          # Generate changelog from commits since last tag
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD~1 2>/dev/null || echo "")
+
+          if [ -n "$PREVIOUS_TAG" ]; then
+            echo "## Changes since $PREVIOUS_TAG" > CHANGELOG.md
+            git log --pretty=format:"- %s (%h)" $PREVIOUS_TAG..HEAD >> CHANGELOG.md
+          else
+            echo "## Initial Release" > CHANGELOG.md
+            echo "First release of WordPress E-commerce Starter" >> CHANGELOG.md
+          fi
+
+          # Set changelog as output for release notes
+          {
+            echo 'CHANGELOG<<EOF'
+            cat CHANGELOG.md
+            echo EOF
+          } >> $GITHUB_OUTPUT
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          body: ${{ steps.changelog.outputs.CHANGELOG }}
+          files: |
+            wordpress-ecommerce-starter-*.tar.gz
+            wordpress-ecommerce-starter-*.zip
+          draft: false
+          prerelease: ${{ contains(github.ref, '-') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Deploy release to production
+  deploy-release:
+    name: Deploy Release
+    runs-on: ubuntu-latest
+    needs: create-release
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-')
+    environment:
+      name: production
+      url: https://your-production-site.com
+    steps:
+      - name: Download release assets
+        uses: actions/download-artifact@v3
+        with:
+          name: release-assets
+
+      - name: Deploy to production
+        run: |
+          echo "Deploying release ${GITHUB_REF#refs/tags/} to production..."
+          # Add your production deployment logic here
+          # This might include:
+          # - Uploading to production server
+          # - Running database migrations
+          # - Installing WordPress and plugins via composer
+          # - Running ./scripts/wp-manager.sh install:full
+          # - Setting up SSL certificates
+          # - Configuring web server
+
+      - name: Run post-deployment tests
+        run: |
+          echo "Running post-deployment validation..."
+          # Add production smoke tests
+
+      - name: Notify deployment success
+        run: |
+          echo "✅ Successfully deployed ${GITHUB_REF#refs/tags/} to production"
+          # Add notification logic (Slack, email, etc.)
+
+  # Update documentation
+  update-docs:
+    name: Update Documentation
+    runs-on: ubuntu-latest
+    needs: create-release
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Generate documentation
+        run: |
+          # Generate API documentation if needed
+          npm install -g @wordpress/scripts
+          # Add documentation generation commands
+
+      - name: Deploy documentation
+        run: |
+          echo "Deploying documentation for ${GITHUB_REF#refs/tags/}"
+          # Add documentation deployment logic
+          # This might include deploying to GitHub Pages, etc.

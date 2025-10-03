@@ -1,0 +1,20 @@
+extends: relaxed
+
+rules:
+  line-length:
+    max: 100
+    level: warning
+  indentation:
+    spaces: 2
+  empty-lines:
+    max: 2
+  trailing-spaces: enable
+  truthy:
+    allowed-values: ['true', 'false', 'on', 'off']
+
+ignore: |
+  node_modules/
+  vendor/
+  coverage/
+  build/
+  dist/

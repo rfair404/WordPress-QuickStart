@@ -1,0 +1,51 @@
+{
+  "semi": true,
+  "trailingComma": "es5",
+  "singleQuote": true,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "bracketSpacing": true,
+  "arrowParens": "avoid",
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": "*.php",
+      "options": {
+        "parser": "php",
+        "printWidth": 120,
+        "tabWidth": 4,
+        "useTabs": true
+      }
+    },
+    {
+      "files": ["*.json", "*.jsonc"],
+      "options": {
+        "parser": "json",
+        "tabWidth": 2
+      }
+    },
+    {
+      "files": ["*.yml", "*.yaml"],
+      "options": {
+        "parser": "yaml",
+        "tabWidth": 2
+      }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "parser": "markdown",
+        "printWidth": 100,
+        "proseWrap": "always"
+      }
+    },
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "html",
+        "printWidth": 120
+      }
+    }
+  ]
+}

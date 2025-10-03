@@ -1,0 +1,294 @@
+#!/bin/bash
+
+# WordPress E-commerce Startersetup_bashrc_link() {
+    if [ ! -f ~/.bashrc ] || [ -L ~/.bashrc ]; then
+        [[ "$QUIET_MODE" != "1" ]] && echo "📋 Creating .bashrc symlink..."
+        ln -sf "$PROJECT_ROOT/.bashrc" ~/.bashrc
+        echo "✅ .bashrc symlink created"
+    else
+        [[ "$QUIET_MODE" != "1" ]] && echo "📋 Adding source command to existing .bashrc..."
+        if ! grep -q "source.*\.bashrc" ~/.bashrc; then
+            echo "" >> ~/.bashrc
+            echo "# Source WordPress E-commerce Starter environment" >> ~/.bashrc
+            echo "if [ -f \"$PROJECT_ROOT/.bashrc\" ]; then" >> ~/.bashrc
+            echo "    source \"$PROJECT_ROOT/.bashrc\"" >> ~/.bashrc
+            echo "fi" >> ~/.bashrc
+            echo "✅ .bashrc configuration added"
+        else
+            echo "ℹ️  .bashrc already configured"
+                fi\n    fi\n}
+
+# Usage function
+show_usage() {
+    echo "🔧 WordPress E-commerce Starter - Environment Setup"
+    echo "=================================================="
+    echo ""
+    echo "Usage: $0 [options]"
+    echo ""
+    echo "Interactive Mode (default):"
+    echo "  ./scripts/setup/env-setup.sh"
+    echo ""
+    echo "Automated Mode (no prompts):"
+    echo "  WES_AUTO=1 ./scripts/setup/env-setup.sh"
+    echo ""
+    echo "Environment Variables:"
+    echo "  WES_AUTO=1           Enable automated mode (no interactive prompts)"
+    echo "  WES_QUIET=1          Reduce output verbosity"
+    echo "  WES_SETUP_BASHRC=1   Set up .bashrc environment (default: 1)"
+    echo "  WES_SETUP_VSCODE=1   Set up VS Code workspace (default: 1)"
+    echo ""
+    echo "Examples:"
+    echo "  WES_AUTO=1 $0                                    # Set up both with defaults"
+    echo "  WES_AUTO=1 WES_SETUP_VSCODE=0 $0               # Only set up .bashrc"
+    echo "  WES_AUTO=1 WES_SETUP_BASHRC=0 $0               # Only set up VS Code"
+    echo ""
+    exit 0
+}
+
+# Check for help flag
+if [[ "${1:-}" == "--help" ]] || [[ "${1:-}" == "-h" ]]; then
+    show_usage
+fi
+
+# Check for quiet mode
+QUIET_MODE="${WES_QUIET:-0}"
+
+if [[ "$QUIET_MODE" != "1" ]]; then
+    echo "🔧 Setting up WordPress E-commerce Starter environment..."
+fi
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+# Create symlink to .bashrc in user's home directory (if desired)
+setup_bashrc_link() {
+    if [ ! -f ~/.bashrc ] || [ -L ~/.bashrc ]; then
+        echo "📋 Creating .bashrc symlink..."
+        ln -sf "$PROJECT_ROOT/.bashrc" ~/.bashrc
+        echo "✅ .bashrc symlink created"
+    else
+        echo "📋 Adding source command to existing .bashrc..."
+        if ! grep -q "source.*\.bashrc" ~/.bashrc; then
+            echo "" >> ~/.bashrc
+            echo "# Source WordPress E-commerce Starter environment" >> ~/.bashrc
+            echo "if [ -f \"$PROJECT_ROOT/.bashrc\" ]; then" >> ~/.bashrc
+            echo "    source \"$PROJECT_ROOT/.bashrc\"" >> ~/.bashrc
+            echo "fi" >> ~/.bashrc
+            echo "✅ Source command added to ~/.bashrc"
+        else
+            echo "ℹ️  .bashrc already configured"
+        fi
+    fi
+}
+
+# Set up VS Code workspace settings
+setup_vscode_workspace() {
+    if [ ! -d ".vscode" ]; then
+        mkdir -p .vscode
+    fi
+
+    # Create VS Code settings
+    cat > .vscode/settings.json << 'EOF'
+{
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "terminal.integrated.profiles.windows": {
+        "Git Bash": {
+            "path": "C:\\Program Files\\Git\\bin\\bash.exe",
+            "args": ["--login"],
+            "env": {
+                "BASH_ENV": "${workspaceFolder}/.bashrc"
+            }
+        }
+    },
+    "terminal.integrated.env.windows": {
+        "BASH_ENV": "${workspaceFolder}/.bashrc"
+    },
+    "files.associations": {
+        ".bashrc": "shellscript",
+        ".lando.yml": "yaml",
+        "composer.json": "json",
+        ".config/linting/phpcs.xml": "xml"
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+        "source.fixAll.stylelint": true
+    },
+    "php.validate.executablePath": "lando php",
+    "eslint.workingDirectories": ["${workspaceFolder}"],
+    "prettier.configPath": "${workspaceFolder}/.config/formatting/.prettierrc",
+    "eslint.options": {
+        "configFile": "${workspaceFolder}/.config/linting/.eslintrc.js"
+    }
+}
+EOF
+
+    # Create VS Code tasks
+    cat > .vscode/tasks.json << 'EOF'
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Lando",
+            "type": "shell",
+            "command": "lando start",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Stop Lando",
+            "type": "shell",
+            "command": "lando stop",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run PHP Tests",
+            "type": "shell",
+            "command": "lando composer test",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run JavaScript Tests",
+            "type": "shell",
+            "command": "lando npm test",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Lint PHP Code",
+            "type": "shell",
+            "command": "lando composer lint",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Format All Files",
+            "type": "shell",
+            "command": "lando npm run format:all",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
+EOF
+
+    echo "✅ VS Code workspace configuration created"
+}
+
+# Set up Git Bash profile (Windows-specific)
+setup_git_bash_profile() {
+    if [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "cygwin" ]]; then
+        # Windows with Git Bash
+        PROFILE_PATH="$HOME/.bash_profile"
+
+        if [ ! -f "$PROFILE_PATH" ]; then
+            touch "$PROFILE_PATH"
+        fi
+
+        if ! grep -q "source.*\.bashrc" "$PROFILE_PATH"; then
+            echo "" >> "$PROFILE_PATH"
+            echo "# Source WordPress E-commerce Starter environment" >> "$PROFILE_PATH"
+            echo "if [ -f \"$PROJECT_ROOT/.bashrc\" ]; then" >> "$PROFILE_PATH"
+            echo "    source \"$PROJECT_ROOT/.bashrc\"" >> "$PROFILE_PATH"
+            echo "fi" >> "$PROFILE_PATH"
+            echo "✅ Git Bash profile configured"
+        else
+            echo "ℹ️  Git Bash profile already configured"
+        fi
+    fi
+}
+
+# Main setup
+main() {
+    cd "$PROJECT_ROOT"
+
+    echo "📁 Project root: $PROJECT_ROOT"
+    echo ""
+
+    # Offer to set up .bashrc
+    if [[ "${WES_AUTO:-0}" == "1" ]]; then
+        if [[ "${WES_SETUP_BASHRC:-1}" == "1" ]]; then
+            echo "🔧 Automated mode: Setting up .bashrc environment (WES_SETUP_BASHRC=1)"
+            setup_bashrc_link
+            setup_git_bash_profile
+        else
+            echo "⏭️  Automated mode: Skipping .bashrc setup (WES_SETUP_BASHRC=0)"
+        fi
+    else
+        echo "Would you like to set up the .bashrc environment? (y/n)"
+        read -r response
+        if [[ "$response" =~ ^[Yy]$ ]]; then
+            setup_bashrc_link
+            setup_git_bash_profile
+        fi
+    fi
+
+    # Offer to set up VS Code workspace
+    echo ""
+    if [[ "${WES_AUTO:-0}" == "1" ]]; then
+        if [[ "${WES_SETUP_VSCODE:-1}" == "1" ]]; then
+            echo "🔧 Automated mode: Setting up VS Code workspace (WES_SETUP_VSCODE=1)"
+            setup_vscode_workspace
+        else
+            echo "⏭️  Automated mode: Skipping VS Code workspace setup (WES_SETUP_VSCODE=0)"
+        fi
+    else
+        echo "Would you like to set up VS Code workspace settings? (y/n)"
+        read -r response
+        if [[ "$response" =~ ^[Yy]$ ]]; then
+            setup_vscode_workspace
+        fi
+    fi
+
+    echo ""
+    echo "🎉 Environment setup complete!"
+    echo ""
+    echo "Next steps:"
+    echo "1. Restart your terminal or run: source ~/.bashrc"
+    echo "2. Run: wes_help (to see available commands)"
+    echo "3. Run: wes_setup (to set up the development environment)"
+    echo "4. Open VS Code in this directory for enhanced experience"
+    echo ""
+}
+
+# Run main function
+main "$@"

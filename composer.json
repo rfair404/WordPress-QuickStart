@@ -1,0 +1,202 @@
+{
+    "name": "reuseum/wordpress-quickstart",
+    "description": "A fast and reliable WordPress quickstart application with essential features",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/rfair404/WordPress-QuickStart",
+    "support": {
+        "issues": "https://github.com/rfair404/WordPress-QuickStart/issues",
+        "source": "https://github.com/rfair404/WordPress-QuickStart"
+    },
+    "authors": [
+        {
+            "name": "Your Name",
+            "email": "your.email@example.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "composer/installers": "^2.0",
+        "johnpbloch/wordpress-core": "^6.6",
+        "johnpbloch/wordpress-core-installer": "^2.0",
+        "wpackagist-plugin/woocommerce": "^10.2",
+        "wpackagist-theme/twentytwentyfour": "^1.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.7",
+        "wp-coding-standards/wpcs": "^3.0",
+        "automattic/vipwpcs": "^3.0",
+        "phpunit/phpunit": "^9.5",
+        "brain/monkey": "^2.6",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "yoast/phpunit-polyfills": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WordPressQuickstart\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WordPressQuickstart\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "lint": [
+            "@lint:phpcs"
+        ],
+        "lint:phpcs": "./vendor/bin/phpcs --standard=.config/linting/phpcs.xml",
+        "lint:fix": [
+            "@lint:phpcbf"
+        ],
+        "lint:phpcbf": "./vendor/bin/phpcbf --standard=.config/linting/phpcs.xml",
+        "test": [
+            "@test:unit"
+        ],
+        "test:unit": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml",
+        "test:wordpress": [
+            "@test:wp-installation",
+            "@test:wp-unit"
+        ],
+        "test:wp-installation": "bash tests/validate-wordpress-installation.sh",
+        "test:wp-unit": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml tests/unit/WordPressInstallationTest.php",
+        "test:wp-full": "bash tests/run-wordpress-tests.sh",
+        "test:coverage": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-html coverage --coverage-clover coverage/clover.xml",
+        "test:coverage-text": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-text",
+        "test:watch": "./vendor/bin/phpunit --watch",
+        "analyze": [
+            "@lint:phpcs",
+            "@test:unit"
+        ],
+        "analyze:full": [
+            "@lint:phpcs",
+            "@test:coverage-text",
+            "@security:check"
+        ],
+        "security:check": [
+            "composer audit"
+        ],
+        "dev:setup": [
+            "composer install",
+            "@setup:standards",
+            "@setup:hooks"
+        ],
+        "setup:hooks": [
+            "bash scripts/setup/git-hooks.sh"
+        ],
+        "setup:standards": [
+            "phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/automattic/vipwpcs,vendor/phpcompatibility/phpcompatibility-wp",
+            "phpcs --config-set default_standard WordPress-VIP-Go"
+        ],
+        "format": [
+            "@lint:phpcbf"
+        ],
+        "clean": [
+            "rm -rf coverage/",
+            "rm -rf vendor/",
+            "rm -f composer.lock"
+        ],
+        "check": [
+            "composer validate --strict",
+            "@lint:phpcs",
+            "@test:unit"
+        ],
+        "check:wordpress": [
+            "composer validate --strict",
+            "@lint:phpcs",
+            "@test:wordpress"
+        ],
+        "post-install-cmd": [
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || @setup:standards"
+        ],
+        "post-update-cmd": [
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || @setup:standards"
+        ],
+        "wp:install": [
+            "@composer install",
+            "@wp:config"
+        ],
+        "wp:install:full": [
+            "@composer install",
+            "@wp:config",
+            "bash scripts/wp-install.sh"
+        ],
+        "wp:config": [
+            "php scripts/wp-config-generator.php"
+        ],
+        "wp:update": [
+            "@composer update johnpbloch/wordpress-core"
+        ],
+        "wp:plugin:install": [
+            "@composer require"
+        ],
+        "wp:plugin:remove": [
+            "@composer remove"
+        ],
+        "wp:theme:install": [
+            "@composer require"
+        ],
+        "wp:version": [
+            "@composer show johnpbloch/wordpress-core"
+        ],
+        "wc:update": [
+            "@composer update wpackagist-plugin/woocommerce"
+        ],
+        "wc:version": [
+            "@composer show wpackagist-plugin/woocommerce"
+        ],
+        "wc:install:full": [
+            "@composer install",
+            "@wp:config",
+            "bash scripts/wp-install.sh",
+            "@wc:activate"
+        ],
+        "wc:activate": [
+            "bash scripts/wp-manager.sh plugin:activate woocommerce"
+        ],
+        "wc:setup": [
+            "@wc:activate",
+            "bash scripts/wp-manager.sh wc:setup"
+        ],
+        "test:woocommerce": [
+            "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml tests/unit/WooCommerceTest.php"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org",
+            "only": [
+                "wpackagist-plugin/*",
+                "wpackagist-theme/*"
+            ]
+        }
+    ],
+    "extra": {
+        "installer-paths": {
+            "custom/plugins/{$name}/": [
+                "type:wordpress-plugin"
+            ],
+            "custom/themes/{$name}/": [
+                "type:wordpress-theme"
+            ],
+            "custom/mu-plugins/{$name}/": [
+                "type:wordpress-muplugin"
+            ]
+        },
+        "wordpress-install-dir": "wp"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "johnpbloch/wordpress-core-installer": true
+        },
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "process-timeout": 600
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

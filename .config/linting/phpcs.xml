@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress E-commerce Starter">
+    <description>Custom coding standards for WordPress E-commerce Starter project</description>
+
+    <!-- Show progress and sniff codes in all reports -->
+    <arg value="ps"/>
+
+    <!-- Check up to 8 files simultaneously -->
+    <arg name="parallel" value="8"/>
+
+    <!-- Only check PHP files -->
+    <arg name="extensions" value="php"/>
+
+    <!-- Exclude common directories -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/wp-content/uploads/*</exclude-pattern>
+    <exclude-pattern>*/wp-config.php</exclude-pattern>
+    <exclude-pattern>*/wp-content/cache/*</exclude-pattern>
+    <exclude-pattern>*/coverage/*</exclude-pattern>
+    <exclude-pattern>*/build/*</exclude-pattern>
+    <exclude-pattern>*/dist/*</exclude-pattern>
+
+    <!-- Include the WordPress VIP Coding Standards -->
+    <rule ref="WordPress-VIP-Go"/>
+    
+    <!-- Include WordPress Core standards -->
+    <rule ref="WordPress-Core"/>
+    
+    <!-- Include WordPress Extra standards -->
+    <rule ref="WordPress-Extra"/>
+    
+    <!-- Include WordPress Documentation standards -->
+    <rule ref="WordPress-Docs"/>
+
+    <!-- PHP compatibility check for WordPress supported versions -->
+    <rule ref="PHPCompatibilityWP"/>
+    <config name="testVersion" value="8.1-"/>
+
+    <!-- Enforce short array syntax -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+    <!-- Custom rules specific to this project -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="wordpress-ecommerce-starter"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Allow for theme/plugin specific exceptions -->
+    <rule ref="WordPress.Files.FileName.InvalidClassFileName">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
+
+    <rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
+
+    <!-- Relax some strict rules for development -->
+    <rule ref="WordPress.PHP.YodaConditions.NotYoda">
+        <severity>3</severity>
+    </rule>
+
+    <!-- Set minimum supported WordPress version -->
+    <config name="minimum_supported_wp_version" value="6.0"/>
+
+    <!-- Check that the proper text domain is used -->
+    <rule ref="WordPress.WP.I18n.MissingTranslatorsComment">
+        <type>warning</type>
+    </rule>
+
+    <!-- Verify that everything in the global namespace is prefixed -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <properties>
+            <property name="prefixes" type="array">
+                <element value="wes_"/>
+                <element value="WES_"/>
+                <element value="WordPressEcommerceStarter"/>
+            </property>
+        </properties>
+    </rule>
+</ruleset>

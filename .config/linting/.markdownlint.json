@@ -1,0 +1,15 @@
+{
+  "default": true,
+  "MD007": {
+    "indent": 2
+  },
+  "MD013": {
+    "line_length": 100,
+    "code_blocks": false,
+    "tables": false
+  },
+  "MD033": {
+    "allowed_elements": ["br", "sub", "sup", "kbd"]
+  },
+  "MD041": false
+}

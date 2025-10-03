@@ -1,0 +1,107 @@
+name: wordpress-quickstart
+recipe: wordpress
+config:
+  php: '8.1'
+  webroot: wp
+  database: mysql:8.0
+  xdebug: false
+  config:
+    php: .lando/php.ini
+    database: .lando/mysql.cnf
+
+services:
+  appserver:
+    build_as_root:
+      - apt-get update -y
+      - apt-get install -y git unzip
+    build:
+      - composer install
+      - npm install
+      - php scripts/wp-config-generator.php
+    overrides:
+      environment:
+        WORDPRESS_DEBUG: true
+        WORDPRESS_DEBUG_LOG: true
+        WORDPRESS_DEBUG_DISPLAY: false
+        WP_ENVIRONMENT_TYPE: local
+        # Set HTTP_HOST to eliminate WP-CLI warnings
+        HTTP_HOST: wordpress-quickstart.lndo.site
+        # Clean Xdebug 3.x configuration without deprecated settings
+        XDEBUG_CONFIG: "client_host=host.docker.internal client_port=9003 start_with_request=yes"
+        XDEBUG_MODE: "debug,develop,coverage"
+
+  database:
+    portforward: 3307
+    creds:
+      user: wordpress
+      password: wordpress
+      database: wordpress
+
+  mailhog:
+    type: mailhog
+    hogfrom:
+      - appserver
+
+  node:
+    type: node:18
+    build:
+      - npm install -g @wordpress/scripts
+      - npm install -g wp-cli
+
+tooling:
+  composer:
+    service: appserver
+    cmd: composer
+
+  npm:
+    service: node
+    cmd: npm
+
+  node:
+    service: node
+    cmd: node
+
+  wp:
+    service: appserver
+    cmd: wp --allow-root
+    user: root
+
+  phpcs:
+    service: appserver
+    cmd: ./vendor/bin/phpcs
+    description: Run PHP Code Sniffer
+
+  phpcbf:
+    service: appserver
+    cmd: ./vendor/bin/phpcbf
+    description: Run PHP Code Beautifier and Fixer
+
+  eslint:
+    service: node
+    cmd: npx eslint
+    description: Run ESLint
+
+  prettier:
+    service: node
+    cmd: npx prettier
+    description: Run Prettier
+
+  test:
+    service: appserver
+    cmd: ./vendor/bin/phpunit
+    description: Run PHPUnit tests
+
+  test-js:
+    service: node
+    cmd: npm test
+    description: Run JavaScript tests
+
+proxy:
+  appserver:
+    - wordpress-quickstart.lndo.site
+  mailhog:
+    - mail.wordpress-quickstart.lndo.site
+
+events:
+  post-start:
+    - appserver: echo "🚀 Lando started! Run './scripts/wp-manager.sh install:full' for complete WordPress setup."

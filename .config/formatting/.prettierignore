@@ -1,0 +1,29 @@
+# Prettier ignore patterns
+node_modules/
+vendor/
+coverage/
+build/
+dist/
+wp-content/uploads/
+*.min.js
+*.min.css
+*.map
+
+# WordPress core files
+wp-admin/
+wp-includes/
+wp-content/themes/twenty*/
+wp-config.php
+wp-config-sample.php
+.htaccess
+
+# Build artifacts
+*.log
+*.tmp
+*.cache
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
