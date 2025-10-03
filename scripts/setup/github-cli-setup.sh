@@ -78,9 +78,9 @@ check_gh_cli() {
 # Function to install GitHub CLI
 install_gh_cli() {
     local os=$(detect_os)
-    
+
     log "Installing GitHub CLI for $os..."
-    
+
     case $os in
         "windows")
             if command -v winget &> /dev/null; then
@@ -123,7 +123,7 @@ install_gh_cli() {
             return 1
             ;;
     esac
-    
+
     # Verify installation
     if check_gh_cli; then
         success "GitHub CLI installed successfully!"
@@ -137,26 +137,26 @@ install_gh_cli() {
 # Function to setup GitHub CLI authentication
 setup_gh_auth() {
     log "Setting up GitHub CLI authentication..."
-    
+
     # Check if already authenticated
     if gh auth status &> /dev/null; then
         log "GitHub CLI is already authenticated"
         gh auth status
         return 0
     fi
-    
+
     if [[ "$AUTO_MODE" == "1" ]]; then
         warn "Auto mode enabled but GitHub CLI authentication requires interactive setup"
         warn "Run 'gh auth login' manually after this script completes"
         return 0
     fi
-    
+
     log "Starting GitHub CLI authentication process..."
     log "You'll be prompted to authenticate with GitHub"
-    
+
     # Start authentication
     gh auth login
-    
+
     # Verify authentication
     if gh auth status &> /dev/null; then
         success "GitHub CLI authentication successful!"
@@ -170,26 +170,26 @@ setup_gh_auth() {
 # Function to setup useful aliases
 setup_gh_aliases() {
     log "Setting up GitHub CLI aliases..."
-    
+
     # Create useful aliases for development workflow
     gh alias set actions 'run list --limit 10' 2>/dev/null || true
-    gh alias set logs 'run view --log-failed' 2>/dev/null || true  
+    gh alias set logs 'run view --log-failed' 2>/dev/null || true
     gh alias set latest 'run view $(gh run list --json databaseId --jq ".[0].databaseId")' 2>/dev/null || true
     gh alias set status 'run list --status' 2>/dev/null || true
-    
+
     success "GitHub CLI aliases configured"
 }
 
 # Function to test GitHub CLI functionality
 test_gh_cli() {
     log "Testing GitHub CLI functionality..."
-    
+
     # Test basic commands
     if ! gh --version &> /dev/null; then
         error "GitHub CLI not working properly"
         return 1
     fi
-    
+
     # Test repository access (if authenticated)
     if gh auth status &> /dev/null; then
         if gh repo view &> /dev/null; then
@@ -200,14 +200,14 @@ test_gh_cli() {
     else
         warn "GitHub CLI not authenticated - some features will be limited"
     fi
-    
+
     success "GitHub CLI is working correctly"
 }
 
 # Main function
 main() {
     log "Starting GitHub CLI setup for WordPress Quickstart..."
-    
+
     # Check if already installed
     if check_gh_cli; then
         if [[ "$AUTO_MODE" != "1" ]]; then
@@ -223,7 +223,7 @@ main() {
             INSTALL_GHCLI=0
         fi
     fi
-    
+
     # Install GitHub CLI if needed
     if [[ "$INSTALL_GHCLI" == "1" ]]; then
         if ! install_gh_cli; then
@@ -231,18 +231,18 @@ main() {
             exit 1
         fi
     fi
-    
+
     # Setup authentication if requested
     if [[ "$SETUP_AUTH" == "1" ]]; then
         setup_gh_auth
     fi
-    
+
     # Setup aliases
     setup_gh_aliases
-    
+
     # Test functionality
     test_gh_cli
-    
+
     # Show helpful information
     echo
     log "${CYAN}GitHub CLI Setup Complete!${NC}"
@@ -264,7 +264,7 @@ main() {
     log "  ${MAGENTA}lando npm run gh:actions:latest${NC} - View latest run"
     log "  ${MAGENTA}lando npm run gh:actions:logs${NC}   - View latest run logs"
     echo
-    
+
     success "GitHub CLI is ready for development workflow!"
 }
 

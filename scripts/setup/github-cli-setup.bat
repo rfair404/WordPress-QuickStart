@@ -43,21 +43,21 @@ if %errorlevel% equ 0 (
 REM Install GitHub CLI if needed
 if !INSTALL_GHCLI! equ 1 (
     echo [INFO] Installing GitHub CLI using winget...
-    
+
     REM Check if winget is available
     winget --version >nul 2>&1
     if %errorlevel% neq 0 (
         echo [ERROR] winget not available. Please install GitHub CLI manually from: https://cli.github.com/
         exit /b 1
     )
-    
+
     REM Install GitHub CLI
     winget install --id GitHub.cli --accept-package-agreements --accept-source-agreements
     if %errorlevel% neq 0 (
         echo [ERROR] Failed to install GitHub CLI
         exit /b 1
     )
-    
+
     REM Verify installation
     gh --version >nul 2>&1
     if %errorlevel% equ 0 (
@@ -71,7 +71,7 @@ if !INSTALL_GHCLI! equ 1 (
 REM Setup authentication if requested
 if !SETUP_AUTH! equ 1 (
     echo [INFO] Setting up GitHub CLI authentication...
-    
+
     REM Check if already authenticated
     gh auth status >nul 2>&1
     if %errorlevel% equ 0 (
@@ -85,7 +85,7 @@ if !SETUP_AUTH! equ 1 (
             echo [INFO] Starting GitHub CLI authentication process...
             echo [INFO] You'll be prompted to authenticate with GitHub
             gh auth login
-            
+
             REM Verify authentication
             gh auth status >nul 2>&1
             if %errorlevel% equ 0 (
@@ -133,7 +133,7 @@ echo [INFO] GitHub CLI Setup Complete!
 echo.
 echo Available commands:
 echo   gh --version           - Show GitHub CLI version
-echo   gh auth login          - Authenticate with GitHub  
+echo   gh auth login          - Authenticate with GitHub
 echo   gh run list            - List recent workflow runs
 echo   gh run view --log-failed - View failed run logs
 echo   gh repo view           - View repository information
@@ -157,7 +157,7 @@ echo.
 echo Options:
 echo   -h, --help              Show this help message
 echo   --no-install            Skip GitHub CLI installation
-echo   --no-auth               Skip authentication setup  
+echo   --no-auth               Skip authentication setup
 echo   --auto                  Run in automated mode (no prompts)
 echo   --quiet                 Minimize output
 echo.

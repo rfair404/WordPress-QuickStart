@@ -602,7 +602,7 @@ GitHub CLI can be installed automatically during environment setup, or manually:
 # Windows (using winget)
 winget install GitHub.cli
 
-# macOS (using Homebrew)  
+# macOS (using Homebrew)
 brew install gh
 
 # Manual installation: https://cli.github.com/

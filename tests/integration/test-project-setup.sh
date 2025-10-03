@@ -205,14 +205,51 @@ test_composer_scripts() {
     fi
 }
 
-# Main test function
+# Test GitHub CLI integration
+test_github_cli_integration() {
+    log_step "Testing GitHub CLI integration..."
+
+    # Test GitHub CLI setup scripts exist
+    run_test "GitHub CLI setup script (Unix) exists" "[ -f 'scripts/setup/github-cli-setup.sh' ]"
+    run_test "GitHub CLI setup script (Windows) exists" "[ -f 'scripts/setup/github-cli-setup.bat' ]"
+    run_test "GitHub CLI setup script (Unix) is executable" "[ -x 'scripts/setup/github-cli-setup.sh' ]"
+
+    # Test GitHub CLI setup script syntax
+    run_test "GitHub CLI setup script syntax" "bash -n scripts/setup/github-cli-setup.sh"
+
+    # Test composer.json has GitHub CLI scripts
+    run_test "composer.json has gh:check script" "grep -q '\"gh:check\"' composer.json"
+    run_test "composer.json has gh:actions script" "grep -q '\"gh:actions\"' composer.json"
+    run_test "composer.json has gh:auth script" "grep -q '\"gh:auth\"' composer.json"
+
+    # Test package.json has GitHub CLI scripts
+    run_test "package.json has GitHub CLI scripts" "grep -q '\"gh:' package.json"
+    run_test "package.json has gh:check script" "grep -q '\"gh:check\"' package.json"
+    run_test "package.json has gh:actions:latest script" "grep -q '\"gh:actions:latest\"' package.json"
+    run_test "package.json has gh:actions:logs script" "grep -q '\"gh:actions:logs\"' package.json"
+
+    # Test Lando configuration includes GitHub CLI
+    run_test ".lando.yml has GitHub CLI tooling" "grep -q 'gh:' .lando.yml"
+
+    # Test README documentation includes GitHub CLI
+    run_test "README has GitHub CLI documentation" "grep -q 'GitHub CLI' README.md"
+    run_test "README has gh commands" "grep -q 'gh run' README.md"
+
+    # Test environment setup script includes GitHub CLI
+    run_test "env-setup.sh mentions GitHub CLI" "grep -q 'github-cli-setup' scripts/setup/env-setup.sh"
+
+    # Test if GitHub CLI is actually installed (optional)
+    if command -v gh &> /dev/null; then
+        run_test "GitHub CLI is installed" "gh --version"
+        log_info "GitHub CLI is available for testing"
+    else
+        log_warning "GitHub CLI not installed (optional for project structure tests)"
+    fi
+}
+
+# Main test runner
 main() {
-    echo -e "${BLUE}"
-    echo "🧪 Comprehensive Project Test Suite"
-    echo "===================================="
-    echo -e "${NC}"
-    echo "Testing WordPress Quickstart configuration..."
-    echo ""
+    log_info "Starting comprehensive project setup tests..."
 
     # Run all test suites
     test_project_structure
@@ -225,6 +262,7 @@ main() {
     test_gitignore
     test_test_structure
     test_composer_scripts
+    test_github_cli_integration
 
     # Final results
     echo ""
