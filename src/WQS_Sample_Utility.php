@@ -32,7 +32,7 @@ class WES_Sample_Utility {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const TEXT_DOMAIN = 'wordpress-ecommerce-starter';
+	const TEXT_DOMAIN = 'wordpress-quickstart';
 
 	/**
 	 * Sample data array

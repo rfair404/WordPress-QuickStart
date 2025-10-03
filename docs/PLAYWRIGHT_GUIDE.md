@@ -146,7 +146,7 @@ WC_CUSTOMER_USER=customer
 WC_CUSTOMER_PASSWORD=password
 
 # Test site URL (auto-detected for Lando)
-PLAYWRIGHT_BASE_URL=https://wordpress-ecommerce-starter.lndo.site
+PLAYWRIGHT_BASE_URL=https://wordpress-quickstart.lndo.site
 
 # Enable debug mode
 PLAYWRIGHT_DEBUG=1

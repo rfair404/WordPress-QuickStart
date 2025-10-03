@@ -369,14 +369,14 @@ jobs:
       - name: Create deployment archive
         run: |
           cd build
-          tar -czf ../wordpress-ecommerce-starter-${{ github.sha }}.tar.gz .
+          tar -czf ../wordpress-quickstart-${{ github.sha }}.tar.gz .
           cd ..
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
-          name: wordpress-ecommerce-starter-${{ github.sha }}
-          path: wordpress-ecommerce-starter-${{ github.sha }}.tar.gz
+          name: wordpress-quickstart-${{ github.sha }}
+          path: wordpress-quickstart-${{ github.sha }}.tar.gz
           retention-days: 90
 
   # Job 7: Deploy to Staging
@@ -392,7 +392,7 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v3
         with:
-          name: wordpress-ecommerce-starter-${{ github.sha }}
+          name: wordpress-quickstart-${{ github.sha }}
 
       - name: Deploy to staging server
         id: deploy
@@ -424,7 +424,7 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v3
         with:
-          name: wordpress-ecommerce-starter-${{ github.sha }}
+          name: wordpress-quickstart-${{ github.sha }}
 
       - name: Deploy to production server
         id: deploy

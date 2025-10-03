@@ -14,7 +14,7 @@ PURPLE='\033[0;35m'
 NC='\033[0m' # No Color
 
 # Configuration
-SITE_URL="https://wordpress-ecommerce-starter.lndo.site"
+SITE_URL="https://wordpress-quickstart.lndo.site"
 SITE_TITLE="WordPress Quickstart"
 ADMIN_USER="admin"
 ADMIN_PASSWORD="admin"

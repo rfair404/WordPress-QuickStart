@@ -8,7 +8,7 @@ const { defineConfig, devices } = require('@playwright/test');
 
 // Detect if running in Lando environment
 const isLando = process.env.LANDO === 'ON';
-const baseURL = process.env.PLAYWRIGHT_BASE_URL || (isLando ? 'https://wordpress-ecommerce-starter.lndo.site' : 'http://localhost:8080');
+const baseURL = process.env.PLAYWRIGHT_BASE_URL || (isLando ? 'https://wordpress-quickstart.lndo.site' : 'http://localhost:8080');
 
 module.exports = defineConfig({
   // Test directory

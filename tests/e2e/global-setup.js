@@ -11,7 +11,7 @@ async function globalSetup() {
   try {
     // Get base URL from environment or config
     const baseURL = process.env.PLAYWRIGHT_BASE_URL ||
-      (process.env.LANDO === 'ON' ? 'https://wordpress-ecommerce-starter.lndo.site' : 'http://localhost:8080');
+      (process.env.LANDO === 'ON' ? 'https://wordpress-quickstart.lndo.site' : 'http://localhost:8080');
 
     console.log(`📍 Testing WordPress site: ${baseURL}`);
 

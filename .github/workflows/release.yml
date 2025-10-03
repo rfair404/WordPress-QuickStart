@@ -90,8 +90,8 @@ jobs:
       - name: Create release archive
         run: |
           cd release
-          tar -czf ../wordpress-ecommerce-starter-${GITHUB_REF#refs/tags/}.tar.gz .
-          zip -r ../wordpress-ecommerce-starter-${GITHUB_REF#refs/tags/}.zip .
+          tar -czf ../wordpress-quickstart-${GITHUB_REF#refs/tags/}.tar.gz .
+          zip -r ../wordpress-quickstart-${GITHUB_REF#refs/tags/}.zip .
           cd ..
 
       - name: Generate changelog
@@ -120,8 +120,8 @@ jobs:
         with:
           body: ${{ steps.changelog.outputs.CHANGELOG }}
           files: |
-            wordpress-ecommerce-starter-*.tar.gz
-            wordpress-ecommerce-starter-*.zip
+            wordpress-quickstart-*.tar.gz
+            wordpress-quickstart-*.zip
           draft: false
           prerelease: ${{ contains(github.ref, '-') }}
         env:
