@@ -167,6 +167,9 @@ wp/wp-config.php
 !/custom/plugins/custom-plugin/
 !/custom/mu-plugins/
 
+# Exclude removed themes
+/custom/themes/storefront/
+
 # Test and coverage reports
 /coverage/
 /tests/coverage/
