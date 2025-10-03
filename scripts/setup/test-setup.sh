@@ -4,9 +4,9 @@
 # This script tests all the development tools and configurations
 
 # Error handling and debugging options
-DEBUG_MODE="${WES_DEBUG:-0}"
-ERROR_TOLERANT="${WES_ERROR_TOLERANT:-0}"
-QUIET_MODE="${WES_QUIET:-0}"
+DEBUG_MODE="${WQS_DEBUG:-0}"
+ERROR_TOLERANT="${WQS_ERROR_TOLERANT:-0}"
+QUIET_MODE="${WQS_QUIET:-0}"
 
 # Set appropriate error handling based on mode
 if [[ "$ERROR_TOLERANT" == "1" ]]; then
@@ -362,6 +362,11 @@ fi
 
 # Function to detect CI/CD environment
 is_ci_environment() {
+    # Check for custom override first - if WQS_CI_MODE=0, never detect CI
+    if [[ "${WQS_CI_MODE:-}" == "0" ]]; then
+        return 1  # Not CI environment (override)
+    fi
+
     # Check common CI/CD environment variables
     [[ -n "${CI:-}" ]] || \
     [[ -n "${CONTINUOUS_INTEGRATION:-}" ]] || \
@@ -375,14 +380,13 @@ is_ci_environment() {
     [[ -n "${DRONE:-}" ]] || \
     [[ -n "${TEAMCITY_VERSION:-}" ]] || \
     [[ -n "${APPVEYOR:-}" ]] || \
-    [[ -n "${CODEBUILD_BUILD_ID:-}" ]] || \
-    [[ -n "${WES_CI_MODE:-}" ]]  # Custom override for this project
+    [[ -n "${CODEBUILD_BUILD_ID:-}" ]]
 }
 
 # Test 9: GitHub CLI setup and integration (local development only)
 if is_ci_environment; then
     print_info "ℹ️  Skipping GitHub CLI tests (CI/CD environment detected)"
-    print_info "ℹ️  Set WES_CI_MODE=0 to force GitHub CLI tests in CI/CD"
+    print_info "ℹ️  Set WQS_CI_MODE=0 to force GitHub CLI tests in CI/CD"
 else
     print_status "Testing GitHub CLI integration..."
 
@@ -474,7 +478,7 @@ test_automated_modes() {
     print_status "Testing automated setup modes..."
 
     # Test installation script in dry-run mode
-    if WES_AUTO=1 WES_INSTALL_DOCKER=0 WES_INSTALL_LANDO=0 ./scripts/setup/install-lando-docker.sh > /tmp/wes-install-test.log 2>&1; then
+    if WQS_AUTO=1 WQS_INSTALL_DOCKER=0 WQS_INSTALL_LANDO=0 ./scripts/setup/install-lando-docker.sh > /tmp/wqs-install-test.log 2>&1; then
         print_success "✓ Automated installation script works"
     else
         print_error "✗ Automated installation script failed"
@@ -482,7 +486,7 @@ test_automated_modes() {
     fi
 
     # Test environment setup in dry-run mode
-    if WES_AUTO=1 WES_SETUP_BASHRC=0 WES_SETUP_VSCODE=0 ./scripts/setup/env-setup.sh > /tmp/wes-env-test.log 2>&1; then
+    if WQS_AUTO=1 WQS_SETUP_BASHRC=0 WQS_SETUP_VSCODE=0 ./scripts/setup/env-setup.sh > /tmp/wqs-env-test.log 2>&1; then
         print_success "✓ Automated environment setup works"
     else
         print_error "✗ Automated environment setup failed"
@@ -493,7 +497,7 @@ test_automated_modes() {
 }
 
 # Run automated mode tests if requested
-if [[ "${WES_TEST_AUTOMATION:-0}" == "1" ]]; then
+if [[ "${WQS_TEST_AUTOMATION:-0}" == "1" ]]; then
     test_automated_modes
 fi
 
@@ -506,7 +510,7 @@ if [[ "$QUIET_MODE" != "1" ]]; then
     echo "  • ./scripts/setup/git-hooks.sh     - Set up git hooks"
     echo ""
     echo "  Automated modes (CI/CD):"
-    echo "  • WES_AUTO=1 WES_QUIET=1 ./scripts/setup/install-lando-docker.sh"
-    echo "  • WES_AUTO=1 WES_QUIET=1 ./scripts/setup/env-setup.sh"
-    echo "  • WES_TEST_AUTOMATION=1 WES_QUIET=1 ./scripts/setup/test-setup.sh"
+    echo "  • WQS_AUTO=1 WQS_QUIET=1 ./scripts/setup/install-lando-docker.sh"
+    echo "  • WQS_AUTO=1 WQS_QUIET=1 ./scripts/setup/env-setup.sh"
+    echo "  • WQS_TEST_AUTOMATION=1 WQS_QUIET=1 ./scripts/setup/test-setup.sh"
 fi

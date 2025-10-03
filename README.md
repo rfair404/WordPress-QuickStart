@@ -273,11 +273,11 @@ All setup scripts support automated mode for continuous integration and deployme
 
 ```bash
 # Complete automated setup (no user interaction)
-WES_AUTO=1 ./scripts/setup/install-lando-docker.sh
-WES_AUTO=1 ./scripts/setup/env-setup.sh
+WQS_AUTO=1 ./scripts/setup/install-lando-docker.sh
+WQS_AUTO=1 ./scripts/setup/env-setup.sh
 
 # Test automation features
-WES_TEST_AUTOMATION=1 ./scripts/setup/test-setup.sh
+WQS_TEST_AUTOMATION=1 ./scripts/setup/test-setup.sh
 
 # Get help for any script
 ./scripts/setup/install-lando-docker.sh --help
@@ -285,27 +285,27 @@ WES_TEST_AUTOMATION=1 ./scripts/setup/test-setup.sh
 ```
 
 **Environment Variables for Automation:**
-- `WES_AUTO=1` - Enable automated mode (no prompts)
-- `WES_QUIET=1` - Reduce output verbosity (silent mode)
-- `WES_DEBUG=1` - Enable debug output for troubleshooting
-- `WES_ERROR_TOLERANT=1` - Continue on errors instead of exiting
-- `WES_INSTALL_DOCKER=0/1` - Control Docker installation
-- `WES_INSTALL_LANDO=0/1` - Control Lando installation
-- `WES_FORCE_LANDO=1` - Force Lando reinstall
-- `WES_SETUP_BASHRC=0/1` - Control .bashrc setup
-- `WES_SETUP_VSCODE=0/1` - Control VS Code workspace setup
+- `WQS_AUTO=1` - Enable automated mode (no prompts)
+- `WQS_QUIET=1` - Reduce output verbosity (silent mode)
+- `WQS_DEBUG=1` - Enable debug output for troubleshooting
+- `WQS_ERROR_TOLERANT=1` - Continue on errors instead of exiting
+- `WQS_INSTALL_DOCKER=0/1` - Control Docker installation
+- `WQS_INSTALL_LANDO=0/1` - Control Lando installation
+- `WQS_FORCE_LANDO=1` - Force Lando reinstall
+- `WQS_SETUP_BASHRC=0/1` - Control .bashrc setup
+- `WQS_SETUP_VSCODE=0/1` - Control VS Code workspace setup
 
 **🔧 Error Tolerance & Debugging:**
 
 ```bash
 # Debug mode - shows detailed execution steps
-WES_AUTO=1 WES_DEBUG=1 ./scripts/setup/install-lando-docker.sh
+WQS_AUTO=1 WQS_DEBUG=1 ./scripts/setup/install-lando-docker.sh
 
 # Error tolerant mode - continues on non-critical failures
-WES_AUTO=1 WES_ERROR_TOLERANT=1 ./scripts/setup/install-lando-docker.sh
+WQS_AUTO=1 WQS_ERROR_TOLERANT=1 ./scripts/setup/install-lando-docker.sh
 
 # Combined debugging and error tolerance
-WES_AUTO=1 WES_DEBUG=1 WES_ERROR_TOLERANT=1 ./scripts/setup/install-lando-docker.sh
+WQS_AUTO=1 WQS_DEBUG=1 WQS_ERROR_TOLERANT=1 ./scripts/setup/install-lando-docker.sh
 
 # Run comprehensive test suite
 ./scripts/setup/test-runner.sh
@@ -348,7 +348,7 @@ The project includes a comprehensive `.bashrc` file with:
 source .bashrc
 
 # View available commands
-wes_help
+wqs_help
 ```
 
 #### PowerShell Setup
@@ -391,11 +391,11 @@ After sourcing `.bashrc`, you'll have access to:
 
 ```bash
 # Project functions
-wes_info          # Show project information
-wes_setup         # Complete development setup
-wes_test          # Run all tests
-wes_clean         # Clean development environment
-wes_help          # Show all available commands
+wqs_info          # Show project information
+wqs_setup         # Complete development setup
+wqs_test          # Run all tests
+wqs_clean         # Clean development environment
+wqs_help          # Show all available commands
 
 # Development shortcuts
 dev-setup         # Install dependencies
@@ -729,10 +729,10 @@ npm run test:e2e:report       # Open HTML test report
 
 ```bash
 # Full test suite including E2E
-lando start && WES_RUN_E2E=1 ./scripts/setup/test-runner.sh
+lando start && WQS_RUN_E2E=1 ./scripts/setup/test-runner.sh
 
 # Test with different configurations
-WES_AUTO=1 WES_DEBUG=1 ./scripts/setup/test-runner.sh
+WQS_AUTO=1 WQS_DEBUG=1 ./scripts/setup/test-runner.sh
 ```
 
 #### Test Configuration
@@ -748,7 +748,7 @@ WC_CUSTOMER_USER=customer                         # Customer username
 WC_CUSTOMER_PASSWORD=password                     # Customer password
 
 # Test execution
-WES_RUN_E2E=1                                    # Enable E2E tests in test runner
+WQS_RUN_E2E=1                                    # Enable E2E tests in test runner
 PLAYWRIGHT_DEBUG=1                               # Enable Playwright debug mode
 ```
 
@@ -798,7 +798,7 @@ wordpress-ecommerce-starter/
 │   ├── test-setup.*         # Setup verification
 │   └── git-hooks.*          # Git hook installation
 ├── src/                      # 🏗️ Custom PHP classes (PSR-4 autoloaded)
-│   └── WES_Sample_Utility.php # Example utility class
+│   └── WQS_Sample_Utility.php # Example utility class
 ├── tests/                    # ✅ PHPUnit test suite
 │   ├── bootstrap.php        # Test environment setup
 │   └── unit/                # Unit tests

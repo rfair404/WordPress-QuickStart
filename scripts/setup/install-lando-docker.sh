@@ -3,18 +3,23 @@
 # WordPress E-commerce Starter - Docker Desktop & Lando Installation Script
 # This script installs Docker Desktop and Lando for local WordPress development
 
-# Automated mode: Set WES_AUTO=1 to skip interactive prompts
-# Additional options:
-#   WES_INSTALL_DOCKER=1/0 (default: 1)
-#   WES_INSTALL_LANDO=1/0 (default: 1)
-#   WES_FORCE_LANDO=1/0 (default: 0) - Force Lando reinstall
+# Automated mode: Set WQS_AUTO=1 to skip interactive prompts
+# Control variables:
+#   WQS_INSTALL_DOCKER=1/0 (default: 1)
+#   WQS_INSTALL_LANDO=1/0 (default: 1)
+#   WQS_FORCE_LANDO=1/0 (default: 0) - Force Lando reinstall
 
 # Error handling and debugging options
-DEBUG_MODE="${WES_DEBUG:-0}"
-ERROR_TOLERANT="${WES_ERROR_TOLERANT:-0}"
+DEBUG_MODE="${WQS_DEBUG:-0}"
+ERROR_TOLERANT="${WQS_ERROR_TOLERANT:-0}"
 
 # Set appropriate error handling based on mode
-if [[ "$ERROR_TOLERANT" == "1" ]]; then
+if [[ "$ERROR_TOLERANT    if [[ "${WQS_AUTO:-0}" == "1" ]]; then
+        if [[ "${WQS_INSTALL_DOCKER:-1}" == "1" ]]; then
+            log_info "Automated mode: Installing Docker Desktop (WQS_INSTALL_DOCKER=1)"
+            install_docker
+        else
+            log_info "Automated mode: Skipping Docker Desktop installation (WQS_INSTALL_DOCKER=0)"1" ]]; then
     set -uo pipefail  # Don't exit on errors
 else
     set -euo pipefail  # Exit on errors (default)
@@ -58,21 +63,21 @@ show_usage() {
     echo "  ./scripts/setup/install-lando-docker.sh"
     echo ""
     echo "Automated Mode (no prompts):"
-    echo "  WES_AUTO=1 ./scripts/setup/install-lando-docker.sh"
+    echo "  WQS_AUTO=1 ./scripts/setup/install-lando-docker.sh"
     echo ""
     echo "Environment Variables:"
-    echo "  WES_AUTO=1            Enable automated mode (no interactive prompts)"
-    echo "  WES_QUIET=1           Reduce output verbosity"
-    echo "  WES_DEBUG=1           Enable debug output for troubleshooting"
-    echo "  WES_ERROR_TOLERANT=1  Continue on errors instead of exiting"
-    echo "  WES_INSTALL_DOCKER=1  Install Docker Desktop (default: 1)"
-    echo "  WES_INSTALL_LANDO=1   Install Lando (default: 1)"
-    echo "  WES_FORCE_LANDO=1     Force Lando reinstall if already installed (default: 0)"
+    echo "  WQS_AUTO=1            Enable automated mode (no interactive prompts)"
+    echo "  WQS_QUIET=1           Reduce output verbosity"
+    echo "  WQS_DEBUG=1           Enable debug output for troubleshooting"
+    echo "  WQS_ERROR_TOLERANT=1  Continue on errors instead of exiting"
+    echo "  WQS_INSTALL_DOCKER=1  Install Docker Desktop (default: 1)"
+    echo "  WQS_INSTALL_LANDO=1   Install Lando (default: 1)"
+    echo "  WQS_FORCE_LANDO=1     Force Lando reinstall if already installed (default: 0)"
     echo ""
     echo "Examples:"
-    echo "  WES_AUTO=1 $0                                    # Install both with defaults"
-    echo "  WES_AUTO=1 WES_INSTALL_DOCKER=0 $0              # Install only Lando"
-    echo "  WES_AUTO=1 WES_FORCE_LANDO=1 $0                # Force Lando reinstall"
+    echo "  WQS_AUTO=1 $0                                    # Install both with defaults"
+    echo "  WQS_AUTO=1 WQS_INSTALL_DOCKER=0 $0              # Install only Lando"
+    echo "  WQS_AUTO=1 WQS_FORCE_LANDO=1 $0                # Force Lando reinstall"
     echo ""
     exit 0
 }
@@ -83,7 +88,7 @@ if [[ "${1:-}" == "--help" ]] || [[ "${1:-}" == "-h" ]]; then
 fi
 
 # Check for quiet mode
-QUIET_MODE="${WES_QUIET:-0}"
+QUIET_MODE="${WQS_QUIET:-0}"
 
 if [[ "$QUIET_MODE" != "1" ]]; then
     echo "🐳 WordPress E-commerce Starter - Lando & Docker Desktop Installer"
@@ -264,11 +269,11 @@ install_lando() {
         local current_version=$(lando version --component cli 2>/dev/null | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' || echo "unknown")
         log_warning "Lando already installed (version: $current_version)"
 
-        if [[ "${WES_AUTO:-0}" == "1" ]]; then
-            if [[ "${WES_FORCE_LANDO:-0}" == "1" ]]; then
-                log_info "Automated mode: Reinstalling Lando (WES_FORCE_LANDO=1)"
+        if [[ "${WQS_AUTO:-0}" == "1" ]]; then
+            if [[ "${WQS_FORCE_LANDO:-0}" == "1" ]]; then
+                log_info "Automated mode: Reinstalling Lando (WQS_FORCE_LANDO=1)"
             else
-                log_info "Skipping Lando installation (already installed, use WES_FORCE_LANDO=1 to force)"
+                log_info "Skipping Lando installation (already installed, use WQS_FORCE_LANDO=1 to force)"
                 return 0
             fi
         else
@@ -571,12 +576,12 @@ main() {
         echo ""
     fi
 
-    if [[ "${WES_AUTO:-0}" == "1" ]]; then
-        if [[ "${WES_INSTALL_DOCKER:-1}" == "1" ]]; then
-            log_info "Automated mode: Installing Docker Desktop (WES_INSTALL_DOCKER=1)"
+    if [[ "${WQS_AUTO:-0}" == "1" ]]; then
+        if [[ "${WQS_INSTALL_DOCKER:-1}" == "1" ]]; then
+            log_info "Automated mode: Installing Docker Desktop (WQS_INSTALL_DOCKER=1)"
             install_docker_desktop
         else
-            log_info "Automated mode: Skipping Docker Desktop installation (WES_INSTALL_DOCKER=0)"
+            log_info "Automated mode: Skipping Docker Desktop installation (WQS_INSTALL_DOCKER=0)"
         fi
     else
         read -p "Install Docker Desktop? (Y/n): " -n 1 -r
@@ -590,12 +595,12 @@ main() {
         echo ""
     fi
 
-    if [[ "${WES_AUTO:-0}" == "1" ]]; then
-        if [[ "${WES_INSTALL_LANDO:-1}" == "1" ]]; then
-            log_info "Automated mode: Installing Lando (WES_INSTALL_LANDO=1)"
+    if [[ "${WQS_AUTO:-0}" == "1" ]]; then
+        if [[ "${WQS_INSTALL_LANDO:-1}" == "1" ]]; then
+            log_info "Automated mode: Installing Lando (WQS_INSTALL_LANDO=1)"
             install_lando
         else
-            log_info "Automated mode: Skipping Lando installation (WES_INSTALL_LANDO=0)"
+            log_info "Automated mode: Skipping Lando installation (WQS_INSTALL_LANDO=0)"
         fi
     else
         read -p "Install Lando? (Y/n): " -n 1 -r

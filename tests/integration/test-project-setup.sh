@@ -207,6 +207,11 @@ test_composer_scripts() {
 
 # Function to detect CI/CD environment
 is_ci_environment() {
+    # Check for custom override first - if WQS_CI_MODE=0, never detect CI
+    if [[ "${WQS_CI_MODE:-}" == "0" ]]; then
+        return 1  # Not CI environment (override)
+    fi
+
     # Check common CI/CD environment variables
     [[ -n "${CI:-}" ]] || \
     [[ -n "${CONTINUOUS_INTEGRATION:-}" ]] || \
@@ -220,8 +225,7 @@ is_ci_environment() {
     [[ -n "${DRONE:-}" ]] || \
     [[ -n "${TEAMCITY_VERSION:-}" ]] || \
     [[ -n "${APPVEYOR:-}" ]] || \
-    [[ -n "${CODEBUILD_BUILD_ID:-}" ]] || \
-    [[ -n "${WQS_CI_MODE:-}" ]]  # Custom override for this project
+    [[ -n "${CODEBUILD_BUILD_ID:-}" ]]
 }
 
 # Test GitHub CLI integration (local development only)

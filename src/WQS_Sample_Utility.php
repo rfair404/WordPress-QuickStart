@@ -16,7 +16,7 @@ namespace WordPressQuickstart;
  *
  * @since 1.0.0
  */
-class WES_Sample_Utility {
+class WQS_Sample_Utility {
 
 	/**
 	 * Plugin version
