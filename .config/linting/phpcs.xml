@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress E-commerce Starter">
-    <description>Custom coding standards for WordPress E-commerce Starter project</description>
+<ruleset name="WordPress Quickstart">
+    <description>Custom coding standards for WordPress Quickstart project</description>
 
     <!-- Show progress and sniff codes in all reports -->
     <arg value="ps"/>
@@ -23,28 +23,16 @@
 
     <!-- Include the WordPress VIP Coding Standards -->
     <rule ref="WordPress-VIP-Go"/>
-    
-    <!-- Include WordPress Core standards -->
-    <rule ref="WordPress-Core"/>
-    
-    <!-- Include WordPress Extra standards -->
-    <rule ref="WordPress-Extra"/>
-    
-    <!-- Include WordPress Documentation standards -->
-    <rule ref="WordPress-Docs"/>
 
     <!-- PHP compatibility check for WordPress supported versions -->
     <rule ref="PHPCompatibilityWP"/>
     <config name="testVersion" value="8.1-"/>
 
-    <!-- Enforce short array syntax -->
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
-
     <!-- Custom rules specific to this project -->
     <rule ref="WordPress.WP.I18n">
         <properties>
             <property name="text_domain" type="array">
-                <element value="wordpress-ecommerce-starter"/>
+                <element value="wordpress-quickstart"/>
             </property>
         </properties>
     </rule>
@@ -75,9 +63,9 @@
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">
-                <element value="wes_"/>
-                <element value="WES_"/>
-                <element value="WordPressEcommerceStarter"/>
+                <element value="wqs_"/>
+                <element value="WQS_"/>
+                <element value="WordPressQuickstart"/>
             </property>
         </properties>
     </rule>
