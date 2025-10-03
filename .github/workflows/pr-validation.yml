@@ -10,7 +10,7 @@ jobs:
   php-lint:
     name: PHP Linting & Code Standards
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         php-version: ['8.1', '8.2']

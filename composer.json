@@ -59,9 +59,9 @@
             "@test:wp-installation",
             "@test:wp-unit"
         ],
-        "test:wp-installation": "bash tests/validate-wordpress-installation.sh",
+        "test:wp-installation": "bash tests/validation/validate-wordpress-installation.sh",
         "test:wp-unit": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml tests/unit/WordPressInstallationTest.php",
-        "test:wp-full": "bash tests/run-wordpress-tests.sh",
+        "test:wp-full": "bash tests/runners/run-wordpress-tests.sh",
         "test:coverage": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-html coverage --coverage-clover coverage/clover.xml",
         "test:coverage-text": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-text",
         "test:watch": "./vendor/bin/phpunit --watch",

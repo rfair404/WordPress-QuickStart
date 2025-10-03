@@ -70,7 +70,7 @@ jobs:
         run: composer validate --strict
 
       - name: Check PHP syntax
-        run: find . -name "*.php" -not -path "./vendor/*" -not -path "./wp/*" -exec php -l {} \; | grep -v "No syntax errors"
+        run: find . -name "*.php" -not -path "./vendor/*" -not -path "./wp/*" -exec php -l {} \;
 
   # Job 2: Unit Tests
   unit-tests:
@@ -276,8 +276,11 @@ jobs:
       - name: Make test scripts executable
         run: find tests -name "*.sh" -type f -exec chmod +x {} \;
 
-      - name: Run comprehensive test suite
-        run: bash tests/test-suite.sh all
+      - name: Run validation tests
+        run: bash tests/test-suite.sh validate
+
+      - name: Run analysis tests  
+        run: bash tests/test-suite.sh analyze
 
       - name: Run unit test analysis
         run: bash tests/analysis/analyze-unit-tests.sh

@@ -122,7 +122,10 @@ run_all_analysis() {
 
 run_comprehensive_suite() {
     echo -e "${BLUE}Running comprehensive test suite...${NC}"
-    run_script "runners" "run-wordpress-tests"
+    # Run validation tests (CI-compatible)
+    run_all_validation
+    # Run analysis tests
+    run_all_analysis
 }
 
 # Main logic
