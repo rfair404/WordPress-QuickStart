@@ -314,6 +314,26 @@ main() {
         fi
     fi
 
+    # Offer to set up GitHub CLI
+    if [[ "$QUIET_MODE" != "1" ]]; then
+        echo ""
+    fi
+
+    if [[ "${WES_AUTO:-0}" == "1" ]]; then
+        if [[ "${WES_SETUP_GHCLI:-1}" == "1" ]]; then
+            echo "🔧 Automated mode: Setting up GitHub CLI (WES_SETUP_GHCLI=1)"
+            bash "$PROJECT_ROOT/scripts/setup/github-cli-setup.sh" --auto
+        else
+            echo "⏭️  Automated mode: Skipping GitHub CLI setup (WES_SETUP_GHCLI=0)"
+        fi
+    else
+        echo "Would you like to set up GitHub CLI for development workflow? (y/n)"
+        read -r response
+        if [[ "$response" =~ ^[Yy]$ ]]; then
+            bash "$PROJECT_ROOT/scripts/setup/github-cli-setup.sh"
+        fi
+    fi
+
     if [[ "$QUIET_MODE" != "1" ]]; then
         echo ""
         echo "🎉 Environment setup complete!"
@@ -323,6 +343,7 @@ main() {
         echo "2. Run: wes_help (to see available commands)"
         echo "3. Run: wes_setup (to set up the development environment)"
         echo "4. Open VS Code in this directory for enhanced experience"
+        echo "5. If you installed GitHub CLI, run: gh auth login (if not done already)"
         echo ""
     fi
 }

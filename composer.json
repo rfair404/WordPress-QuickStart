@@ -85,7 +85,8 @@
         "dev:setup": [
             "composer install",
             "@setup:standards",
-            "@setup:hooks"
+            "@setup:hooks",
+            "@gh:check"
         ],
         "setup:hooks": [
             "bash scripts/setup/git-hooks.sh"
@@ -118,6 +119,11 @@
         "post-update-cmd": [
             "@setup:standards"
         ],
+        "gh:check": "gh --version || echo 'GitHub CLI not installed. Install from: https://cli.github.com/'",
+        "gh:actions": "gh run list --limit 10",
+        "gh:actions:latest": "gh run view $(gh run list --json databaseId --jq '.[0].databaseId')",
+        "gh:actions:logs": "gh run view $(gh run list --json databaseId --jq '.[0].databaseId') --log-failed",
+        "gh:auth": "gh auth status || gh auth login",
         "wp:install": [
             "@composer install",
             "@wp:config"

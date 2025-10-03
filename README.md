@@ -91,6 +91,7 @@ If you prefer to install manually:
 - [Composer](https://getcomposer.org/) - PHP dependency management (included in Lando)
 - [Node.js](https://nodejs.org/) (v18+) - JavaScript runtime (included in Lando)
 - [Git](https://git-scm.com/) - Version control
+- [GitHub CLI](https://cli.github.com/) - GitHub Actions monitoring and repository management
 
 ### Installation
 
@@ -585,6 +586,66 @@ npm run test:e2e:wordpress                 # Playwright browser tests
 - ✅ Browser accessibility tests
 
 ## Development Workflow
+
+### 🐙 GitHub CLI Integration
+
+This project includes comprehensive GitHub CLI integration for enhanced development workflow:
+
+#### Installation
+
+GitHub CLI can be installed automatically during environment setup, or manually:
+
+```bash
+# Automatic installation via setup script
+./scripts/setup/github-cli-setup.sh
+
+# Windows (using winget)
+winget install GitHub.cli
+
+# macOS (using Homebrew)  
+brew install gh
+
+# Manual installation: https://cli.github.com/
+```
+
+#### Available Commands
+
+**Composer shortcuts:**
+```bash
+lando composer gh:check      # Check GitHub CLI installation status
+lando composer gh:actions    # List recent workflow runs
+lando composer gh:auth       # Check authentication status
+```
+
+**npm shortcuts:**
+```bash
+lando npm run gh:check           # Check GitHub CLI installation
+lando npm run gh:actions:latest  # View latest workflow run details
+lando npm run gh:actions:logs    # View failed workflow logs
+```
+
+**Direct GitHub CLI commands:**
+```bash
+gh run list                      # List recent workflow runs
+gh run view --log-failed         # View failed run logs
+gh run view <run-id>             # View specific run details
+gh auth login                    # Authenticate with GitHub
+gh repo view                     # View repository information
+```
+
+#### Troubleshooting GitHub Actions
+
+When GitHub Actions fail, use these commands to diagnose issues:
+
+```bash
+# Quick diagnosis
+lando npm run gh:actions:logs    # View latest failed logs
+
+# Detailed investigation
+gh run list --status failure     # List all failed runs
+gh run view <run-id> --log-failed # View specific failure logs
+gh run rerun <run-id>            # Rerun failed workflow
+```
 
 ### Code Quality & Linting
 
