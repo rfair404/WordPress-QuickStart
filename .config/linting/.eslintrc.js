@@ -13,8 +13,13 @@ module.exports = {
 	env: {
 		browser: true,
 		es6: true,
+		es2020: true,
 		node: true,
 		jquery: true,
+	},
+	parserOptions: {
+		ecmaVersion: 2020,
+		sourceType: 'module'
 	},
 	globals: {
 		wp: 'readonly',
@@ -38,21 +43,6 @@ module.exports = {
 
 		// WordPress jQuery compatibility
 		'no-global-assign': ['error', { exceptions: ['jQuery', '$'] }],
-
-		// Import/export rules
-		'import/no-unresolved': 'off', // WordPress handles this differently
-
-		// JSDoc requirements for public functions
-		'jsdoc/require-jsdoc': [
-			'warn',
-			{
-				require: {
-					FunctionDeclaration: true,
-					MethodDefinition: true,
-					ClassDeclaration: true,
-				},
-			},
-		],
 	},
 	overrides: [
 		{
@@ -90,11 +80,4 @@ module.exports = {
 			},
 		},
 	],
-	settings: {
-		'import/resolver': {
-			webpack: {
-				config: './webpack.config.js',
-			},
-		},
-	},
 };
