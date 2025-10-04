@@ -98,10 +98,10 @@ echo "📋 WooCommerce Configuration"
 echo "============================"
 
 # Check wp-config.php for WooCommerce-friendly settings
-if [ -f "$PROJECT_ROOT/wp-config.php" ]; then
+if [ -f "$PROJECT_ROOT/wp/wp-config.php" ]; then
     run_check "wp-config.php exists" "true"
-    run_check "Memory limit setting" "grep -q 'WP_MEMORY_LIMIT\|ini_set.*memory_limit' '$PROJECT_ROOT/wp-config.php'"
-    run_check "Max execution time setting" "grep -q 'max_execution_time\|set_time_limit' '$PROJECT_ROOT/wp-config.php'"
+    run_check "Memory limit setting" "grep -q 'WP_MEMORY_LIMIT\|ini_set.*memory_limit' '$PROJECT_ROOT/wp/wp-config.php'"
+    run_check "Max execution time setting" "grep -q 'max_execution_time\|set_time_limit' '$PROJECT_ROOT/wp/wp-config.php'"
 else
     print_status "WARNING" "wp-config.php not found (will be generated during installation)"
 fi

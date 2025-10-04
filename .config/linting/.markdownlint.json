@@ -15,7 +15,12 @@
   "MD031": false,
   "MD032": false,
   "MD033": {
-    "allowed_elements": ["br", "sub", "sup", "kbd"]
+    "allowed_elements": [
+      "br",
+      "sub",
+      "sup",
+      "kbd"
+    ]
   },
   "MD034": false,
   "MD036": false,

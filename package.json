@@ -1,110 +1,110 @@
 {
-  "name": "wordpress-quickstart",
-  "version": "1.0.0",
-  "description": "A fast and reliable WordPress quickstart application with essential features",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rfair404/WordPress-QuickStart.git"
-  },
-  "homepage": "https://github.com/rfair404/WordPress-QuickStart",
-  "bugs": {
-    "url": "https://github.com/rfair404/WordPress-QuickStart/issues"
-  },
-  "scripts": {
-    "build": "wp-scripts build",
-    "build:production": "wp-scripts build --mode=production",
-    "start": "wp-scripts start",
-    "dev": "wp-scripts start",
-    "lint:js": "wp-scripts lint-js",
-    "lint:js:fix": "wp-scripts lint-js --fix",
-    "lint:css": "find . -name '*.css' -o -name '*.scss' -o -name '*.pcss' | head -1 | grep -q . && wp-scripts lint-style || echo 'No CSS files found to lint'",
-    "lint:css:fix": "find . -name '*.css' -o -name '*.scss' -o -name '*.pcss' | head -1 | grep -q . && wp-scripts lint-style --fix || echo 'No CSS files found to lint'",
-    "format": "wp-scripts format",
-    "format:check": "wp-scripts format --check",
-    "format:all": "prettier --write .",
-    "lint-staged": "lint-staged",
-    "test": "wp-scripts test-unit-js",
-    "test:watch": "wp-scripts test-unit-js --watch",
-    "test:e2e": "playwright test --config=tests/playwright.config.js",
-    "test:e2e:headed": "playwright test --config=tests/playwright.config.js --headed",
-    "gh:check": "bash scripts/gh-wrapper.sh --version || echo 'GitHub CLI not installed. Run: npm run gh:install'",
-    "gh:install": "node -e \"console.log('Install GitHub CLI from: https://cli.github.com/ or run: winget install GitHub.cli')\"",
-    "gh:auth": "bash scripts/gh-wrapper.sh auth status || bash scripts/gh-wrapper.sh auth login",
-    "gh:actions": "bash scripts/gh-wrapper.sh run list --limit 10",
-    "gh:actions:latest": "bash scripts/gh-wrapper.sh run view $(bash scripts/gh-wrapper.sh run list --json databaseId --jq '.[0].databaseId')",
-    "gh:actions:logs": "bash scripts/gh-wrapper.sh run view $(bash scripts/gh-wrapper.sh run list --json databaseId --jq '.[0].databaseId') --log-failed",
-    "test:e2e:debug": "playwright test --config=tests/playwright.config.js --debug",
-    "test:e2e:ui": "playwright test --config=tests/playwright.config.js --ui",
-    "test:e2e:codegen": "playwright codegen --config=tests/playwright.config.js",
-    "test:e2e:report": "playwright show-report",
-    "test:e2e:install": "playwright install",
-    "test:e2e:wordpress": "playwright test --config=tests/playwright.config.js --grep @wordpress",
-    "test:e2e:woocommerce": "playwright test --config=tests/playwright.config.js --grep @woocommerce",
-    "test:e2e:visual": "playwright test --config=tests/playwright.config.js --grep @visual",
-    "packages-update": "wp-scripts packages-update",
-    "check-engines": "wp-scripts check-engines",
-    "check-licenses": "wp-scripts check-licenses",
-    "hooks:setup": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\git-hooks.bat' : './scripts/setup/git-hooks.sh', {stdio: 'inherit'})\"",
-    "setup:env": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\env-setup.bat' : './scripts/setup/env-setup.sh', {stdio: 'inherit'})\"",
-    "validate:deps": "node -e \"require('child_process').execSync('./scripts/setup/dependency-validator.sh', {stdio: 'inherit'})\"",
-    "monitor:performance": "node -e \"require('child_process').execSync('./scripts/setup/performance-monitor.sh', {stdio: 'inherit'})\"",
-    "test:all": "node -e \"require('child_process').execSync('./scripts/setup/test-runner.sh', {stdio: 'inherit'})\""
-  },
-  "keywords": [
-    "wordpress",
-    "ecommerce",
-    "starter",
-    "theme",
-    "plugin"
-  ],
-  "author": "Your Name <your.email@example.com>",
-  "license": "GPL-2.0-or-later",
-  "devDependencies": {
-    "@wordpress/scripts": "^26.0.0",
-    "@wordpress/eslint-plugin": "^15.0.0",
-    "@wordpress/stylelint-config": "^21.0.0",
-    "@playwright/test": "^1.40.0",
-    "@types/node": "^20.0.0",
-    "eslint": "^8.0.0",
-    "stylelint": "^14.16.0",
-    "prettier": "^3.0.0",
-    "husky": "^8.0.0",
-    "lint-staged": "^13.0.0"
-  },
-  "dependencies": {
-    "@wordpress/blocks": "^12.0.0",
-    "@wordpress/components": "^25.0.0",
-    "@wordpress/element": "^5.0.0",
-    "@wordpress/i18n": "^4.0.0"
-  },
-  "browserslist": [
-    "extends @wordpress/browserslist-config"
-  ],
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "wp-scripts lint-js --fix"
+    "name": "wordpress-quickstart",
+    "version": "1.0.0",
+    "description": "A fast and reliable WordPress quickstart application with essential features",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rfair404/WordPress-QuickStart.git"
+    },
+    "homepage": "https://github.com/rfair404/WordPress-QuickStart",
+    "bugs": {
+        "url": "https://github.com/rfair404/WordPress-QuickStart/issues"
+    },
+    "scripts": {
+        "build": "wp-scripts build",
+        "build:production": "wp-scripts build --mode=production",
+        "start": "wp-scripts start",
+        "dev": "wp-scripts start",
+        "lint:js": "wp-scripts lint-js",
+        "lint:js:fix": "wp-scripts lint-js --fix",
+        "lint:css": "find . -name '*.css' -o -name '*.scss' -o -name '*.pcss' | head -1 | grep -q . && wp-scripts lint-style || echo 'No CSS files found to lint'",
+        "lint:css:fix": "find . -name '*.css' -o -name '*.scss' -o -name '*.pcss' | head -1 | grep -q . && wp-scripts lint-style --fix || echo 'No CSS files found to lint'",
+        "format": "wp-scripts format",
+        "format:check": "wp-scripts format --check",
+        "format:all": "prettier --write .",
+        "lint-staged": "lint-staged",
+        "test": "wp-scripts test-unit-js",
+        "test:watch": "wp-scripts test-unit-js --watch",
+        "test:e2e": "playwright test --config=tests/playwright.config.js",
+        "test:e2e:headed": "playwright test --config=tests/playwright.config.js --headed",
+        "gh:check": "bash scripts/gh-wrapper.sh --version || echo 'GitHub CLI not installed. Run: npm run gh:install'",
+        "gh:install": "node -e \"console.log('Install GitHub CLI from: https://cli.github.com/ or run: winget install GitHub.cli')\"",
+        "gh:auth": "bash scripts/gh-wrapper.sh auth status || bash scripts/gh-wrapper.sh auth login",
+        "gh:actions": "bash scripts/gh-wrapper.sh run list --limit 10",
+        "gh:actions:latest": "bash scripts/gh-wrapper.sh run view $(bash scripts/gh-wrapper.sh run list --json databaseId --jq '.[0].databaseId')",
+        "gh:actions:logs": "bash scripts/gh-wrapper.sh run view $(bash scripts/gh-wrapper.sh run list --json databaseId --jq '.[0].databaseId') --log-failed",
+        "test:e2e:debug": "playwright test --config=tests/playwright.config.js --debug",
+        "test:e2e:ui": "playwright test --config=tests/playwright.config.js --ui",
+        "test:e2e:codegen": "playwright codegen --config=tests/playwright.config.js",
+        "test:e2e:report": "playwright show-report",
+        "test:e2e:install": "playwright install",
+        "test:e2e:wordpress": "playwright test --config=tests/playwright.config.js --grep @wordpress",
+        "test:e2e:woocommerce": "playwright test --config=tests/playwright.config.js --grep @woocommerce",
+        "test:e2e:visual": "playwright test --config=tests/playwright.config.js --grep @visual",
+        "packages-update": "wp-scripts packages-update",
+        "check-engines": "wp-scripts check-engines",
+        "check-licenses": "wp-scripts check-licenses",
+        "hooks:setup": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\git-hooks.bat' : './scripts/setup/git-hooks.sh', {stdio: 'inherit'})\"",
+        "setup:env": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\env-setup.bat' : './scripts/setup/env-setup.sh', {stdio: 'inherit'})\"",
+        "validate:deps": "node -e \"require('child_process').execSync('./scripts/setup/dependency-validator.sh', {stdio: 'inherit'})\"",
+        "monitor:performance": "node -e \"require('child_process').execSync('./scripts/setup/performance-monitor.sh', {stdio: 'inherit'})\"",
+        "test:all": "node -e \"require('child_process').execSync('./scripts/setup/test-runner.sh', {stdio: 'inherit'})\""
+    },
+    "keywords": [
+        "wordpress",
+        "ecommerce",
+        "starter",
+        "theme",
+        "plugin"
     ],
-    "*.{css,scss,sass}": [
-      "prettier --write",
-      "wp-scripts lint-style --fix"
+    "author": "Your Name <your.email@example.com>",
+    "license": "GPL-2.0-or-later",
+    "devDependencies": {
+        "@wordpress/scripts": "^26.0.0",
+        "@wordpress/eslint-plugin": "^15.0.0",
+        "@wordpress/stylelint-config": "^21.0.0",
+        "@playwright/test": "^1.40.0",
+        "@types/node": "^20.0.0",
+        "eslint": "^8.0.0",
+        "stylelint": "^14.16.0",
+        "prettier": "^3.0.0",
+        "husky": "^8.0.0",
+        "lint-staged": "^13.0.0"
+    },
+    "dependencies": {
+        "@wordpress/blocks": "^12.0.0",
+        "@wordpress/components": "^25.0.0",
+        "@wordpress/element": "^5.0.0",
+        "@wordpress/i18n": "^4.0.0"
+    },
+    "browserslist": [
+        "extends @wordpress/browserslist-config"
     ],
-    "*.{json,yml,yaml,md,html}": [
-      "prettier --write"
-    ],
-    "*.php": [
-      "prettier --write",
-      "composer run lint:fix"
-    ],
-    "*": [
-      "prettier --write --ignore-unknown"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run test && composer run test"
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx}": [
+            "prettier --write",
+            "wp-scripts lint-js --fix"
+        ],
+        "*.{css,scss,sass}": [
+            "prettier --write",
+            "wp-scripts lint-style --fix"
+        ],
+        "*.{json,yml,yaml,md,html}": [
+            "prettier --write"
+        ],
+        "*.php": [
+            "prettier --write",
+            "composer run lint:fix"
+        ],
+        "*": [
+            "prettier --write --ignore-unknown"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged",
+            "pre-push": "npm run test && composer run test"
+        }
     }
-  }
 }

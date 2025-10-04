@@ -112,12 +112,7 @@ class WordPressInstallationTest extends TestCase {
 		];
 
 		foreach ( $core_files as $file ) {
-			// wp-config.php is in project root, not wp directory
-			if ( $file === '/wp-config.php' ) {
-				$file_path = $this->project_root . $file;
-			} else {
-				$file_path = $this->wp_path . $file;
-			}
+			$file_path = $this->wp_path . $file;
 
 			$this->assertFileExists(
 				$file_path,
@@ -156,7 +151,7 @@ class WordPressInstallationTest extends TestCase {
 	 * Test that wp-config.php is properly configured
 	 */
 	public function test_wp_config_is_configured() {
-		$wp_config = $this->project_root . '/wp-config.php';
+		$wp_config = $this->wp_path . '/wp-config.php';
 
 		$this->assertFileExists( $wp_config );
 
