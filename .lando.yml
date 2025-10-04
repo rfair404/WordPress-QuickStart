@@ -1,7 +1,7 @@
 name: wordpress-quickstart
 recipe: wordpress
 config:
-  php: '8.1'
+  php: "8.1"
   webroot: wp
   database: mysql:8.0
   xdebug: false

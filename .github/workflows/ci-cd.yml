@@ -2,23 +2,23 @@ name: WordPress Quickstart CI/CD
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment to deploy to'
+        description: "Environment to deploy to"
         required: true
-        default: 'staging'
+        default: "staging"
         type: choice
         options:
-        - staging
-        - production
+          - staging
+          - production
 
 env:
-  PHP_VERSION: '8.1'
-  NODE_VERSION: '18'
+  PHP_VERSION: "8.1"
+  NODE_VERSION: "18"
   COMPOSER_CACHE_KEY: composer-cache-v1
 
 jobs:
@@ -81,7 +81,7 @@ jobs:
     needs: code-quality
     strategy:
       matrix:
-        php-version: ['8.1', '8.2', '8.3']
+        php-version: ["8.1", "8.2", "8.3"]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

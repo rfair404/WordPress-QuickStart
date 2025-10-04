@@ -2,9 +2,9 @@ name: Pull Request Validation
 
 on:
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 permissions:
   contents: read
@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ['8.1', '8.2']
+        php-version: ["8.1", "8.2"]
 
     steps:
       - name: Checkout code
@@ -61,7 +61,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: ['18', '20']
+        node-version: ["18", "20"]
 
     steps:
       - name: Checkout code
@@ -103,7 +103,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: "8.1"
           tools: composer
 
       - name: Install Composer dependencies
@@ -115,7 +115,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Install npm dependencies
         run: |
@@ -136,7 +136,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Install markdownlint-cli
         run: npm install -g markdownlint-cli

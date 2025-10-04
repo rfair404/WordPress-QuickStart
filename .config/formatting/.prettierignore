@@ -9,18 +9,21 @@ wp-content/uploads/
 *.min.css
 *.map
 
-# WordPress core files
+# WordPress core files - exclude entire wp directory
+wp/
+wp/**
 wp-admin/
 wp-includes/
-wp-content/themes/twenty*/
+wp-content/
 wp-config.php
 wp-config-sample.php
 .htaccess
 
 # Third-party plugins and themes
 custom/plugins/woocommerce/
+custom/plugins/woocommerce/**
 custom/themes/twenty*/
-wp/
+custom/themes/twenty*/**
 
 # Build artifacts
 *.log

@@ -3,16 +3,16 @@ name: Performance Monitoring
 on:
   schedule:
     # Run weekly on Sundays at 3 AM UTC
-    - cron: '0 3 * * 0'
+    - cron: "0 3 * * 0"
   workflow_dispatch:
     inputs:
       url:
-        description: 'URL to test (optional, defaults to staging)'
+        description: "URL to test (optional, defaults to staging)"
         required: false
         type: string
 
 env:
-  NODE_VERSION: '18'
+  NODE_VERSION: "18"
   LIGHTHOUSE_RUNS: 3
 
 jobs:

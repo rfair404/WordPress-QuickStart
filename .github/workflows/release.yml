@@ -3,13 +3,13 @@ name: Release Management
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
   release:
     types: [published]
 
 env:
-  PHP_VERSION: '8.1'
-  NODE_VERSION: '18'
+  PHP_VERSION: "8.1"
+  NODE_VERSION: "18"
 
 jobs:
   # Create release build
