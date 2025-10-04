@@ -8,7 +8,8 @@ We use GitHub to host code, to track issues and feature requests, as well as acc
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by our Code of Conduct. By participating, you are expected to uphold this code.
+This project and everyone participating in it is governed by our Code of Conduct. By participating, you are
+expected to uphold this code.
 
 ## Getting Started
 

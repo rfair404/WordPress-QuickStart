@@ -3,12 +3,12 @@ name: Scheduled Maintenance
 on:
   schedule:
     # Run daily at 2 AM UTC
-    - cron: '0 2 * * *'
+    - cron: "0 2 * * *"
   workflow_dispatch:
 
 env:
-  PHP_VERSION: '8.1'
-  NODE_VERSION: '18'
+  PHP_VERSION: "8.1"
+  NODE_VERSION: "18"
 
 jobs:
   # Check for dependency updates
@@ -140,7 +140,9 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install NPM dependencies
-        run: npm ci
+        run: |
+          # Try npm ci first, fallback to npm install if lock file is out of sync
+          npm ci || npm install
 
       - name: Run NPM security audit
         run: |

@@ -95,6 +95,6 @@ class SampleTest extends TestCase {
 
 		$this->assertStringContainsString( 'WordPress', $test_string );
 		$this->assertStringStartsWith( 'WordPress', $test_string );
-		$this->assertStringEndsWith( 'Starter', $test_string );
+		$this->assertStringEndsWith( 'Quickstart', $test_string );
 	}
 }

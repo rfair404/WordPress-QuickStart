@@ -156,7 +156,7 @@ echo # WordPress E-commerce Starter - PowerShell Profile
 echo # Add this to your PowerShell profile for enhanced development experience
 echo.
 echo # Project paths
-echo $env:WES_PROJECT_ROOT = "%PROJECT_ROOT%"
+echo $env:WQS_PROJECT_ROOT = "%PROJECT_ROOT%"
 echo $env:PATH += ";%PROJECT_ROOT%\scripts;%PROJECT_ROOT%\scripts\setup"
 echo.
 echo # Development aliases
@@ -170,10 +170,10 @@ echo function dev-lint { lando composer lint; lando npm run lint:js }
 echo function dev-format { lando npm run format:all }
 echo.
 echo # Navigation functions
-echo function goto-src { Set-Location "$env:WES_PROJECT_ROOT\src" }
-echo function goto-tests { Set-Location "$env:WES_PROJECT_ROOT\tests" }
-echo function goto-scripts { Set-Location "$env:WES_PROJECT_ROOT\scripts" }
-echo function goto-root { Set-Location "$env:WES_PROJECT_ROOT" }
+echo function goto-src { Set-Location "$env:WQS_PROJECT_ROOT\src" }
+echo function goto-tests { Set-Location "$env:WQS_PROJECT_ROOT\tests" }
+echo function goto-scripts { Set-Location "$env:WQS_PROJECT_ROOT\scripts" }
+echo function goto-root { Set-Location "$env:WQS_PROJECT_ROOT" }
 echo.
 echo Write-Host "🚀 WordPress E-commerce Starter environment loaded!" -ForegroundColor Green
 ) > "scripts\setup\powershell-profile.ps1"
@@ -189,8 +189,8 @@ echo [INFO] Next steps:
 echo   1. Open this project in VS Code
 echo   2. VS Code will automatically use Git Bash terminal with .bashrc
 echo   3. In the terminal, run: source .bashrc
-echo   4. Run: wes_help (to see available commands)
-echo   5. Run: wes_setup (to set up the development environment)
+echo   4. Run: wqs_help (to see available commands)
+echo   5. Run: wqs_setup (to set up the development environment)
 echo.
 echo [INFO] For PowerShell users:
 echo   • Import the profile: . .\scripts\setup\powershell-profile.ps1

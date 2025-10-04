@@ -1,6 +1,7 @@
 # Test Directory Structure
 
-This directory contains all testing-related files and scripts for the WordPress Quickstart project, organized contextually for better maintainability.
+This directory contains all testing-related files and scripts for the WordPress Quickstart project,
+organized contextually for better maintainability.
 
 ## Directory Structure
 
@@ -45,24 +46,28 @@ tests/
 ### 📊 Analysis Scripts (`analysis/`)
 Tools for analyzing test coverage, structure, and quality metrics.
 
-- **`analyze-unit-tests.sh`** - Provides detailed analysis of PHP unit test files, including method counts, test patterns, dependencies, and coverage information.
+- **`analyze-unit-tests.sh`** - Provides detailed analysis of PHP unit test files, including method counts,
+  test patterns, dependencies, and coverage information.
 
 ### ✅ Validation Scripts (`validation/`)
 Scripts that validate environment setup and configuration.
 
-- **`validate-wordpress-installation.sh`** - Validates WordPress installation via Composer, directory structure, core files, and configuration.
+- **`validate-wordpress-installation.sh`** - Validates WordPress installation via Composer, directory structure,
+  core files, and configuration.
 - **`validate-woocommerce-setup.sh`** - Verifies WooCommerce plugin installation, configuration, and dependencies.
 
 ### 🏃 Test Runners (`runners/`)
 Scripts that execute various test suites.
 
 - **`run-unit-tests-standalone.sh`** - Executes PHPUnit tests without requiring Docker/Lando environment.
-- **`run-wordpress-tests.sh`** - Comprehensive test runner that executes shell scripts, PHPUnit tests, code quality checks, and optional E2E tests.
+- **`run-wordpress-tests.sh`** - Comprehensive test runner that executes shell scripts, PHPUnit tests,
+  code quality checks, and optional E2E tests.
 
 ### 🔗 Integration Tests (`integration/`)
 Scripts that test complete workflows and system integration.
 
-- **`test-project-setup.sh`** - Tests all project functionality including file structure, script syntax, permissions, and WordPress manager commands.
+- **`test-project-setup.sh`** - Tests all project functionality including file structure, script syntax,
+  permissions, and WordPress manager commands.
 - **`test-wp-installation.sh`** - Tests the WordPress installation process, sample content creation, and configuration.
 
 ## Usage Examples

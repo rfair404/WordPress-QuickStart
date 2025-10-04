@@ -51,7 +51,7 @@
         "lint": [
             "@lint:phpcs"
         ],
-        "lint:phpcs": "./vendor/bin/phpcs --standard=.config/linting/phpcs.xml",
+        "lint:phpcs": "./vendor/bin/phpcs --standard=.config/linting/phpcs.xml src/ tests/ custom/",
         "lint:fix": [
             "@lint:phpcbf"
         ],
@@ -59,16 +59,16 @@
         "test": [
             "@test:unit"
         ],
-        "test:unit": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml",
+        "test:unit": "./vendor/bin/phpunit --configuration phpunit.xml",
         "test:wordpress": [
             "@test:wp-installation",
             "@test:wp-unit"
         ],
         "test:wp-installation": "bash tests/validation/validate-wordpress-installation.sh",
-        "test:wp-unit": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml tests/Unit/WordPressInstallationTest.php",
+        "test:wp-unit": "./vendor/bin/phpunit --configuration phpunit.xml --testsuite=\"Unit Tests\"",
         "test:wp-full": "bash tests/runners/run-wordpress-tests.sh",
-        "test:coverage": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-html coverage --coverage-clover coverage/clover.xml",
-        "test:coverage-text": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-text",
+        "test:coverage": "./vendor/bin/phpunit --configuration phpunit.xml --coverage-html coverage --coverage-clover coverage/clover.xml",
+        "test:coverage-text": "./vendor/bin/phpunit --configuration phpunit.xml --coverage-text",
         "test:watch": "./vendor/bin/phpunit --watch",
         "analyze": [
             "@lint:phpcs",
@@ -85,7 +85,8 @@
         "dev:setup": [
             "composer install",
             "@setup:standards",
-            "@setup:hooks"
+            "@setup:hooks",
+            "@gh:check"
         ],
         "setup:hooks": [
             "bash scripts/setup/git-hooks.sh"
@@ -118,6 +119,11 @@
         "post-update-cmd": [
             "@setup:standards"
         ],
+        "gh:check": "bash scripts/gh-wrapper.sh --version || echo 'GitHub CLI not installed. Install from: https://cli.github.com/'",
+        "gh:actions": "bash scripts/gh-wrapper.sh run list --limit 10",
+        "gh:actions:latest": "bash scripts/gh-wrapper.sh run view $(bash scripts/gh-wrapper.sh run list --json databaseId --jq '.[0].databaseId')",
+        "gh:actions:logs": "bash scripts/gh-wrapper.sh run view $(bash scripts/gh-wrapper.sh run list --json databaseId --jq '.[0].databaseId') --log-failed",
+        "gh:auth": "bash scripts/gh-wrapper.sh auth status || bash scripts/gh-wrapper.sh auth login",
         "wp:install": [
             "@composer install",
             "@wp:config"
@@ -165,7 +171,7 @@
             "bash scripts/wp-manager.sh wc:setup"
         ],
         "test:woocommerce": [
-            "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml tests/Unit/WooCommerceTest.php"
+            "./vendor/bin/phpunit --configuration phpunit.xml tests/unit/WooCommerceTest.php"
         ]
     },
     "repositories": [

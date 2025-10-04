@@ -235,22 +235,22 @@ echo ""
 print_header "⚙️  PHPUnit Configuration Analysis"
 echo ""
 
-if [ -f "$PROJECT_ROOT/.config/testing/phpunit.xml" ]; then
+if [ -f "$PROJECT_ROOT/phpunit.xml" ]; then
     print_success "PHPUnit configuration found"
 
-    if grep -q 'bootstrap=".*bootstrap.php"' "$PROJECT_ROOT/.config/testing/phpunit.xml"; then
+    if grep -q 'bootstrap=".*bootstrap.php"' "$PROJECT_ROOT/phpunit.xml"; then
         print_detail "Bootstrap file configured ✓"
     fi
 
-    if grep -q 'suffix="Test.php"' "$PROJECT_ROOT/.config/testing/phpunit.xml"; then
+    if grep -q 'suffix="Test.php"' "$PROJECT_ROOT/phpunit.xml"; then
         print_detail "Test file suffix configured ✓"
     fi
 
-    if grep -q 'coverage' "$PROJECT_ROOT/.config/testing/phpunit.xml"; then
+    if grep -q 'coverage' "$PROJECT_ROOT/phpunit.xml"; then
         print_detail "Code coverage enabled ✓"
     fi
 
-    if grep -q 'WP_ENVIRONMENT_TYPE.*test' "$PROJECT_ROOT/.config/testing/phpunit.xml"; then
+    if grep -q 'WP_ENVIRONMENT_TYPE.*test' "$PROJECT_ROOT/phpunit.xml"; then
         print_detail "Test environment configured ✓"
     fi
 else

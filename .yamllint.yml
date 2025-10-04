@@ -10,7 +10,7 @@ rules:
     max: 2
   trailing-spaces: enable
   truthy:
-    allowed-values: ['true', 'false', 'on', 'off']
+    allowed-values: ["true", "false", "on", "off"]
 
 ignore: |
   node_modules/

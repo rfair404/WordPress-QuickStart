@@ -100,13 +100,47 @@ else
     run_test "WordPress version file readable" "false"
 fi
 
+# Helper function to check security key length
+check_security_key_length() {
+    local key_name="$1"
+    local config_file="$2"
+    
+    # Use PHP to safely parse the config file and check the constant length
+    local result
+    result=$(php -r "
+        if (file_exists('$config_file')) {
+            include '$config_file';
+            if (defined('$key_name')) {
+                \$value = constant('$key_name');
+                echo strlen(\$value) == 64 ? 'true' : 'false';
+            } else {
+                echo 'false';
+            }
+        } else {
+            echo 'false';
+        }
+    " 2>/dev/null)
+    
+    [ "$result" = "true" ]
+}
+
 # Test 9: wp-config.php validation
 if [ -f "$WP_PATH/wp-config.php" ]; then
     run_test "wp-config.php contains DB_NAME" "grep -q 'DB_NAME' '$WP_PATH/wp-config.php'"
     run_test "wp-config.php contains DB_USER" "grep -q 'DB_USER' '$WP_PATH/wp-config.php'"
     run_test "wp-config.php contains DB_HOST" "grep -q 'DB_HOST' '$WP_PATH/wp-config.php'"
     run_test "wp-config.php contains WP_DEBUG" "grep -q 'WP_DEBUG' '$WP_PATH/wp-config.php'"
-    run_test "wp-config.php contains security keys" "grep -q 'AUTH_KEY' '$WP_PATH/wp-config.php'"
+
+    # Check each security key individually
+    run_test "wp-config.php contains AUTH_KEY" "grep -q 'AUTH_KEY' '$WP_PATH/wp-config.php'"
+    run_test "wp-config.php contains SECURE_AUTH_KEY" "grep -q 'SECURE_AUTH_KEY' '$WP_PATH/wp-config.php'"
+    run_test "wp-config.php contains LOGGED_IN_KEY" "grep -q 'LOGGED_IN_KEY' '$WP_PATH/wp-config.php'"
+    run_test "wp-config.php contains NONCE_KEY" "grep -q 'NONCE_KEY' '$WP_PATH/wp-config.php'"
+    run_test "wp-config.php contains AUTH_SALT" "grep -q 'AUTH_SALT' '$WP_PATH/wp-config.php'"
+    run_test "wp-config.php contains SECURE_AUTH_SALT" "grep -q 'SECURE_AUTH_SALT' '$WP_PATH/wp-config.php'"
+    run_test "wp-config.php contains LOGGED_IN_SALT" "grep -q 'LOGGED_IN_SALT' '$WP_PATH/wp-config.php'"
+    run_test "wp-config.php contains NONCE_SALT" "grep -q 'NONCE_SALT' '$WP_PATH/wp-config.php'"
+
     run_test "wp-config.php references Lando database" "grep -q 'database' '$WP_PATH/wp-config.php'"
 else
     echo -e "${YELLOW}⚠ wp-config.php not found - run './scripts/wp-manager.sh config:generate' first${NC}"

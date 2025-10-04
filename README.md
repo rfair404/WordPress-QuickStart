@@ -18,8 +18,8 @@ such as user authentication, product management, and shopping cart system.
 - 🧪 **Comprehensive testing setup** (Unit + E2E with Playwright)
 - 🚀 CI/CD pipeline with GitHub Actions
 - 🐳 Docker development environment with Lando
-- � **VS Code GitHub integration** (Actions monitoring, PR management)
-- �📝 WordPress VIP coding standards compliance
+- 💻 **VS Code GitHub integration** (Actions monitoring, PR management)
+- ✅ WordPress VIP coding standards compliance
 - 🎨 Modern frontend tooling (ESLint, Prettier, Stylelint)
 - 📊 Performance monitoring and health checks
 - 🔧 Automated setup and environment management
@@ -91,6 +91,7 @@ If you prefer to install manually:
 - [Composer](https://getcomposer.org/) - PHP dependency management (included in Lando)
 - [Node.js](https://nodejs.org/) (v18+) - JavaScript runtime (included in Lando)
 - [Git](https://git-scm.com/) - Version control
+- [GitHub CLI](https://cli.github.com/) - GitHub Actions monitoring and repository management
 
 ### Installation
 
@@ -272,11 +273,11 @@ All setup scripts support automated mode for continuous integration and deployme
 
 ```bash
 # Complete automated setup (no user interaction)
-WES_AUTO=1 ./scripts/setup/install-lando-docker.sh
-WES_AUTO=1 ./scripts/setup/env-setup.sh
+WQS_AUTO=1 ./scripts/setup/install-lando-docker.sh
+WQS_AUTO=1 ./scripts/setup/env-setup.sh
 
 # Test automation features
-WES_TEST_AUTOMATION=1 ./scripts/setup/test-setup.sh
+WQS_TEST_AUTOMATION=1 ./scripts/setup/test-setup.sh
 
 # Get help for any script
 ./scripts/setup/install-lando-docker.sh --help
@@ -284,27 +285,27 @@ WES_TEST_AUTOMATION=1 ./scripts/setup/test-setup.sh
 ```
 
 **Environment Variables for Automation:**
-- `WES_AUTO=1` - Enable automated mode (no prompts)
-- `WES_QUIET=1` - Reduce output verbosity (silent mode)
-- `WES_DEBUG=1` - Enable debug output for troubleshooting
-- `WES_ERROR_TOLERANT=1` - Continue on errors instead of exiting
-- `WES_INSTALL_DOCKER=0/1` - Control Docker installation
-- `WES_INSTALL_LANDO=0/1` - Control Lando installation
-- `WES_FORCE_LANDO=1` - Force Lando reinstall
-- `WES_SETUP_BASHRC=0/1` - Control .bashrc setup
-- `WES_SETUP_VSCODE=0/1` - Control VS Code workspace setup
+- `WQS_AUTO=1` - Enable automated mode (no prompts)
+- `WQS_QUIET=1` - Reduce output verbosity (silent mode)
+- `WQS_DEBUG=1` - Enable debug output for troubleshooting
+- `WQS_ERROR_TOLERANT=1` - Continue on errors instead of exiting
+- `WQS_INSTALL_DOCKER=0/1` - Control Docker installation
+- `WQS_INSTALL_LANDO=0/1` - Control Lando installation
+- `WQS_FORCE_LANDO=1` - Force Lando reinstall
+- `WQS_SETUP_BASHRC=0/1` - Control .bashrc setup
+- `WQS_SETUP_VSCODE=0/1` - Control VS Code workspace setup
 
 **🔧 Error Tolerance & Debugging:**
 
 ```bash
 # Debug mode - shows detailed execution steps
-WES_AUTO=1 WES_DEBUG=1 ./scripts/setup/install-lando-docker.sh
+WQS_AUTO=1 WQS_DEBUG=1 ./scripts/setup/install-lando-docker.sh
 
 # Error tolerant mode - continues on non-critical failures
-WES_AUTO=1 WES_ERROR_TOLERANT=1 ./scripts/setup/install-lando-docker.sh
+WQS_AUTO=1 WQS_ERROR_TOLERANT=1 ./scripts/setup/install-lando-docker.sh
 
 # Combined debugging and error tolerance
-WES_AUTO=1 WES_DEBUG=1 WES_ERROR_TOLERANT=1 ./scripts/setup/install-lando-docker.sh
+WQS_AUTO=1 WQS_DEBUG=1 WQS_ERROR_TOLERANT=1 ./scripts/setup/install-lando-docker.sh
 
 # Run comprehensive test suite
 ./scripts/setup/test-runner.sh
@@ -347,7 +348,7 @@ The project includes a comprehensive `.bashrc` file with:
 source .bashrc
 
 # View available commands
-wes_help
+wqs_help
 ```
 
 #### PowerShell Setup
@@ -390,11 +391,11 @@ After sourcing `.bashrc`, you'll have access to:
 
 ```bash
 # Project functions
-wes_info          # Show project information
-wes_setup         # Complete development setup
-wes_test          # Run all tests
-wes_clean         # Clean development environment
-wes_help          # Show all available commands
+wqs_info          # Show project information
+wqs_setup         # Complete development setup
+wqs_test          # Run all tests
+wqs_clean         # Clean development environment
+wqs_help          # Show all available commands
 
 # Development shortcuts
 dev-setup         # Install dependencies
@@ -416,7 +417,8 @@ goto-root         # cd to project root
 
 ## WordPress Management
 
-This project uses **Composer to manage WordPress** as a dependency, keeping it separate from your custom code in the `wp/` directory.
+This project uses **Composer to manage WordPress** as a dependency, keeping it separate from your custom
+code in the `wp/` directory.
 
 ### 🎯 Why Composer-managed WordPress?
 
@@ -586,6 +588,76 @@ npm run test:e2e:wordpress                 # Playwright browser tests
 
 ## Development Workflow
 
+### 🐙 GitHub CLI Integration
+
+This project includes comprehensive GitHub CLI integration for enhanced development workflow:
+
+#### Installation
+
+GitHub CLI can be installed automatically during environment setup, or manually:
+
+```bash
+# Automatic installation via setup script
+./scripts/setup/github-cli-setup.sh
+
+# Windows (using winget)
+winget install GitHub.cli
+
+# macOS (using Homebrew)
+brew install gh
+
+# Manual installation: https://cli.github.com/
+```
+
+#### Available Commands
+
+**Composer shortcuts:**
+```bash
+lando composer gh:check      # Check GitHub CLI installation status
+lando composer gh:actions    # List recent workflow runs
+lando composer gh:auth       # Check authentication status
+```
+
+**npm shortcuts:**
+```bash
+lando npm run gh:check           # Check GitHub CLI installation
+lando npm run gh:actions:latest  # View latest workflow run details
+lando npm run gh:actions:logs    # View failed workflow logs
+```
+
+**Direct GitHub CLI commands:**
+```bash
+gh run list                      # List recent workflow runs
+gh run view --log-failed         # View failed run logs
+gh run view <run-id>             # View specific run details
+gh auth login                    # Authenticate with GitHub
+gh repo view                     # View repository information
+```
+
+#### Troubleshooting GitHub Actions
+
+When GitHub Actions fail, use these commands to diagnose issues:
+
+```bash
+# Quick diagnosis
+lando npm run gh:actions:logs    # View latest failed logs
+
+# Detailed investigation
+gh run list --status failure     # List all failed runs
+gh run view <run-id> --log-failed # View specific failure logs
+gh run rerun <run-id>            # Rerun failed workflow
+```
+
+#### CI/CD Behavior
+
+**Note**: GitHub CLI tests automatically skip in CI/CD environments to avoid issues where GitHub CLI
+might not be available or needed. The system detects CI/CD environments using common environment
+variables (`CI`, `GITHUB_ACTIONS`, `GITLAB_CI`, etc.).
+
+- ✅ **Local Development**: All GitHub CLI tests and functionality available
+- ⏭️ **CI/CD Pipelines**: GitHub CLI tests skipped automatically
+- 🔧 **Override**: Set `WQS_CI_MODE=0` to force GitHub CLI tests in CI/CD
+
 ### Code Quality & Linting
 
 This project enforces strict coding standards using multiple linting tools:
@@ -660,10 +732,10 @@ npm run test:e2e:report       # Open HTML test report
 
 ```bash
 # Full test suite including E2E
-lando start && WES_RUN_E2E=1 ./scripts/setup/test-runner.sh
+lando start && WQS_RUN_E2E=1 ./scripts/setup/test-runner.sh
 
 # Test with different configurations
-WES_AUTO=1 WES_DEBUG=1 ./scripts/setup/test-runner.sh
+WQS_AUTO=1 WQS_DEBUG=1 ./scripts/setup/test-runner.sh
 ```
 
 #### Test Configuration
@@ -679,7 +751,7 @@ WC_CUSTOMER_USER=customer                         # Customer username
 WC_CUSTOMER_PASSWORD=password                     # Customer password
 
 # Test execution
-WES_RUN_E2E=1                                    # Enable E2E tests in test runner
+WQS_RUN_E2E=1                                    # Enable E2E tests in test runner
 PLAYWRIGHT_DEBUG=1                               # Enable Playwright debug mode
 ```
 
@@ -729,7 +801,7 @@ wordpress-ecommerce-starter/
 │   ├── test-setup.*         # Setup verification
 │   └── git-hooks.*          # Git hook installation
 ├── src/                      # 🏗️ Custom PHP classes (PSR-4 autoloaded)
-│   └── WES_Sample_Utility.php # Example utility class
+│   └── WQS_Sample_Utility.php # Example utility class
 ├── tests/                    # ✅ PHPUnit test suite
 │   ├── bootstrap.php        # Test environment setup
 │   └── unit/                # Unit tests

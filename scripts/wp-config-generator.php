@@ -122,6 +122,7 @@ define('WP_PLUGIN_URL', WP_CONTENT_URL . '/plugins');
 
 // Memory limits
 ini_set('memory_limit', '256M');
+ini_set('max_execution_time', 300);
 
 ";
 
