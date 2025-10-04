@@ -77,7 +77,7 @@ test_configuration_files() {
     log_info "Testing configuration files..."
     
     run_test ".lando.yml exists" "[ -f '.lando.yml' ]"
-    run_test "phpunit.xml configured correctly" "grep -q 'tests/Unit/' phpunit.xml"
+    run_test "phpunit.xml configured correctly" "grep -q 'tests/unit/' phpunit.xml"
     run_test "composer.json has required scripts" "grep -q 'test:unit' composer.json"
     run_test "package.json has required scripts" "grep -q 'lint:js' package.json"
 }
@@ -97,8 +97,8 @@ test_linting_config() {
     log_info "Testing linting configuration..."
     
     run_test ".config/linting/phpcs.xml exists" "[ -f '.config/linting/phpcs.xml' ]"
-    run_test ".eslintrc.js exists" "[ -f '.eslintrc.js' ]"
-    run_test ".prettierrc.json exists" "[ -f '.prettierrc.json' ]"
+    run_test ".config/linting/.eslintrc.js exists" "[ -f '.config/linting/.eslintrc.js' ]"
+    run_test ".config/formatting/.prettierrc exists" "[ -f '.config/formatting/.prettierrc' ]"
     run_test ".markdownlint.json exists" "[ -f '.config/linting/.markdownlint.json' ]"
 }
 
@@ -108,7 +108,7 @@ test_github_workflows() {
     
     run_test "CI/CD workflow exists" "[ -f '.github/workflows/ci-cd.yml' ]"
     run_test "Pull request workflow exists" "[ -f '.github/workflows/pull-request.yml' ]"
-    run_test "Pull request tests workflow exists" "[ -f '.github/workflows/pull-request-tests.yml' ]"
+    run_test "Pull request validation workflow exists" "[ -f '.github/workflows/pr-validation.yml' ]"
 }
 
 # Main execution
