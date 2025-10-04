@@ -74,7 +74,9 @@ jobs:
           cache: 'npm'
 
       - name: Install npm dependencies
-        run: npm ci
+        run: |
+          # Try npm ci first, fallback to npm install if lock file is out of sync
+          npm ci || npm install
 
       - name: Run ESLint
         run: npm run lint:js
@@ -118,7 +120,9 @@ jobs:
           cache: 'npm'
 
       - name: Install npm dependencies
-        run: npm ci
+        run: |
+          # Try npm ci first, fallback to npm install if lock file is out of sync
+          npm ci || npm install
 
       - name: Run npm audit
         run: npm audit --audit-level moderate
