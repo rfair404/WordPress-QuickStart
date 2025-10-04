@@ -60,6 +60,8 @@ jobs:
           php scripts/wp-config-generator.php
           # Create necessary directories
           mkdir -p custom/plugins custom/themes custom/uploads
+          # Make wp-manager.sh executable
+          chmod +x scripts/wp-manager.sh
         env:
           WP_ENV: testing
 

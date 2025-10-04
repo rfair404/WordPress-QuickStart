@@ -39,9 +39,6 @@ class WordPressInstallationTest extends TestCase {
 		// Mock WordPress functions that may not be available in test environment
 		if ( class_exists( 'Brain\Monkey' ) ) {
 			Brain\Monkey\setUp();
-
-			// Mock wp_mkdir_p function
-			Brain\Functions\when( 'wp_mkdir_p' )->justReturn( true );
 		}
 	}
 
@@ -242,7 +239,7 @@ class WordPressInstallationTest extends TestCase {
 
 		// Create uploads directory if it doesn't exist (skip in VIP environment)
 		if ( ! is_dir( $uploads_dir ) && ! defined( 'WPCOM_VIP_MACHINE' ) ) {
-			wp_mkdir_p( $uploads_dir );
+			mkdir( $uploads_dir, 0755, true );
 		}
 
 		$this->assertDirectoryExists( $uploads_dir );

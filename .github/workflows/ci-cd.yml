@@ -104,6 +104,17 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
+      - name: Setup WordPress for testing
+        run: |
+          # Create wp-config.php for testing
+          php scripts/wp-config-generator.php
+          # Create test directories
+          mkdir -p custom/plugins custom/themes custom/uploads
+          # Make wp-manager.sh executable
+          chmod +x scripts/wp-manager.sh
+        env:
+          WP_ENV: testing
+
       - name: Run PHPUnit tests
         run: composer run test
 
@@ -160,33 +171,24 @@ jobs:
           mkdir -p custom/themes
           mkdir -p custom/uploads
 
-      - name: Generate wp-config.php for testing
+      - name: Setup WordPress for testing
         run: |
-          cat > wp/wp-config.php << 'EOF'
-          <?php
-          define('DB_NAME', 'wordpress');
-          define('DB_USER', 'wordpress');
-          define('DB_PASSWORD', 'wordpress');
-          define('DB_HOST', '127.0.0.1:3306');
-          define('DB_CHARSET', 'utf8mb4');
-          define('DB_COLLATE', '');
-          define('WP_CONTENT_DIR', dirname(__DIR__) . '/custom');
-          define('WP_CONTENT_URL', 'http://localhost/custom');
-          define('WP_DEBUG', true);
-          define('WP_DEBUG_LOG', true);
-          define('WP_DEBUG_DISPLAY', false);
-          $table_prefix = 'wp_';
-          if ( ! defined( 'ABSPATH' ) ) {
-              define( 'ABSPATH', __DIR__ . '/' );
-          }
-          require_once ABSPATH . 'wp-settings.php';
-          EOF
+          # Generate WordPress configuration for testing
+          php scripts/wp-config-generator.php
+          # Make wp-manager.sh executable
+          chmod +x scripts/wp-manager.sh
+        env:
+          WP_ENV: testing
+          DB_NAME: wordpress
+          DB_USER: wordpress
+          DB_PASSWORD: wordpress
+          DB_HOST: 127.0.0.1:3306
 
       - name: Validate WordPress installation structure
         run: bash tests/validation/validate-wordpress-installation.sh
 
       - name: Run project setup validation
-        run: bash tests/integration/test-project-setup.sh
+        run: bash tests/test-project-setup.sh
 
       - name: Validate WooCommerce setup
         run: bash tests/validation/validate-woocommerce-setup.sh
