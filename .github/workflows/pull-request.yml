@@ -54,6 +54,15 @@ jobs:
           npm run lint:js
           npm run format:check
 
+      - name: Setup WordPress for testing
+        run: |
+          # Generate WordPress configuration for testing
+          php scripts/wp-config-generator.php
+          # Create necessary directories
+          mkdir -p custom/plugins custom/themes custom/uploads
+        env:
+          WP_ENV: testing
+
       - name: Run unit tests
         run: composer run test:unit
 
