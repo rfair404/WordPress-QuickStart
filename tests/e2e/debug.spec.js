@@ -1,13 +1,12 @@
 // Playwright Debugging and Development Utilities
-const { test, expect } = require('@playwright/test');
-const { WordPressAdmin } = require('../utils/wordpress-admin');
+const { test } = require('@playwright/test');
 const { WooCommerceShop } = require('../utils/woocommerce-shop');
 const { TestUtils } = require('../utils/test-utils');
 
 test.describe('Debugging Utilities', () => {
-  test('environment inspection', async ({ page }) => {
-    // This test helps debug the testing environment
-    console.log('🔍 Environment Inspection');
+	test('environment inspection', async ({ page }) => {
+		// This test helps debug the testing environment
+		console.log('🔍 Environment Inspection');
     console.log('========================');
 
     const baseURL = page.context()._options.baseURL;

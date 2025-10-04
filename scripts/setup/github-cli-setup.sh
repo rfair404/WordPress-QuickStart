@@ -65,9 +65,23 @@ detect_os() {
 
 # Function to check if GitHub CLI is installed
 check_gh_cli() {
+    local gh_cmd=""
+
+    # Check for gh in PATH first
     if command -v gh &> /dev/null; then
-        local version=$(gh --version | head -n1 | cut -d' ' -f3)
-        log "GitHub CLI v$version is already installed"
+        gh_cmd="gh"
+    # Check Windows common installation paths
+    elif [[ -f "/c/Program Files/GitHub CLI/gh.exe" ]]; then
+        gh_cmd="/c/Program Files/GitHub CLI/gh.exe"
+    elif [[ -f "$HOME/AppData/Local/GitHubCLI/gh.exe" ]]; then
+        gh_cmd="$HOME/AppData/Local/GitHubCLI/gh.exe"
+    fi
+
+    if [[ -n "$gh_cmd" ]]; then
+        local version=$("$gh_cmd" --version | head -n1 | cut -d' ' -f3)
+        log "GitHub CLI v$version is already installed at: $gh_cmd"
+        # Export the path for other functions to use
+        export GH_CLI_PATH="$gh_cmd"
         return 0
     else
         log "GitHub CLI is not installed"

@@ -5,8 +5,11 @@
  * @package WordPressEcommerceStarter
  */
 
-// Set the timezone to avoid warnings
-date_default_timezone_set( 'UTC' );
+// Set the timezone to avoid warnings in test environment
+// WordPress VIP allows timezone setting in test context
+if ( defined( 'WP_TESTS_DOMAIN' ) || ( defined( 'WP_PHPUNIT__TESTS_CONFIG' ) ) ) {
+	date_default_timezone_set( 'UTC' );
+}
 
 // Define testing environment (constant defined in phpunit.xml)
 

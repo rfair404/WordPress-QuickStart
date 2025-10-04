@@ -135,7 +135,8 @@ class WordPressInstallationTest extends TestCase {
 
 		$this->assertFileExists( $wp_config );
 
-		$config_contents = file_get_contents( $wp_config );
+		// Local file reading is allowed in test environment
+		$config_contents = file_get_contents( $wp_config ); // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
 
 		// Check for required database constants
 		$required_constants = [
@@ -219,16 +220,19 @@ class WordPressInstallationTest extends TestCase {
 	public function test_uploads_directory_is_writable() {
 		$uploads_dir = $this->project_root . '/custom/uploads';
 
-		// Create uploads directory if it doesn't exist
-		if ( ! is_dir( $uploads_dir ) ) {
-			mkdir( $uploads_dir, 0755, true );
+		// Create uploads directory if it doesn't exist (skip in VIP environment)
+		if ( ! is_dir( $uploads_dir ) && ! defined( 'WPCOM_VIP_MACHINE' ) ) {
+			wp_mkdir_p( $uploads_dir );
 		}
 
 		$this->assertDirectoryExists( $uploads_dir );
-		$this->assertTrue(
-			is_writable( $uploads_dir ),
-			'Uploads directory should be writable'
-		);
+		// Skip writable check in VIP environment - use WordPress upload functions
+		if ( ! defined( 'WPCOM_VIP_MACHINE' ) ) {
+			$this->assertTrue(
+				is_writable( $uploads_dir ),
+				'Uploads directory should be writable'
+			);
+		}
 	}
 
 	/**
@@ -256,7 +260,8 @@ class WordPressInstallationTest extends TestCase {
 			$this->markTestSkipped( 'wp-config.php not found - run installation first' );
 		}
 
-		$config_contents = file_get_contents( $wp_config );
+		// Local file reading is allowed in test environment
+		$config_contents = file_get_contents( $wp_config ); // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
 
 		// Should reference Lando database service
 		$this->assertStringContainsString(
@@ -317,7 +322,8 @@ class WordPressInstallationTest extends TestCase {
 		$wp_config = $this->wp_path . '/wp-config.php';
 
 		if ( file_exists( $wp_config ) ) {
-			$config_contents = file_get_contents( $wp_config );
+			// Local file reading is allowed in test environment
+			$config_contents = file_get_contents( $wp_config ); // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
 
 			// Should not contain obvious weak passwords (but allow the word "password" in comments/variables)
 			$weak_patterns = [
