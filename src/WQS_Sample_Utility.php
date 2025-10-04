@@ -49,7 +49,7 @@ class WQS_Sample_Utility {
 	 */
 	public function __construct() {
 		$this->sample_data = [
-			'name'    => __( 'WordPress E-commerce Starter', 'wqs-sample' ),
+			'name'    => __( 'WordPress E-commerce Starter', 'wordpress-quickstart' ),
 			'version' => self::VERSION,
 			'type'    => 'utility',
 		];
