@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-    bootstrap="../../tests/bootstrap.php"
+    bootstrap="tests/bootstrap.php"
     backupGlobals="false"
     colors="true"
     convertErrorsToExceptions="true"
@@ -12,22 +12,22 @@
 
     <testsuites>
         <testsuite name="Unit Tests">
-            <directory suffix="Test.php">../../tests/Unit/</directory>
+            <directory suffix="Test.php">tests/Unit/</directory>
         </testsuite>
     </testsuites>
 
     <coverage processUncoveredFiles="true">
         <include>
-            <directory suffix=".php">../../src/</directory>
-            <directory suffix=".php">../../wp-content/themes/</directory>
-            <directory suffix=".php">../../wp-content/plugins/</directory>
+            <directory suffix=".php">src/</directory>
+            <directory suffix=".php">wp-content/themes/</directory>
+            <directory suffix=".php">wp-content/plugins/</directory>
         </include>
         <exclude>
-            <directory>../../vendor/</directory>
-            <directory>../../node_modules/</directory>
-            <directory>../../tests/</directory>
-            <directory>../../coverage/</directory>
-            <file>../../wp-config.php</file>
+            <directory>vendor/</directory>
+            <directory>node_modules/</directory>
+            <directory>tests/</directory>
+            <directory>coverage/</directory>
+            <file>wp-config.php</file>
         </exclude>
         <report>
             <html outputDirectory="coverage/html"/>
