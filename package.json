@@ -24,7 +24,7 @@
         "format:check": "wp-scripts format --check",
         "format:all": "prettier --write .",
         "lint-staged": "lint-staged",
-        "test": "wp-scripts test-unit-js",
+        "test": "wp-scripts test-unit-js --passWithNoTests",
         "test:watch": "wp-scripts test-unit-js --watch",
         "test:e2e": "playwright test --config=tests/playwright.config.js",
         "test:e2e:headed": "playwright test --config=tests/playwright.config.js --headed",
