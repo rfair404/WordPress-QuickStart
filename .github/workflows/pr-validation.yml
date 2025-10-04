@@ -130,7 +130,7 @@ jobs:
           npm ci || npm install
 
       - name: Run npm audit
-        run: npm audit --audit-level moderate
+        run: npm audit --audit-level high
 
   markdown-lint:
     name: Documentation Linting

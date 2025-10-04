@@ -311,7 +311,7 @@ jobs:
         run: composer audit
 
       - name: Run NPM security audit
-        run: npm audit --audit-level moderate
+        run: npm audit --audit-level high
 
       - name: Setup Node.js for security scanning
         uses: actions/setup-node@v4
