@@ -239,6 +239,8 @@ class WordPressInstallationTest extends TestCase {
 
 		// Create uploads directory if it doesn't exist (skip in VIP environment)
 		if ( ! is_dir( $uploads_dir ) && ! defined( 'WPCOM_VIP_MACHINE' ) ) {
+			// Use PHP mkdir in test environment (not WordPress VIP production)
+			// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.directory_mkdir
 			mkdir( $uploads_dir, 0755, true );
 		}
 
