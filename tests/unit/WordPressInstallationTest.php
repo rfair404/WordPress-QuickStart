@@ -41,12 +41,7 @@ class WordPressInstallationTest extends TestCase {
 			Brain\Monkey\setUp();
 
 			// Mock wp_mkdir_p function
-			Brain\Functions\when( 'wp_mkdir_p' )->alias( function( $dir ) {
-				if ( ! is_dir( $dir ) ) {
-					mkdir( $dir, 0755, true );
-				}
-				return true;
-			} );
+			Brain\Functions\when( 'wp_mkdir_p' )->justReturn( true );
 		}
 	}
 
