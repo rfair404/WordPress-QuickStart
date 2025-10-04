@@ -228,8 +228,8 @@ class WordPressInstallationTest extends TestCase {
 		$this->assertDirectoryExists( $uploads_dir );
 		// Skip writable check in VIP environment - use WordPress upload functions
 		if ( ! defined( 'WPCOM_VIP_MACHINE' ) ) {
-			// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_is_writable
 			$this->assertTrue(
+				// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_is_writable
 				is_writable( $uploads_dir ),
 				'Uploads directory should be writable'
 			);
