@@ -2,6 +2,16 @@ module.exports = {
     extends: [
         '@wordpress/stylelint-config'
     ],
+    ignoreFiles: [
+        'custom/plugins/woocommerce/**/*.css',
+        'custom/themes/twenty*/**/*.css',
+        'wp/**/*.css',
+        'vendor/**/*.css',
+        'node_modules/**/*.css',
+        '*.min.css',
+        'build/**/*.css',
+        'dist/**/*.css'
+    ],
     rules: {
         // WordPress theme specific overrides
         'max-line-length': null,

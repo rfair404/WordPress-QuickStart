@@ -17,6 +17,11 @@ wp-config.php
 wp-config-sample.php
 .htaccess
 
+# Third-party plugins and themes
+custom/plugins/woocommerce/
+custom/themes/twenty*/
+wp/
+
 # Build artifacts
 *.log
 *.tmp

@@ -2,6 +2,16 @@ module.exports = {
     extends: [
         '@wordpress/eslint-plugin/recommended'
     ],
+    ignorePatterns: [
+        'custom/plugins/woocommerce/**',
+        'custom/themes/twenty*/**',
+        'wp/**',
+        'vendor/**',
+        'node_modules/**',
+        '*.min.js',
+        'build/**',
+        'dist/**'
+    ],
     env: {
         browser: true,
         es6: true,
