@@ -1,0 +1,18 @@
+# ESLint ignore patterns
+
+# Third-party plugins and themes
+custom/plugins/woocommerce/**
+custom/themes/twenty*/**
+
+# WordPress core
+wp/**
+
+# Build artifacts and dependencies
+vendor/**
+node_modules/**
+build/**
+dist/**
+*.min.js
+
+# Configuration files that should be ignored
+webpack.config.js
