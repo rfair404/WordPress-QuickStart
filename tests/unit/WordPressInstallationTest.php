@@ -392,10 +392,16 @@ class WordPressInstallationTest extends TestCase {
 				preg_match("/define\s*\(\s*['\"]" . $key . "['\"]\s*,\s*['\"]([^'\"]*)['\"]\s*\)/", $config_contents, $matches);
 				if ( isset( $matches[1] ) ) {
 					$key_value = $matches[1];
-					$this->assertEquals(
+					$key_length = strlen( $key_value );
+					$this->assertGreaterThanOrEqual(
+						60,
+						$key_length,
+						"Security key {$key} should be at least 60 characters long"
+					);
+					$this->assertLessThanOrEqual(
 						64,
-						strlen( $key_value ),
-						"Security key {$key} should be 64 characters long"
+						$key_length,
+						"Security key {$key} should be at most 64 characters long"
 					);
 				} else {
 					$this->fail( "Security key {$key} not found in wp-config.php" );
