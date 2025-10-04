@@ -417,7 +417,8 @@ goto-root         # cd to project root
 
 ## WordPress Management
 
-This project uses **Composer to manage WordPress** as a dependency, keeping it separate from your custom code in the `wp/` directory.
+This project uses **Composer to manage WordPress** as a dependency, keeping it separate from your custom
+code in the `wp/` directory.
 
 ### 🎯 Why Composer-managed WordPress?
 
@@ -649,7 +650,9 @@ gh run rerun <run-id>            # Rerun failed workflow
 
 #### CI/CD Behavior
 
-**Note**: GitHub CLI tests automatically skip in CI/CD environments to avoid issues where GitHub CLI might not be available or needed. The system detects CI/CD environments using common environment variables (`CI`, `GITHUB_ACTIONS`, `GITLAB_CI`, etc.).
+**Note**: GitHub CLI tests automatically skip in CI/CD environments to avoid issues where GitHub CLI
+might not be available or needed. The system detects CI/CD environments using common environment
+variables (`CI`, `GITHUB_ACTIONS`, `GITLAB_CI`, etc.).
 
 - ✅ **Local Development**: All GitHub CLI tests and functionality available
 - ⏭️ **CI/CD Pipelines**: GitHub CLI tests skipped automatically
