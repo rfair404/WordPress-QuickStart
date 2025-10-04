@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="tests/bootstrap.php"
+    backupGlobals="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    stopOnFailure="false"
+    verbose="true">
+
+    <testsuites>
+        <testsuite name="Unit Tests">
+            <directory suffix="Test.php">tests/Unit/</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src/</directory>
+            <directory suffix=".php">wp-content/themes/</directory>
+            <directory suffix=".php">wp-content/plugins/</directory>
+        </include>
+        <exclude>
+            <directory>vendor/</directory>
+            <directory>node_modules/</directory>
+            <directory>tests/</directory>
+            <directory>coverage/</directory>
+            <file>wp-config.php</file>
+        </exclude>
+        <report>
+            <html outputDirectory="coverage/html"/>
+            <clover outputFile="coverage/clover.xml"/>
+            <text outputFile="php://stdout" showUncoveredFiles="false"/>
+        </report>
+    </coverage>
+
+    <logging>
+        <junit outputFile="coverage/junit.xml"/>
+    </logging>
+
+    <php>
+        <const name="WP_TESTS_PHPUNIT_POLYFILLS_PATH" value="./vendor/yoast/phpunit-polyfills"/>
+        <env name="WP_ENVIRONMENT_TYPE" value="test"/>
+        <env name="WP_DEBUG" value="true"/>
+        <env name="WP_DEBUG_LOG" value="false"/>
+        <env name="WP_DEBUG_DISPLAY" value="false"/>
+        <env name="XDEBUG_MODE" value="coverage"/>
+    </php>
+</phpunit>

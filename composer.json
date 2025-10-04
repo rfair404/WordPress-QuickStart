@@ -59,7 +59,7 @@
     "test": [
       "@test:unit"
     ],
-    "test:unit": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml",
+    "test:unit": "./vendor/bin/phpunit --configuration phpunit.xml",
     "test:wordpress": [
       "@test:wp-installation",
       "@test:wp-unit"
