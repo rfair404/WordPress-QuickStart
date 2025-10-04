@@ -12,7 +12,7 @@ namespace WordPressQuickstart;
  * Sample utility class demonstrating WordPress VIP coding standards
  *
  * This class serves as an example of proper WordPress VIP coding standards
- * and provides basic utility functions for the e-commerce starter.
+ * and provides basic utility functions for the WordPress Quickstart.
  *
  * @since 1.0.0
  */
@@ -49,7 +49,7 @@ class WQS_Sample_Utility {
 	 */
 	public function __construct() {
 		$this->sample_data = [
-			'name'    => __( 'WordPress E-commerce Starter', 'wordpress-quickstart' ),
+			'name'    => __( 'WordPress Quickstart', 'wordpress-quickstart' ),
 			'version' => self::VERSION,
 			'type'    => 'utility',
 		];

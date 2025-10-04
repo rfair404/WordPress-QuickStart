@@ -2,7 +2,7 @@
 /**
  * PHPUnit bootstrap file for WordPress Quickstart
  *
- * @package WordPressEcommerceStarter
+ * @package WordPressQuickstart
  */
 
 // Set the timezone to avoid warnings in test environment
