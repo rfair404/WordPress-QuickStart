@@ -47,6 +47,13 @@ jobs:
       - name: Run PHPCS (WordPress VIP Standards)
         run: composer run lint
 
+      - name: Setup WordPress for testing
+        run: |
+          # Create wp-config.php for testing
+          php scripts/wp-config-generator.php
+          # Make wp-manager.sh executable
+          chmod +x scripts/wp-manager.sh
+
       - name: Run PHPUnit Tests
         run: composer run test:coverage
 
