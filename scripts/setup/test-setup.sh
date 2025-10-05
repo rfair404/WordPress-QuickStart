@@ -287,7 +287,7 @@ config_files=(
     "composer.json"
     "package.json"
     ".config/linting/phpcs.xml"
-    "phpunit.xml"
+    ".config/testing/phpunit.xml"
     ".config/linting/.eslintrc.js"
     ".config/linting/.stylelintrc.js"
     ".config/formatting/.prettierrc"

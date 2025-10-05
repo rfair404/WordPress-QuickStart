@@ -52,7 +52,7 @@ test_project_structure() {
     
     run_test "composer.json exists" "[ -f 'composer.json' ]"
     run_test "package.json exists" "[ -f 'package.json' ]"
-    run_test "phpunit.xml exists" "[ -f 'phpunit.xml' ]"
+    run_test "phpunit.xml exists" "[ -f '.config/testing/phpunit.xml' ]"
     run_test "README.md exists" "[ -f 'README.md' ]"
     run_test ".gitignore exists" "[ -f '.gitignore' ]"
     run_test "src/ directory exists" "[ -d 'src' ]"
@@ -77,7 +77,7 @@ test_configuration_files() {
     log_info "Testing configuration files..."
     
     run_test ".lando.yml exists" "[ -f '.lando.yml' ]"
-    run_test "phpunit.xml configured correctly" "grep -q 'tests/unit/' phpunit.xml"
+    run_test "phpunit.xml configured correctly" "grep -q 'tests/unit/' .config/testing/phpunit.xml"
     run_test "composer.json has required scripts" "grep -q 'test:unit' composer.json"
     run_test "package.json has required scripts" "grep -q 'lint:js' package.json"
 }

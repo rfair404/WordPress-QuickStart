@@ -47,9 +47,9 @@
       "@test:unit",
       "@test:wp-installation"
     ],
-    "test:unit": "./vendor/bin/phpunit --configuration phpunit.xml",
-    "test:coverage": "./vendor/bin/phpunit --configuration phpunit.xml --coverage-html coverage --coverage-clover coverage/clover.xml",
-    "test:coverage-text": "./vendor/bin/phpunit --configuration phpunit.xml --coverage-text",
+    "test:unit": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml",
+    "test:coverage": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-html coverage --coverage-clover coverage/clover.xml",
+    "test:coverage-text": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-text",
     "test:wordpress": [
       "@test:wp-installation"
     ],

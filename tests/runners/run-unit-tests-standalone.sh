@@ -59,7 +59,7 @@ else
 fi
 
 # Check PHPUnit configuration
-if [ -f "$PROJECT_ROOT/phpunit.xml" ]; then
+if [ -f "$PROJECT_ROOT/.config/testing/phpunit.xml" ]; then
     print_status "SUCCESS" "PHPUnit configuration found"
 else
     print_status "ERROR" "PHPUnit configuration not found"
@@ -138,8 +138,8 @@ if [ -d "$PROJECT_ROOT/vendor" ]; then
         # Try to run the tests
         cd "$PROJECT_ROOT"
         if [ -n "$PHP_CMD" ]; then
-            echo "Running: $PHP_CMD vendor/bin/phpunit --configuration phpunit.xml tests/unit/"
-            $PHP_CMD vendor/bin/phpunit --configuration phpunit.xml tests/unit/
+            echo "Running: $PHP_CMD vendor/bin/phpunit --configuration .config/testing/phpunit.xml tests/unit/"
+            $PHP_CMD vendor/bin/phpunit --configuration .config/testing/phpunit.xml tests/unit/
             TEST_EXIT_CODE=$?
 
             echo ""
