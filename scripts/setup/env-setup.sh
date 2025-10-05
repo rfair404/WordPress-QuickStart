@@ -21,7 +21,18 @@ ERROR_TOLERANT="${WQS_ERROR_TOLERANT:-0}"
 if [[ "$ERROR_TOLERANT" == "1" ]]; then
     set -uo pipefail  # Don't exit on errors
 else
-    set -euo pipefail  # Exit on errors (default)
+    #!/bin/bash
+
+# Enhanced Environment Setup Script
+# Configures development environment with dependency validation
+
+set -euo pipefail
+
+# Source Lando wrapper to ensure availability
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -f "$SCRIPT_DIR/lando-wrapper.sh" ]]; then
+    source "$SCRIPT_DIR/lando-wrapper.sh" >/dev/null 2>&1 || true
+fi  # Exit on errors (default)
 fi
 
 # Debug function
