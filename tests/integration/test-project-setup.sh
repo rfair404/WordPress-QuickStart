@@ -117,7 +117,6 @@ test_configuration_files() {
 
     # Test basic file content
     run_test "composer.json has WordPress core" "grep -q 'johnpbloch/wordpress-core' composer.json"
-    run_test "composer.json has WooCommerce" "grep -q 'wpackagist-plugin/woocommerce' composer.json"
     run_test "composer.json has custom installer paths" "grep -q 'custom/plugins' composer.json"
 
     run_test ".lando.yml has WordPress recipe" "grep -q 'recipe: wordpress' .lando.yml"

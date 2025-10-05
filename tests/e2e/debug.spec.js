@@ -1,7 +1,6 @@
 // Playwright Debugging and Development Utilities
 /* eslint-disable no-console */
 const { test } = require("@playwright/test");
-const { WooCommerceShop } = require("../utils/woocommerce-shop");
 const { TestUtils } = require("../utils/test-utils");
 
 test.describe("Debugging Utilities", () => {
@@ -25,11 +24,8 @@ test.describe("Debugging Utilities", () => {
         .isVisible()) || (await page.locator('body[class*="wp-"]').isVisible());
     console.log(`WordPress Detected: ${isWordPress}`);
 
-    // Check for WooCommerce
-    const isWooCommerce =
-      (await page.locator("body.woocommerce").isVisible()) ||
-      (await page.locator(".woocommerce").first().isVisible());
-    console.log(`WooCommerce Detected: ${isWooCommerce}`);
+    // Storefront checks removed (WooCommerce/storefront optional)
+    console.log(`WooCommerce/Storefront checks are disabled in this build`);
 
     // Check Lando environment
     const isLando = process.env.LANDO === "ON";
@@ -107,71 +103,7 @@ test.describe("Debugging Utilities", () => {
     console.log("✅ WordPress health check complete");
   });
 
-  test("WooCommerce health check", async ({ page }) => {
-    console.log("🛒 WooCommerce Health Check");
-    console.log("===========================");
-
-    const shop = new WooCommerceShop(page);
-    const testUtils = new TestUtils(page);
-
-    const wcHealthChecks = [
-      {
-        name: "Shop page accessible",
-        check: async () => {
-          await shop.goToShop();
-          return testUtils.elementExists(".woocommerce");
-        },
-      },
-      {
-        name: "Cart page accessible",
-        check: async () => {
-          await page.goto("/cart");
-          return (
-            testUtils.elementExists(".woocommerce-cart-form") ||
-            testUtils.elementExists(".cart-empty")
-          );
-        },
-      },
-      {
-        name: "Checkout page accessible",
-        check: async () => {
-          await page.goto("/checkout");
-          return (
-            testUtils.elementExists(".woocommerce-checkout") ||
-            page.url().includes("checkout")
-          );
-        },
-      },
-      {
-        name: "My Account page accessible",
-        check: async () => {
-          await page.goto("/my-account");
-          return (
-            testUtils.elementExists(".woocommerce-form-login") ||
-            testUtils.elementExists(".woocommerce-MyAccount-navigation")
-          );
-        },
-      },
-      {
-        name: "WooCommerce REST API",
-        check: async () => {
-          const response = await page.request.get("/wp-json/wc/v3/");
-          return response.status() === 401; // 401 is expected without auth
-        },
-      },
-    ];
-
-    for (const healthCheck of wcHealthChecks) {
-      try {
-        const result = await healthCheck.check();
-        console.log(`${result ? "✅" : "❌"} ${healthCheck.name}`);
-      } catch (error) {
-        console.log(`❌ ${healthCheck.name} - Error: ${error.message}`);
-      }
-    }
-
-    console.log("✅ WooCommerce health check complete");
-  });
+  // WooCommerce/storefront health checks have been removed (out of project scope)
 
   test("performance baseline measurement", async ({ page }) => {
     console.log("📊 Performance Baseline Measurement");

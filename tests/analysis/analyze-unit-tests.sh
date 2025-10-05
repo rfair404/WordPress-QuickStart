@@ -153,33 +153,7 @@ else
     echo "❌ WordPressInstallationTest.php not found"
 fi
 
-# Analyze WooCommerce test file
-echo ""
-print_header "🛒 WooCommerceTest.php Analysis"
-
-if [ -f "$PROJECT_ROOT/tests/unit/WooCommerceTest.php" ]; then
-    WC_TEST_METHODS=$(grep "public function test_" "$PROJECT_ROOT/tests/unit/WooCommerceTest.php" | wc -l)
-
-    print_success "Found $WC_TEST_METHODS test methods:"
-
-    # Extract test method names
-    grep "public function test_" "$PROJECT_ROOT/tests/unit/WooCommerceTest.php" | while read line; do
-        method_name=$(echo "$line" | sed 's/.*public function \([^(]*\).*/\1/')
-        print_detail "$method_name"
-    done
-
-    echo ""
-    print_info "WooCommerce Test Categories:"
-    print_detail "WooCommerce Integration ✓"
-    print_detail "Plugin Structure Validation ✓"
-    print_detail "Function Mocking ✓"
-    print_detail "Data Structure Testing ✓"
-    print_detail "Currency & Formatting ✓"
-    print_detail "Settings Configuration ✓"
-
-else
-    echo "❌ WooCommerceTest.php not found"
-fi
+## WooCommerce tests removed in Phase 2 - storefront tests are optional and handled in e2e test suites
 
 # Analyze test dependencies and imports
 echo ""
@@ -264,13 +238,12 @@ echo ""
 
 TOTAL_SAMPLE_TESTS=$(grep -c "public function test_" "$PROJECT_ROOT/tests/unit/SampleTest.php" 2>/dev/null || echo "0")
 TOTAL_WP_TESTS=$(grep -c "public function test_" "$PROJECT_ROOT/tests/unit/WordPressInstallationTest.php" 2>/dev/null || echo "0")
-TOTAL_WC_TESTS=$(grep -c "public function test_" "$PROJECT_ROOT/tests/unit/WooCommerceTest.php" 2>/dev/null || echo "0")
-TOTAL_TESTS=$((TOTAL_SAMPLE_TESTS + TOTAL_WP_TESTS + TOTAL_WC_TESTS))
+TOTAL_TESTS=$((TOTAL_SAMPLE_TESTS + TOTAL_WP_TESTS))
 
 print_info "Total Test Methods: $TOTAL_TESTS"
 print_detail "SampleTest.php: $TOTAL_SAMPLE_TESTS methods"
 print_detail "WordPressInstallationTest.php: $TOTAL_WP_TESTS methods"
-print_detail "WooCommerceTest.php: $TOTAL_WC_TESTS methods"
+## WooCommerce tests removed - skipping WooCommerceTest.php summary
 
 echo ""
 print_info "Test Categories Covered:"

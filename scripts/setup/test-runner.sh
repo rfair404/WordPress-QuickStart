@@ -150,7 +150,7 @@ if [[ $FAILED_TESTS -eq 0 ]]; then
     echo "    npm run test:e2e:headed         # Run with browser UI"
     echo "    npm run test:e2e:debug          # Debug mode"
     echo "    npm run test:e2e:wordpress      # WordPress-only tests"
-    echo "    npm run test:e2e:woocommerce    # WooCommerce-only tests"
+    echo "    (No storefront-specific E2E tests included by default)"
     echo ""
     echo "  Full Test Suite:"
     echo "    lando start && WQS_RUN_E2E=1 ./scripts/setup/test-runner.sh"

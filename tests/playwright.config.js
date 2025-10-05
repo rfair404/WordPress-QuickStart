@@ -112,16 +112,7 @@ module.exports = defineConfig({
       testMatch: "**/admin/**/*.spec.js",
     },
 
-    // WooCommerce-specific tests
-    {
-      name: "woocommerce-tests",
-      use: {
-        ...devices["Desktop Chrome"],
-        // E-commerce might need more time for payment processing
-        actionTimeout: 20000,
-      },
-      testMatch: "**/woocommerce/**/*.spec.js",
-    },
+    // (storefront tests removed)
   ],
 
   // Global setup and teardown
@@ -143,12 +134,9 @@ module.exports = defineConfig({
     // Maximum time expect() should wait for the condition to be met
     timeout: 5000,
 
-    // Threshold for visual comparisons
-    threshold: 0.2,
-
     // Screenshot comparison options
     toHaveScreenshot: {
-      mode: "css",
+      scale: "css",
       animations: "disabled",
     },
     toMatchSnapshot: {
@@ -162,32 +150,5 @@ module.exports = defineConfig({
   // Test timeout
   timeout: 60000,
 
-  // Global test setup
-  testOptions: {
-    // WordPress-specific test data
-    wordpress: {
-      adminUrl: "/wp-admin",
-      loginUrl: "/wp-login.php",
-      adminUser: process.env.WP_ADMIN_USER || "admin",
-      adminPassword: process.env.WP_ADMIN_PASSWORD || "password",
-      siteUrl: baseURL,
-    },
-
-    // WooCommerce-specific test data
-    woocommerce: {
-      shopUrl: "/shop",
-      cartUrl: "/cart",
-      checkoutUrl: "/checkout",
-      myAccountUrl: "/my-account",
-      customerUser: process.env.WC_CUSTOMER_USER || "customer",
-      customerPassword: process.env.WC_CUSTOMER_PASSWORD || "password",
-    },
-
-    // Test environment
-    environment: {
-      isLando,
-      isCI: !!process.env.CI,
-      debug: process.env.PLAYWRIGHT_DEBUG === "1",
-    },
-  },
+  // Global test setup done via 'use' and environment variables
 });

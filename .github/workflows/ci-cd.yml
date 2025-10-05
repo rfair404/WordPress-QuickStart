@@ -190,8 +190,7 @@ jobs:
       - name: Run project setup validation
         run: bash tests/test-project-setup.sh
 
-      - name: Validate WooCommerce setup
-        run: bash tests/validation/validate-woocommerce-setup.sh
+      # WooCommerce validation removed in Phase 2 (optional storefront tests handled separately)
 
   # Job 4: E2E Tests with Playwright
   e2e-tests:

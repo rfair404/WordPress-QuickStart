@@ -5,7 +5,7 @@ This document describes the organized file structure of the WordPress Quickstart
 ## Root Directory
 
 ```
-wordpress-ecommerce-starter/
+wordpress-quickstart/
 ├── .config/                  # Local configuration files
 ├── .github/                  # GitHub Actions workflows and templates
 ├── .lando/                   # Lando-specific configuration
@@ -68,13 +68,12 @@ tests/
 ├── e2e/                      # End-to-end tests
 │   ├── utils/                # Test utility classes
 │   │   ├── wordpress-admin.js    # WordPress admin helpers
-│   │   ├── woocommerce-shop.js   # WooCommerce helpers
 │   │   └── test-utils.js         # General test utilities
 │   ├── wordpress/            # WordPress core tests
 │   │   ├── admin.spec.js     # Admin functionality tests
 │   │   └── frontend.spec.js  # Frontend functionality tests
-│   ├── woocommerce/          # WooCommerce tests
-│   │   └── shop.spec.js      # E-commerce functionality tests
+│   ├── storefront/           # Optional storefront tests (project-specific)
+│   │   └── shop.spec.js      # Storefront functionality tests (optional)
 │   ├── visual/               # Visual regression tests
 │   │   └── screenshots.spec.js   # Screenshot comparison tests
 │   ├── debug.spec.js         # Debug and inspection tests

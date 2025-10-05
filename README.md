@@ -11,10 +11,9 @@ such as user authentication, product management, and shopping cart system.
 
 ## Features
 
-- 🛍️ Optional e-commerce functionality with WooCommerce
-- 🔐 User authentication system
-- 📦 Product management and catalog
-- 🛒 Shopping cart and checkout system
+-  User authentication system
+- 📦 Content management and customization
+- 🎨 Custom themes and plugins support
 - 🧪 **Comprehensive testing setup** (Unit + E2E with Playwright)
 - 🚀 CI/CD pipeline with GitHub Actions
 - 🐳 Docker development environment with Lando
@@ -268,7 +267,7 @@ lando npm install
 .\scripts\setup\test-setup.bat             # Windows
 
 # Step 7: Open your site
-# Visit: https://wordpress-ecommerce-starter.lndo.site
+# Visit: https://wordpress-quickstart.lndo.site
 ````
 
 ### 🤖 CI/CD and Automation
@@ -474,7 +473,7 @@ lando start                                        # Start development environme
 - ✅ Sample blog posts
 - ✅ Navigation menu creation
 - ✅ Pretty permalinks (`/%postname%/`)
-- ✅ WooCommerce configuration (if installed)
+ - ✅ Optional storefront configuration (configure storefront plugins separately)
 - ✅ Professional WordPress settings
 
 ### 🛠️ WordPress Management Commands
@@ -490,9 +489,9 @@ Use the provided WordPress manager script:
 ./scripts/wp-manager.sh status                     # Show installation status
 
 # Plugin Management
-./scripts/wp-manager.sh plugin:install woocommerce # Install WooCommerce
 ./scripts/wp-manager.sh plugin:install yoast        # Install Yoast SEO
-./scripts/wp-manager.sh plugin:remove woocommerce   # Remove a plugin
+./scripts/wp-manager.sh plugin:install contact-form-7 # Install Contact Form 7
+./scripts/wp-manager.sh plugin:remove pluginname    # Remove a plugin
 ./scripts/wp-manager.sh plugin:list                 # List installed plugins
 
 # Theme Management
@@ -516,9 +515,9 @@ composer update johnpbloch/wordpress-core           # Update WordPress
 composer show johnpbloch/wordpress-core             # Show version
 
 # Plugins (from WordPress.org)
-composer require wpackagist-plugin/woocommerce      # Install WooCommerce
 composer require wpackagist-plugin/yoast            # Install Yoast SEO
-composer remove wpackagist-plugin/woocommerce       # Remove WooCommerce
+composer require wpackagist-plugin/contact-form-7   # Install Contact Form 7
+composer remove wpackagist-plugin/pluginname        # Remove a plugin
 
 # Themes (from WordPress.org)
 composer require wpackagist-theme/twentytwentyfour  # Install default theme
@@ -539,7 +538,7 @@ lando start                                         # Start development server
 
 # OR Basic setup (manual WordPress setup required)
 composer install                                    # Install WordPress core only
-./scripts/wp-manager.sh plugin:install woocommerce  # Add WooCommerce (optional)
+./scripts/wp-manager.sh plugin:install yoast        # Add Yoast SEO (optional)
 ./scripts/wp-manager.sh theme:install twentytwentyfour  # Add default theme
 
 # Validate installation
@@ -588,8 +587,7 @@ npm run test:e2e:wordpress                 # Playwright browser tests
 - ✅ Core files and directories exist
 - ✅ wp-config.php is properly configured
 - ✅ Database connection works
-- ✅ WooCommerce plugin installation
-- ✅ Default theme installation
+- ✅ Plugin and theme directory structure
 - ✅ Composer installation integrity
 - ✅ File permissions and security
 - ✅ WordPress version validation
@@ -706,7 +704,7 @@ lando npm run test:watch       # Run tests in watch mode
 
 #### End-to-End Testing with Playwright
 
-Our comprehensive E2E testing suite uses Playwright to test WordPress and WooCommerce functionality:
+Our comprehensive E2E testing suite uses Playwright to test WordPress functionality:
 
 ```bash
 # First, install Playwright browsers
@@ -723,7 +721,6 @@ npm run test:e2e:ui           # Interactive test runner UI
 
 # Specific test suites
 npm run test:e2e:wordpress    # WordPress-only tests
-npm run test:e2e:woocommerce  # WooCommerce-only tests
 npm run test:e2e:visual       # Visual regression tests
 
 # Generate test code
@@ -736,7 +733,6 @@ npm run test:e2e:report       # Open HTML test report
 #### Test Categories
 
 - **WordPress Core Tests** (`@wordpress`): Admin login, post creation, settings, themes, plugins
-- **WooCommerce Tests** (`@woocommerce`): Shop functionality, cart, checkout, product management
 - **Visual Regression Tests** (`@visual`): Screenshot comparisons across devices and themes
 - **Debug Tests**: Environment inspection, health checks, performance monitoring
 
@@ -759,8 +755,8 @@ Configure tests via environment variables:
 PLAYWRIGHT_BASE_URL=https://your-site.lndo.site  # Override base URL
 WP_ADMIN_USER=admin                               # Admin username
 WP_ADMIN_PASSWORD=password                        # Admin password
-WC_CUSTOMER_USER=customer                         # Customer username
-WC_CUSTOMER_PASSWORD=password                     # Customer password
+# Storefront / plugin customer credentials (optional)
+# Add customer credentials only if you include a storefront/plugin that requires them
 
 # Test execution
 WQS_RUN_E2E=1                                    # Enable E2E tests in test runner
@@ -943,9 +939,9 @@ DB_USER=wordpress
 DB_PASSWORD=wordpress
 DB_HOST=database
 
-# E-commerce Configuration (optional - only if using WooCommerce)
+# Storefront configuration (optional - configure storefront plugins separately)
 PAYMENT_GATEWAY_TEST_MODE=true
-# Add payment gateway keys if needed
+# Add payment gateway keys if needed when using a storefront plugin
 ```
 
 ## Contributing

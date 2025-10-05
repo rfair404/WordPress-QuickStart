@@ -65,13 +65,14 @@ test_wordpress_installation() {
             log_warning "Admin user not found"
         fi
 
-        # Test if WooCommerce is configured (if installed)
-        if lando wp plugin is-installed woocommerce --allow-root 2>/dev/null; then
+        # Optional storefront checks (skip if no storefront plugin installed)
+        if lando wp plugin is-installed woocommerce --allow-root 2>/dev/null || true; then
+            # If storefront plugins are installed, the installer may configure shop pages or settings.
             local shop_page_id=$(lando wp option get woocommerce_shop_page_id --allow-root 2>/dev/null || echo "")
             if [ -n "$shop_page_id" ] && [ "$shop_page_id" != "0" ]; then
-                log_success "WooCommerce shop page is configured (ID: $shop_page_id)"
+                log_success "Storefront shop page appears configured (ID: $shop_page_id)"
             else
-                log_warning "WooCommerce shop page not configured"
+                log_info "No storefront shop page configured (this is informational)"
             fi
         fi
 
@@ -176,7 +177,7 @@ main() {
         echo "• Sample content and pages"
         echo "• Pretty permalinks"
         echo "• Navigation menus"
-        echo "• WooCommerce integration (if installed)"
+    echo "• Storefront integration (if installed)"
         exit 0
     else
         echo -e "${RED}❌ Some tests failed.${NC}"

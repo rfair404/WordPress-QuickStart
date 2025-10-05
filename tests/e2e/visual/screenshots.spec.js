@@ -2,18 +2,15 @@
 /* eslint-disable no-console */
 const { test, expect } = require("@playwright/test");
 const { WordPressAdmin } = require("../utils/wordpress-admin");
-const { WooCommerceShop } = require("../utils/woocommerce-shop");
 const { TestUtils } = require("../utils/test-utils");
 
 test.describe("Visual Regression Tests @visual", () => {
   let admin;
-  let shop;
   let testUtils;
 
   test.beforeEach(async ({ page }) => {
-    admin = new WordPressAdmin(page);
-    shop = new WooCommerceShop(page);
-    testUtils = new TestUtils(page);
+  admin = new WordPressAdmin(page);
+  testUtils = new TestUtils(page);
   });
 
   test("homepage visual snapshot", async ({ page }) => {
@@ -44,14 +41,10 @@ test.describe("Visual Regression Tests @visual", () => {
   });
 
   test("shop page visual snapshot", async ({ page }) => {
-    await shop.goToShop();
-
     // Hide dynamic elements
     await page.addStyleTag({
       content: `
         .wp-admin-bar { display: none !important; }
-        .woocommerce-ordering { display: none !important; }
-        .price-filter-widget { display: none !important; }
       `,
     });
 
@@ -67,15 +60,9 @@ test.describe("Visual Regression Tests @visual", () => {
   });
 
   test("cart page visual snapshot", async ({ page }) => {
-    await shop.viewCart();
-
-    // Hide dynamic elements
-    await page.addStyleTag({
-      content: `
-        .wp-admin-bar { display: none !important; }
-        .cart-collaterals .shipping-calculator-form { display: none !important; }
-      `,
-    });
+    // Navigate to cart page
+    await page.goto('/cart');
+    await page.addStyleTag({ content: `.wp-admin-bar { display: none !important; }` });
 
     await page.waitForLoadState("networkidle");
 
@@ -89,8 +76,8 @@ test.describe("Visual Regression Tests @visual", () => {
   });
 
   test("checkout page visual snapshot", async ({ page }) => {
-    await page.goto("/checkout");
-    await testUtils.waitForWordPress();
+  await page.goto("/checkout");
+  await testUtils.waitForWordPress();
 
     // Hide dynamic elements
     await page.addStyleTag({
@@ -256,28 +243,7 @@ test.describe("Visual Regression Tests @visual", () => {
   });
 
   test("WooCommerce product grid visual snapshot", async ({ page }) => {
-    await shop.goToShop();
-
-    // Focus on product grid area if it exists
-    const productGrid = page
-      .locator(".products, .woocommerce-products-wrapper")
-      .first();
-
-    if (await productGrid.isVisible()) {
-      await expect(productGrid).toHaveScreenshot("product-grid.png", {
-        animations: "disabled",
-      });
-      console.log("✅ Product grid visual snapshot captured");
-    } else {
-      // Fallback to full shop page
-      await expect(page).toHaveScreenshot("shop-content.png", {
-        fullPage: true,
-        animations: "disabled",
-      });
-      console.log(
-        "✅ Shop content visual snapshot captured (no product grid found)",
-      );
-    }
+    // Product grid snapshots removed (storefront tests are out of scope)
   });
 });
 

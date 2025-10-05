@@ -13,7 +13,6 @@ tests/
 │
 ├── unit/                        # PHP Unit Tests
 │   ├── SampleTest.php          # Basic functionality and environment tests
-│   ├── WooCommerceTest.php     # WooCommerce integration tests
 │   └── WordPressInstallationTest.php # WordPress installation validation tests
 │
 ├── e2e/                         # End-to-End Tests (Playwright)
@@ -22,7 +21,6 @@ tests/
 │   ├── global-teardown.js      # Global E2E test cleanup
 │   └── utils/                  # E2E testing utilities
 │   └── visual/                 # Visual regression tests
-│   └── woocommerce/           # WooCommerce E2E tests
 │   └── wordpress/             # WordPress E2E tests
 │
 ├── analysis/                    # Test Analysis Tools
@@ -86,7 +84,7 @@ Scripts that test complete workflows and system integration.
 # Check WordPress installation
 ./tests/validation/validate-wordpress-installation.sh
 
-# Check WooCommerce setup
+# Environment Validation
 
 ```
 
@@ -135,7 +133,7 @@ lando npm test              # Runs JavaScript/E2E tests
 
 ## Environment Requirements
 
-- **Lando/Docker** - Required for WordPress and WooCommerce integration
+- **Lando/Docker** - Required for WordPress integration tests
   tests
 - **PHP 8.1+** - Required for unit tests
 - **Composer** - Required for dependency management and test

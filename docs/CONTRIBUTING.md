@@ -23,7 +23,7 @@ expected to uphold this code.
 3. **Start the development environment**:
    ```bash
    lando start
-   lando composer dev:setup
+   lando composer install
    lando npm install
    ```
 4. **Run tests** to ensure everything works:
@@ -49,12 +49,15 @@ expected to uphold this code.
 3. **Test your changes**:
 
    ```bash
-   # Run all tests
-   lando composer analyze
-   lando npm test
+   # Run PHP tests
+   lando composer test
 
-   # Check code formatting
+   # Run JavaScript/E2E tests (Playwright)
+   lando npm run test:e2e
+
+   # Check code formatting and linters (configs live under .config/)
    lando npm run format:check
+   lando npm run lint:js
    ```
 
 4. **Commit your changes** using conventional commit format:
@@ -79,13 +82,13 @@ expected to uphold this code.
 - Follow [WordPress JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-javascript/)
 - Use JSDoc comments for functions
 - Write tests for new functionality
-- Run `lando npm run lint:js` before committing
+- Run `lando npm run lint:js` before committing (ESLint config is under `.config/linting/`)
 
 ### CSS
 
 - Follow [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-css/)
 - Use meaningful class names
-- Run `lando npm run lint:css` before committing
+- Run `lando npm run lint:css` before committing (Stylelint config is under `.config/linting/`)
 
 ## Commit Message Format
 
@@ -149,14 +152,12 @@ lando composer test
 # Run PHP tests with coverage
 lando composer test:coverage
 
-# Run JavaScript tests
-lando npm test
-
-# Run JavaScript tests in watch mode
-lando npm run test:watch
-
-# Run end-to-end tests
+# Run JavaScript/E2E tests (Playwright)
 lando npm run test:e2e
+
+# Run linters and format checks
+lando npm run format:check
+lando npm run lint:js
 ```
 
 ### Writing Tests
