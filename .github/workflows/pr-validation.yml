@@ -93,11 +93,8 @@ jobs:
       - name: Run Prettier check
         run: npm run format:check
 
-      - name: Install Playwright browsers
-        run: npm run test:e2e:install:ci
-
-      - name: Run E2E tests
-        run: npm run test:e2e:smoke
+      # NOTE: E2E tests are handled by the main CI/CD workflow to avoid redundant Playwright installation
+      # This keeps PR validation fast while maintaining comprehensive testing coverage
 
       # NOTE: Build step removed - Phase 2 uses direct file serving (no webpack build)
       # Assets are served directly by WordPress, no build process needed
