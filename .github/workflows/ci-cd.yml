@@ -17,7 +17,7 @@ on:
           - production
 
 env:
-  PHP_VERSION: 8.1
+  PHP_VERSION: 8.3
   NODE_VERSION: '20'
   COMPOSER_CACHE_KEY: composer-cache-v1
 
@@ -81,7 +81,7 @@ jobs:
     needs: code-quality
     strategy:
       matrix:
-        php-version: ['8.1', '8.2', '8.3']
+        php-version: ['8.2', '8.3']
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -122,11 +122,11 @@ jobs:
         run: composer run test:wordpress
 
       - name: Generate test coverage
-        if: matrix.php-version == '8.1'
+        if: matrix.php-version == '8.3'
         run: composer run test:coverage
 
       - name: Upload coverage to Codecov
-        if: matrix.php-version == '8.1'
+        if: matrix.php-version == '8.3'
         uses: codecov/codecov-action@v3
         with:
           file: ./coverage/clover.xml

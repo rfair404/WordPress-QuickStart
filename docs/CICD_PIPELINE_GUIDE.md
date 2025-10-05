@@ -16,7 +16,7 @@ testing coverage:
 
 ### Key Features
 
-- **Matrix Testing**: PHP 8.1/8.2/8.3 × Node.js 18/20 combinations
+- **Matrix Testing**: PHP 8.2/8.3 × Node.js 20 combinations
 - **Environment-Aware Configuration**: Settings for CI vs local development
 - **Quality Gates**: Multiple validation layers ensuring code quality
 - **Cross-Platform Support**: Consistent behavior across development environments
@@ -42,15 +42,15 @@ on:
 ```yaml
 strategy:
   matrix:
-    php-version: ['8.1', '8.2']
+    php-version: ['8.2', '8.3']
     node-version: ['20']
   fail-fast: false
 ```
 
 This creates **2 parallel jobs** testing all combinations:
 
-- PHP 8.1 + Node 20
 - PHP 8.2 + Node 20
+- PHP 8.3 + Node 20
 
 #### Job Steps Breakdown
 
@@ -152,10 +152,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup PHP 8.2 (latest stable)
+      - name: Setup PHP 8.3 (latest stable)
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
 
       - name: Setup Node.js 20 (latest LTS)
         uses: actions/setup-node@v4

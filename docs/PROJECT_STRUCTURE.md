@@ -28,7 +28,7 @@ WordPress QuickStart is a WordPress development framework featuring:
 
 The project uses Lando for containerized development with the following services:
 
-- **Web Server**: Apache with PHP 8.1/8.2/8.3 support
+- **Web Server**: Apache with PHP 8.2/8.3 support
 - **Database**: MySQL 8.0 with automatic WordPress schema setup
 - **Node.js**: For frontend tooling and E2E testing with Playwright
 - **Composer**: PHP dependency management and WordPress core updates
@@ -41,7 +41,7 @@ The project uses Lando for containerized development with the following services
 - **Location**: `tests/unit/`
 - **Framework**: PHPUnit with WordPress test framework integration
 - **Coverage**: WordPress functionality, custom plugins, and theme components
-- **CI Integration**: Execution across PHP 8.1/8.2/8.3 matrix
+- **CI Integration**: Execution across PHP 8.2/8.3 matrix
 
 #### End-to-End Testing (Playwright)
 
@@ -129,7 +129,7 @@ The project includes environment detection for configuration:
 
 - **Configuration**: Minimal resource usage and faster execution
 - **Playwright Setup**: List reporter for clean CI logs, webServer disabled
-- **GitHub Actions Matrix**: Parallel execution across PHP 8.1/8.2 and Node 20
+- **GitHub Actions Matrix**: Parallel execution across PHP 8.2/8.3 and Node 20
 - **Validation Focus**: Essential functionality testing with optional components disabled
 
 ### Local Development
@@ -154,7 +154,7 @@ The project implements a three-tier CI/CD pipeline:
 #### 1. WordPress Quickstart CI/CD
 
 - **Trigger**: Push to main branch, Pull Requests targeting main
-- **Matrix Strategy**: PHP 8.1/8.2/8.3 × Node.js 18/20 combinations
+- **Matrix Strategy**: PHP 8.2/8.3 × Node.js 20 combinations
 - **Test Coverage**:
   - Unit tests with PHPUnit
   - E2E tests with Playwright
