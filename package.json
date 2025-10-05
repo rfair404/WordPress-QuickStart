@@ -72,7 +72,6 @@
     "stylelint-scss": "^6.12.1"
   },
   "browserslist": ["defaults", "not IE 11"],
-
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier --write --config .config/formatting/.prettierrc",

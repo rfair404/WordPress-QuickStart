@@ -1,1 +1,2 @@
+#!/bin/sh
 lando npm run test && lando composer run test
