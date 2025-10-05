@@ -95,11 +95,6 @@ tooling:
     cmd: npm test
     description: Run JavaScript tests
 
-  gh:
-    service: appserver
-    cmd: gh
-    description: Run GitHub CLI commands
-
 proxy:
   appserver:
     - wordpress-quickstart.lndo.site
