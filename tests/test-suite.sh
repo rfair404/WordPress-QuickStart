@@ -75,7 +75,7 @@ run_script() {
         "validation")
             case "$script" in
                 "validate-wordpress") script_path="$SCRIPT_DIR/validation/validate-wordpress-installation.sh" ;;
-                "validate-woocommerce") script_path="$SCRIPT_DIR/validation/validate-woocommerce-setup.sh" ;;
+
                 *) echo -e "${RED}Unknown validation script: $script${NC}"; exit 1 ;;
             esac
             ;;

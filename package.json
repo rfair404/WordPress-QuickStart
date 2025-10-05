@@ -28,7 +28,6 @@
     "test:e2e:report": "playwright show-report",
     "test:e2e:install": "playwright install",
     "test:e2e:wordpress": "playwright test --config=tests/playwright.config.js --grep @wordpress",
-    "test:e2e:woocommerce": "playwright test --config=tests/playwright.config.js --grep @woocommerce",
     "test:e2e:visual": "playwright test --config=tests/playwright.config.js --grep @visual",
     "hooks:setup": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\git-hooks.bat' : './scripts/setup/git-hooks.sh', {stdio: 'inherit'})\"",
     "setup:env": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\env-setup.bat' : './scripts/setup/env-setup.sh', {stdio: 'inherit'})\"",

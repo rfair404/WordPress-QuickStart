@@ -131,25 +131,6 @@
     ],
     "wp:version": [
       "@composer show johnpbloch/wordpress-core"
-    ],
-    "wc:update": [
-      "@composer update wpackagist-plugin/woocommerce"
-    ],
-    "wc:version": [
-      "@composer show wpackagist-plugin/woocommerce"
-    ],
-    "wc:install:full": [
-      "@composer install",
-      "@wp:config",
-      "bash scripts/wp-install.sh",
-      "@wc:activate"
-    ],
-    "wc:activate": [
-      "bash scripts/wp-manager.sh plugin:activate woocommerce"
-    ],
-    "wc:setup": [
-      "@wc:activate",
-      "bash scripts/wp-manager.sh wc:setup"
     ]
   },
   "repositories": [

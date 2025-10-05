@@ -29,8 +29,7 @@ tests/
 │   └── analyze-unit-tests.sh  # Analyzes unit test structure and coverage
 │
 ├── validation/                  # Environment Validation Scripts
-│   ├── validate-wordpress-installation.sh  # WordPress installation checks
-│   └── validate-woocommerce-setup.sh      # WooCommerce setup validation
+│   └── validate-wordpress-installation.sh # WordPress setup validation
 │
 ├── runners/                     # Test Execution Scripts
 │   ├── run-unit-tests-standalone.sh       # Standalone PHPUnit runner
@@ -54,9 +53,7 @@ Tools for analyzing test coverage, structure, and quality metrics.
 
 Scripts that validate environment setup and configuration.
 
-- **`validate-wordpress-installation.sh`** - Validates WordPress installation via Composer, directory structure,
-  core files, and configuration.
-- **`validate-woocommerce-setup.sh`** - Verifies WooCommerce plugin installation, configuration, and dependencies.
+- **`validate-wordpress-installation.sh`** - Comprehensive WordPress installation validation including directory structure, file permissions, configuration, and composer dependencies.
 
 ### 🏃 Test Runners (`runners/`)
 
@@ -90,7 +87,7 @@ Scripts that test complete workflows and system integration.
 ./tests/validation/validate-wordpress-installation.sh
 
 # Check WooCommerce setup
-./tests/validation/validate-woocommerce-setup.sh
+
 ```
 
 ### Analyze Test Coverage
