@@ -22,49 +22,44 @@ export PATH="$WQS_SCRIPTS_DIR:$WQS_SCRIPTS_DIR/setup:$PATH"
 # ============================================================================
 
 wqs_info() {
-    echo "📊 WordPress QuickStart - Project Information"
-    echo "=========================================="
-    echo "📁 Project Root: $WQS_PROJECT_ROOT"
-    echo "📦 Repository: $(basename "$(pwd)")"
-    echo "🌍 Environment: Local Development"
-    echo "🔍 Tools: Lando, Docker, WordPress, WooCommerce"
-    echo "📄 PHP Files: $(find src/ -name '*.php' 2>/dev/null | wc -l)"
-    echo "📦 Tests: $(find tests/ -name '*.php' 2>/dev/null | wc -l)"
-    echo "📊 Current Status: Development Setup Complete"
+    echo "WordPress QuickStart - Project Info"
+    echo "Root: $WQS_PROJECT_ROOT"
+    echo "Tools: Lando, Docker, WordPress"
+    echo "Tests: $(find tests/ -name '*.php' 2>/dev/null | wc -l)"
 }
 
 wqs_setup() {
-    echo "🚀 Running complete development setup..."
-    echo "========================================="
+    echo "Running complete development setup..."
+    echo "====================================="
 
-    echo "🔍 Step 1: Installing development tools..."
+    echo "Step 1: Installing development tools..."
     if command -v lando &> /dev/null; then
-        echo "✅ Lando already installed"
+        echo "Lando already installed"
     else
-        echo "📦 Installing Lando and Docker..."
+        echo "Installing Lando and Docker..."
         ./scripts/setup/install-lando-docker.sh
     fi
 
     echo
-    echo "🔍 Step 2: Setting up environment..."
+    echo "Step 2: Setting up environment..."
     ./scripts/setup/env-setup.sh
 
     echo
-    echo "🔍 Step 3: Running tests..."
+    echo "Step 3: Running tests..."
     ./scripts/setup/test-setup.sh
 
     echo
-    echo "✅ Development setup complete!"
+    echo "Development setup complete!"
     if command -v lando &> /dev/null; then
         wqs_info
     fi
 }
 
 wqs_test() {
-    echo "🧪 Running all tests..."
-    echo "======================="
+    echo "Running all tests..."
+    echo "===================="
 
-    echo "🔍 Running PHP unit tests..."
+    echo "Running PHP unit tests..."
     if command -v lando &> /dev/null; then
         lando composer test
     else
@@ -72,7 +67,7 @@ wqs_test() {
     fi
 
     echo
-    echo "🔍 Running JavaScript tests..."
+    echo "Running JavaScript tests..."
     if command -v lando &> /dev/null; then
         lando npm test
     else
@@ -81,48 +76,40 @@ wqs_test() {
 }
 
 wqs_clean() {
-    echo "🧺 Cleaning development environment..."
-    echo "==================================="
+    echo "Cleaning development environment..."
+    echo "=================================="
 
-    echo "🗑️ Removing temporary files..."
+    echo "Removing temporary files..."
     find . -name '.DS_Store' -delete 2>/dev/null || true
     find . -name 'Thumbs.db' -delete 2>/dev/null || true
     find . -name '*.log' -path './logs/*' -delete 2>/dev/null || true
 
-    echo "🗑️ Cleaning Lando..."
+    echo "Cleaning Lando..."
     if command -v lando &> /dev/null; then
         lando poweroff
     fi
 
-    echo "🗑️ Cleaning Composer cache..."
+    echo "Cleaning Composer cache..."
     if command -v composer &> /dev/null; then
         composer clear-cache
     fi
 
-    echo "🗑️ Cleaning npm cache..."
+    echo "Cleaning npm cache..."
     if command -v npm &> /dev/null; then
         npm cache clean --force
     fi
 
-    echo "✅ Environment cleanup complete!"
+    echo "Environment cleanup complete!"
 }
 
 wqs_help() {
-    echo "📚 WordPress QuickStart - Available Commands"
-    echo "==========================================="
-    echo
-    echo "  wqs_info          - Show project information"
-    echo "  wqs_setup         - Complete development setup"
-    echo "  wqs_test          - Run all tests"
-    echo "  wqs_clean         - Clean development environment"
-    echo "  wqs_help          - Show this help"
-    echo
-    echo "📁 Quick Navigation:"
-    echo "  goto-src          - Go to src/ directory"
-    echo "  goto-tests        - Go to tests/ directory"
-    echo "  goto-scripts      - Go to scripts/ directory"
-    echo "  goto-root         - Go to project root"
-    echo
+    echo "WordPress QuickStart - Available Commands"
+    echo "  wqs_info    - Show project information"
+    echo "  wqs_setup   - Complete development setup"
+    echo "  wqs_test    - Run all tests"
+    echo "  wqs_clean   - Clean development environment"
+    echo "  wqs_help    - Show this help"
+    echo "  goto-root   - Go to project root"
 }
 
 # ============================================================================
@@ -152,15 +139,12 @@ if ! command -v lando &> /dev/null; then
     # Primary: Check ~/.local/bin/lando.exe
     if [ -f "$HOME/.local/bin/lando.exe" ]; then
         export PATH="$HOME/.local/bin:$PATH"
-        echo "Added Lando from ~/.local/bin to PATH"
     # Secondary: Check ~/.lando/bin/lando.cmd
     elif [ -f "$HOME/.lando/bin/lando.cmd" ]; then
         export PATH="$HOME/.lando/bin:$PATH"
-        echo "Added Lando from ~/.lando/bin to PATH"
     # Tertiary: Check AppData/Local/Lando version
     elif [ -f "$HOME/AppData/Local/Lando/v3.25.6/lando.exe" ]; then
         export PATH="$HOME/AppData/Local/Lando/v3.25.6:$PATH"
-        echo "Added Lando from AppData to PATH"
     fi
 fi
 
@@ -168,7 +152,6 @@ fi
 if ! command -v lando &> /dev/null; then
     if [ -f "$HOME/.local/bin/lando.exe" ]; then
         alias lando="$HOME/.local/bin/lando.exe"
-        echo "Created lando alias to ~/.local/bin/lando.exe"
     fi
 fi
 
@@ -256,14 +239,11 @@ alias wp-uploads='cd $WP_CONTENT_DIR/uploads'
 
 # Function to display project information
 wqs_info() {
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "🚀 WordPress E-commerce Starter - Dev Environment"
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "📁 Project Root: $WQS_PROJECT_ROOT"
-    echo "🐳 Lando Status: $(lando info --format json 2>/dev/null | jq -r '.[] | select(.service=="appserver") | .urls[0]' 2>/dev/null || echo 'Not running')"
-    echo "🔧 Node Version: $(node --version 2>/dev/null || echo 'Not available')"
-    echo "🐘 PHP Version: $(php --version 2>/dev/null | head -n1 || echo 'Not available')"
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "� WordPress QuickStart - Dev Environment"
+    echo "📁 Root: $WQS_PROJECT_ROOT"
+    echo "🐳 Lando: $(lando info --format json 2>/dev/null | jq -r '.[] | select(.service=="appserver") | .urls[0]' 2>/dev/null || echo 'Not running')"
+    echo "🔧 Node: $(node --version 2>/dev/null || echo 'Not available')"
+    echo "🐘 PHP: $(php --version 2>/dev/null | head -n1 || echo 'Not available')"
 }
 
 # Function to run full development setup
@@ -292,23 +272,23 @@ wqs_setup() {
 
 # Function to run all tests
 wqs_test() {
-    echo "🧪 Running all tests for WordPress E-commerce Starter..."
+    echo "Running all tests for WordPress E-commerce Starter..."
 
-    echo "🔍 Running PHP tests..."
+    echo "Running PHP tests..."
     composer test
 
-    echo "🔍 Running JavaScript tests..."
+    echo "Running JavaScript tests..."
     npm test
 
-    echo "🔍 Running code analysis..."
+    echo "Running code analysis..."
     composer analyze
 
-    echo "✅ All tests completed!"
+    echo "All tests completed!"
 }
 
 # Function to clean development environment
 wqs_clean() {
-    echo "🧹 Cleaning WordPress E-commerce Starter development environment..."
+    echo "Cleaning WordPress E-commerce Starter development environment..."
 
     # Remove dependency directories
     rm -rf node_modules vendor coverage .npm-cache
@@ -319,23 +299,17 @@ wqs_clean() {
     # Remove logs
     rm -f *.log
 
-    echo "✅ Development environment cleaned!"
+    echo "Development environment cleaned!"
 }
 
 # Function to show available commands
 wqs_help() {
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    }
-
-wqs_help() {
-    echo "� WordPress QuickStart - Available Commands"
-    echo "==========================================="
-    echo
-    echo "  wqs_info          - Show project information"
-    echo "  wqs_setup         - Complete development setup"
-    echo "  wqs_test          - Run all tests"
-    echo "  wqs_clean         - Clean development environment"
-    echo "  wqs_help          - Show this help"
+    echo "WordPress QuickStart - Available Commands"
+    echo "  wqs_info    - Show project information"
+    echo "  wqs_setup   - Complete development setup"
+    echo "  wqs_test    - Run all tests"
+    echo "  wqs_clean   - Clean development environment"
+    echo "  wqs_help    - Show this help"
 }
 
 # ============================================================================
@@ -363,9 +337,9 @@ if [ "$PS1" ]; then
     lando_status() {
         if command -v lando &> /dev/null && [ -f ".lando.yml" ]; then
             if lando info &> /dev/null; then
-                echo "🐳"
+                echo "[UP]"
             else
-                echo "💤"
+                echo "[DOWN]"
             fi
         fi
     }
@@ -392,15 +366,10 @@ fi
 # Welcome Message
 # ============================================================================
 
-# Show welcome message when starting new shell
-if [ "$PS1" ]; then
-    echo ""
-    wqs_info
-    echo ""
-    echo "💡 Type 'wqs_help' to see available commands"
-    echo "🚀 Type 'wqs_setup' to set up the development environment"
-    echo ""
-fi
+# Welcome message disabled - use 'wqs_info' or 'wqs_help' when needed
+# if [ "$PS1" ]; then
+#     echo "Type 'wqs_help' to see available commands"
+# fi
 
 # ============================================================================
 # Local Customizations
