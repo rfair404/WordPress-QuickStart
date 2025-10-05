@@ -18,7 +18,7 @@ module.exports = [
       'dist/**/*',
     ],
   },
-  
+
   // Apply to all JavaScript files in our custom code
   {
     files: ['**/*.js', '**/*.mjs'],
@@ -48,7 +48,7 @@ module.exports = [
     },
     rules: {
       ...js.configs.recommended.rules,
-      
+
       // WordPress specific overrides
       'no-console': 'warn',
       'no-debugger': 'error',
@@ -65,7 +65,7 @@ module.exports = [
       'no-global-assign': ['error', { exceptions: ['jQuery', '$'] }],
     },
   },
-  
+
   // Test files configuration
   {
     files: ['**/*.spec.js', 'tests/**/*.js'],
@@ -89,7 +89,7 @@ module.exports = [
       'no-unused-vars': 'warn',
     },
   },
-  
+
   // Config files
   {
     files: ['webpack.config.js', 'gulpfile.js', '*.config.js'],

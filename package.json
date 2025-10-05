@@ -53,13 +53,7 @@
     "monitor:performance": "node -e \"require('child_process').execSync('./scripts/setup/performance-monitor.sh', {stdio: 'inherit'})\"",
     "test:all": "node -e \"require('child_process').execSync('./scripts/setup/test-runner.sh', {stdio: 'inherit'})\""
   },
-  "keywords": [
-    "wordpress",
-    "ecommerce",
-    "starter",
-    "theme",
-    "plugin"
-  ],
+  "keywords": ["wordpress", "ecommerce", "starter", "theme", "plugin"],
   "author": "Your Name <your.email@example.com>",
   "license": "GPL-2.0-or-later",
   "devDependencies": {
@@ -76,25 +70,15 @@
     "stylelint-config-standard": "^29.0.0",
     "stylelint-scss": "^5.3.2"
   },
-  "browserslist": [
-    "defaults",
-    "not IE 11"
-  ],
+  "browserslist": ["defaults", "not IE 11"],
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint --fix"
-    ],
+    "*.{js,jsx,ts,tsx}": ["prettier --write", "eslint --fix"],
     "*.{css,scss,sass}": [
       "prettier --write",
       "stylelint --fix --config .config/linting/.stylelintrc.js"
     ],
-    "*.{json,yml,yaml,md,html}": [
-      "prettier --write"
-    ],
-    "*.php": [
-      "composer run lint:fix"
-    ]
+    "*.{json,yml,yaml,md,html}": ["prettier --write"],
+    "*.php": ["composer run lint:fix"]
   },
   "husky": {
     "hooks": {
