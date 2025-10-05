@@ -45,13 +45,13 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["**/*.test.js", "**/*.spec.js", "tests/**/*.js"],
+      files: ["**/*.spec.js", "tests/**/*.js"],
       env: {
-        jest: true,
         browser: true,
         node: true,
       },
       globals: {
+        // Playwright globals
         page: "readonly",
         browser: "readonly",
         context: "readonly",
