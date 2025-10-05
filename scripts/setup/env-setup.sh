@@ -182,7 +182,7 @@ setup_vscode_workspace() {
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "eslint.workingDirectories": ["."],
-    "prettier.configPath": "./.prettierrc",
+    "prettier.configPath": "${workspaceFolder}/.config/formatting/.prettierrc",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true

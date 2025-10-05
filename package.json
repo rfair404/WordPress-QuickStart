@@ -12,12 +12,13 @@
     "url": "https://github.com/rfair404/WordPress-QuickStart/issues"
   },
   "scripts": {
-    "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx --config .config/linting/.eslintrc.js",
-    "lint:js:fix": "eslint . --ext .js,.jsx,.ts,.tsx --config .config/linting/.eslintrc.js --fix",
-    "lint:css": "stylelint 'custom/**/*.css' 'custom/**/*.scss'",
-    "lint:css:fix": "stylelint 'custom/**/*.css' 'custom/**/*.scss' --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx --config .config/linting/.eslintrc.js --ignore-path .config/linting/.eslintignore",
+    "lint:js:fix": "eslint . --ext .js,.jsx,.ts,.tsx --config .config/linting/.eslintrc.js --ignore-path .config/linting/.eslintignore --fix",
+    "lint:css": "stylelint 'custom/**/*.css' 'custom/**/*.scss' --config .config/linting/.stylelintrc.js",
+    "lint:css:fix": "stylelint 'custom/**/*.css' 'custom/**/*.scss' --fix --config .config/linting/.stylelintrc.js",
+    "lint:yaml": "yamllint -c .config/linting/.yamllint.yml .",
+    "format": "prettier --write . --config .config/formatting/.prettierrc --ignore-path .config/formatting/.prettierignore",
+    "format:check": "prettier --check . --config .config/formatting/.prettierrc --ignore-path .config/formatting/.prettierignore",
     "lint-staged": "lint-staged",
     "test": "npm run test:e2e",
     "test:e2e": "playwright test --config=tests/playwright.config.js",
@@ -65,7 +66,7 @@
     ],
     "*.{css,scss,sass}": [
       "prettier --write",
-      "stylelint --fix"
+      "stylelint --fix --config .config/linting/.stylelintrc.js"
     ],
     "*.{json,yml,yaml,md,html}": [
       "prettier --write"

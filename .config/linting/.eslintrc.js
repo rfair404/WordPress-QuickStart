@@ -1,8 +1,7 @@
 module.exports = {
   extends: ["eslint:recommended"],
   ignorePatterns: [
-    "custom/plugins/woocommerce/**",
-    "custom/themes/twenty*/**",
+    // Third-party plugins and themes (WooCommerce removed in Phase 2)
     "wp/**",
     "vendor/**",
     "node_modules/**",

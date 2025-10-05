@@ -1,8 +1,7 @@
 module.exports = {
-  extends: ["@wordpress/stylelint-config"],
+  extends: ["stylelint-config-standard"],
   ignoreFiles: [
-    "custom/plugins/woocommerce/**/*.css",
-    "custom/themes/twenty*/**/*.css",
+    // Third-party plugins and themes (WooCommerce removed in Phase 2)
     "wp/**/*.css",
     "vendor/**/*.css",
     "node_modules/**/*.css",

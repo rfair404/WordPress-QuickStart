@@ -15,7 +15,7 @@ wordpress-ecommerce-starter/
 ├── src/                      # PHP source files
 ├── tests/                    # All test files and configurations
 ├── .bashrc                   # Bash environment configuration
-├── .editorconfig             # Editor configuration
+
 ├── .gitignore                # Git ignore rules
 ├── .lando.yml                # Lando configuration
 ├── composer.json             # PHP dependencies and scripts
@@ -89,7 +89,7 @@ tests/
 ### Root Level Configuration
 
 - **`.bashrc`** - Bash environment with custom functions and aliases
-- **`.editorconfig`** - Consistent coding style across editors
+
 - **`.gitignore`** - Files and directories to ignore in version control
 - **`.lando.yml`** - Lando development environment configuration
 - **`composer.json`** - PHP dependencies, autoloading, and scripts

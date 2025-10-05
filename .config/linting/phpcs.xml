@@ -22,8 +22,7 @@
     <exclude-pattern>*/dist/*</exclude-pattern>
     <exclude-pattern>*/custom/uploads/*</exclude-pattern>
     <!-- Exclude third-party plugins and themes that don't follow project naming conventions -->
-    <exclude-pattern>*/custom/plugins/woocommerce/*</exclude-pattern>
-    <exclude-pattern>*/custom/themes/twentytwentyfour/*</exclude-pattern>
+    <!-- (WooCommerce and default themes removed in Phase 2 - add future third-party code here) -->
 
     <!-- Include the WordPress VIP Coding Standards -->
     <rule ref="WordPress-VIP-Go">

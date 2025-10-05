@@ -151,8 +151,7 @@ jobs:
       - name: Run Markdown linting
         run: markdownlint "**/*.md" --ignore node_modules --ignore vendor --config .config/linting/.markdownlint.json
 
-      - name: Validate YAML files
+      - name: Lint YAML files
         uses: ibiqlik/action-yamllint@v3
         with:
-          file_or_dir: .github/workflows/*.yml
-          config_file: .yamllint.yml
+          config_file: .config/linting/.yamllint.yml

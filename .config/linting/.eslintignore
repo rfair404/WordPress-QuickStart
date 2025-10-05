@@ -1,8 +1,7 @@
 # ESLint ignore patterns
 
 # Third-party plugins and themes
-custom/plugins/woocommerce/**
-custom/themes/twenty*/**
+# (WooCommerce removed in Phase 2 - add future third-party plugins here)
 
 # WordPress core
 wp/**
