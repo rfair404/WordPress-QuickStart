@@ -4,31 +4,33 @@
 [![GitHub Stars](https://img.shields.io/github/stars/rfair404/WordPress-QuickStart)](https://github.com/rfair404/WordPress-QuickStart)
 [![GitHub Forks](https://img.shields.io/github/forks/rfair404/WordPress-QuickStart)](https://github.com/rfair404/WordPress-QuickStart/fork)
 
-A fast, reliable, and thoroughly tested WordPress quickstart application with essential features
-such as user authentication, product management, and shopping cart system.
+A WordPress quickstart application with features for modern WordPress development and deployment.
 
-**🔗 Repository:**
+**Repository:**
 [https://github.com/rfair404/WordPress-QuickStart](https://github.com/rfair404/WordPress-QuickStart)
 
 ## Features
 
-- User authentication system
-- 📦 Content management and customization
-- 🎨 Custom themes and plugins support
-- 🧪 **Comprehensive testing setup** (Unit + E2E with Playwright)
-- 🚀 CI/CD pipeline with GitHub Actions
-- 🐳 Docker development environment with Lando
-- 💻 **VS Code GitHub integration** (Actions monitoring, PR management)
-- ✅ WordPress VIP coding standards compliance
-- 🎨 Modern frontend tooling (ESLint, Prettier, Stylelint)
-- 📊 Performance monitoring and health checks
-- 🔧 Automated setup and environment management
+- WordPress user authentication system
+- Content management and customization
+- Custom themes and plugins support
+- **GitHub CLI integration** (Actions monitoring, PR management)
+- **Cross-platform Lando wrapper** (Windows, Mac, Linux compatibility)
+- **Testing setup** (Unit + E2E with Playwright)
+- **CI/CD pipeline** (3 workflows, quality gates)
+- **Docker development environment** with Lando
+- **VS Code development tools** integration
+- **WordPress VIP coding standards** compliance
+- **Frontend tooling** (ESLint, Prettier, Stylelint)
+- **Performance monitoring** and health checks
+- **Setup** and environment management
+- **Environment-aware configuration** (local vs CI optimization)
 
 ## Quick Start
 
 ### Prerequisites
 
-**⚠️ Important: This project requires Lando and Docker to be installed before you can run the
+**Important: This project requires Lando and Docker to be installed before you can run the
 development environment.**
 
 #### Automated Installation (Recommended)
@@ -46,12 +48,12 @@ for you:
 
 **What the installer does:**
 
-- ✅ Downloads latest versions of Docker Desktop and Lando
-- ✅ Runs official installers with proper configurations
-- ✅ Verifies installations and provides next steps
-- ✅ Handles different operating systems automatically
+- Downloads latest versions of Docker Desktop and Lando
+- Runs official installers with proper configurations
+- Verifies installations and provides next steps
+- Handles different operating systems automatically
 
-**⚡ Automated Mode (No Prompts)**
+**Automated Mode (No Prompts)**
 
 For CI/CD or automated setups, you can run the installation scripts without interactive prompts:
 
@@ -115,7 +117,7 @@ If you prefer to install manually:
 
 2. **Clone the repository**
 
-   **📋 Prerequisites**: Make sure you have SSH keys set up for GitHub. If not, follow
+   **Prerequisites**: Make sure you have SSH keys set up for GitHub. If not, follow
    [GitHub's SSH key setup guide](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
 
    ```bash
@@ -123,7 +125,7 @@ If you prefer to install manually:
    cd WordPress-QuickStart
    ```
 
-   **💡 Tip**: If you forked this repository, use your fork's SSH URL instead:
+   **Tip**: If you forked this repository, use your fork's SSH URL instead:
    `git@github.com:yourusername/WordPress-QuickStart.git`
 
 3. **Start the development environment**
@@ -132,7 +134,7 @@ If you prefer to install manually:
    lando start
    ```
 
-   **⏱️ First-time setup**: The initial `lando start` will take 5-10 minutes as it:
+   **⏱ First-time setup**: The initial `lando start` will take 5-10 minutes as it:
    - Downloads WordPress, PHP, MySQL, and Node.js Docker images
    - Builds custom containers with your project configuration
    - Sets up the database and installs WordPress
@@ -161,10 +163,10 @@ If you prefer to install manually:
    ```
 
    **What this does**:
-   - ✅ Adds helpful aliases (`goto-src`, `wqs-start`, `wqs-stop`, etc.)
-   - ✅ Configures VS Code settings for Git Bash integration
-   - ✅ Sets up custom terminal prompt with git branch info
-   - ✅ Creates project navigation shortcuts
+   - Adds helpful aliases (`goto-src`, `wqs-start`, `wqs-stop`, etc.)
+   - Configures VS Code settings for Git Bash integration
+   - Sets up custom terminal prompt with git branch info
+   - Creates project navigation shortcuts
 
 6. **Test the setup**
 
@@ -192,10 +194,10 @@ If you prefer to install manually:
    ```
 
    **What this sets up**:
-   - 📦 **Extensions**: GitHub Pull Requests, GitHub Actions, Git Graph, GitHub Repositories
-   - 📊 **CI/CD Monitoring**: Real-time GitHub Actions status in VS Code status bar
-   - 🔀 **PR Management**: Create, review, and merge Pull Requests from VS Code
-   - 📈 **Repository Tools**: Visual git history, branch management, issue tracking
+   - **Extensions**: GitHub Pull Requests, GitHub Actions, Git Graph, GitHub Repositories
+   - **CI/CD Monitoring**: Real-time GitHub Actions status in VS Code status bar
+   - **PR Management**: Create, review, and merge Pull Requests from VS Code
+   - **Repository Tools**: Visual git history, branch management, issue tracking
 
    **GitHub Authentication** (Required after running the script):
    1. **Create Personal Access Token**:
@@ -203,10 +205,10 @@ If you prefer to install manually:
         [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
       - Click "Generate new token (classic)"
       - **Required scopes**:
-        - ☑️ `repo` - Full control of private repositories
-        - ☑️ `workflow` - Update GitHub Action workflows
-        - ☑️ `read:org` - Read org and team membership
-        - ☑️ `user:email` - Access user email addresses
+        - `repo` - Full control of private repositories
+        - `workflow` - Update GitHub Action workflows
+        - `read:org` - Read org and team membership
+        - `user:email` - Access user email addresses
       - Copy the generated token
 
    2. **Configure in VS Code**:
@@ -215,7 +217,7 @@ If you prefer to install manually:
       - Select "Use Personal Access Token"
       - Paste your token
 
-   **✨ After authentication, you can**:
+   **After authentication, you can**:
    - Monitor your CI/CD pipeline status in VS Code status bar
    - View GitHub Actions logs directly in the editor
    - Create and review Pull Requests without leaving VS Code
@@ -233,13 +235,13 @@ If you prefer to install manually:
    | **Email Testing**   | https://mail.wordpress-quickstart.lndo.site     | MailHog catches all emails           |
    | **Database Access** | `lando info`                                    | Get database connection details      |
 
-   **🔧 Troubleshooting**: If URLs don't work, run `lando info` to see your actual URLs.
+   **Troubleshooting**: If URLs don't work, run `lando info` to see your actual URLs.
 
 ## Complete Setup Workflow
 
 Here's the full workflow from a fresh system to a running development environment:
 
-### 🚀 New Developer Quick Start (5-10 minutes)
+### New Developer Quick Start (5-10 minutes)
 
 ````bash
 # Step 1: Install prerequisites (automated)
@@ -276,7 +278,7 @@ lando npm install
 # Visit: https://wordpress-quickstart.lndo.site
 ````
 
-### 🤖 CI/CD and Automation
+### CI/CD and Automation
 
 All setup scripts support automated mode for continuous integration and deployment workflows:
 
@@ -305,7 +307,7 @@ WQS_TEST_AUTOMATION=1 ./scripts/setup/test-setup.sh
 - `WQS_SETUP_BASHRC=0/1` - Control .bashrc setup
 - `WQS_SETUP_VSCODE=0/1` - Control VS Code workspace setup
 
-**🔧 Error Tolerance & Debugging:**
+**Error Tolerance & Debugging:**
 
 ````bash
 # Debug mode - shows detailed execution steps
@@ -319,7 +321,7 @@ WQS_AUTO=1 WQS_DEBUG=1 WQS_ERROR_TOLERANT=1 ./scripts/setup/install-lando-docker
 
 # Run comprehensive test suite
 ./scripts/setup/test-runner.sh
-```### ⚡ Daily Development Workflow
+```### Daily Development Workflow
 
 ```bash
 # Start your day
@@ -386,12 +388,12 @@ The environment setup configures VS Code with:
 
 With the GitHub integration extensions installed, VS Code provides:
 
-- 🔄 **Real-time CI/CD monitoring** - GitHub Actions status in status bar
-- 🔀 **Pull Request management** - Create, review, and merge PRs in editor
-- 📊 **Visual git history** - Interactive commit history and branch visualization
-- 🚨 **Build notifications** - Immediate feedback on test failures/successes
-- 📁 **Repository browser** - Browse remote files without cloning
-- 🏷️ **Issue integration** - Link commits and PRs to GitHub issues
+- **Real-time CI/CD monitoring** - GitHub Actions status in status bar
+- **Pull Request management** - Create, review, and merge PRs in editor
+- **Visual git history** - Interactive commit history and branch visualization
+- **Build notifications** - Immediate feedback on test failures/successes
+- **Repository browser** - Browse remote files without cloning
+- **Issue integration** - Link commits and PRs to GitHub issues
 
 Run the GitHub integration setup script to enable these features (see Quick Start step 7).
 
@@ -430,14 +432,14 @@ goto-root         # cd to project root
 This project uses **Composer to manage WordPress** as a dependency, keeping it separate from your
 custom code in the `wp/` directory.
 
-### 🎯 Why Composer-managed WordPress?
+### Why Composer-managed WordPress?
 
-- ✅ **Clean separation** between WordPress core and your custom code
-- ✅ **Version control** - WordPress updates are managed through Composer
-- ✅ **Security** - Easy to update WordPress core and plugins
-- ✅ **Professional workflow** - Standard in enterprise WordPress development
+- **Clean separation** between WordPress core and your custom code
+- **Version control** - WordPress updates are managed through Composer
+- **Security** - Easy to update WordPress core and plugins
+- **Professional workflow** - Standard in enterprise WordPress development
 
-### 📁 Directory Structure
+### Directory Structure
 
 ```
 project-root/
@@ -445,7 +447,7 @@ project-root/
 │   ├── wp-admin/               # WordPress admin (auto-installed)
 │   ├── wp-includes/            # WordPress core (auto-installed)
 │   └── wp-config.php           # Auto-generated configuration
-├── custom/                     # 🎯 YOUR CUSTOM CONTENT DIRECTORY
+├── custom/                     # YOUR CUSTOM CONTENT DIRECTORY
 │   ├── plugins/                # Plugins (installed via Composer)
 │   ├── themes/                 # Themes (installed via Composer)
 │   ├── uploads/                # Media uploads (gitignored)
@@ -455,7 +457,7 @@ project-root/
 └── composer.json               # WordPress and plugin dependencies
 ```
 
-### 🛠️ WordPress Installation Methods
+### WordPress Installation Methods
 
 **Option 1: Full Installation (Recommended)**
 
@@ -473,16 +475,16 @@ lando start                                        # Start development environme
 
 **What's included in Full Installation:**
 
-- ✅ WordPress core installation and configuration
-- ✅ Database setup and admin user creation
-- ✅ Sample pages (Home, About, Contact, Shop, Blog)
-- ✅ Sample blog posts
-- ✅ Navigation menu creation
-- ✅ Pretty permalinks (`/%postname%/`)
-- ✅ Optional storefront configuration (configure storefront plugins separately)
-- ✅ Professional WordPress settings
+- WordPress core installation and configuration
+- Database setup and admin user creation
+- Sample pages (Home, About, Contact, Shop, Blog)
+- Sample blog posts
+- Navigation menu creation
+- Pretty permalinks (`/%postname%/`)
+- Optional storefront configuration (configure storefront plugins separately)
+- Professional WordPress settings
 
-### 🛠️ WordPress Management Commands
+### WordPress Management Commands
 
 Use the provided WordPress manager script:
 
@@ -510,7 +512,7 @@ Use the provided WordPress manager script:
 ./scripts/wp-manager.sh cleanup                     # Clean cache and temp files
 ```
 
-### 📦 Alternative: Direct Composer Commands
+### Alternative: Direct Composer Commands
 
 You can also use Composer directly:
 
@@ -535,7 +537,7 @@ composer require wpackagist-plugin/query-monitor --dev  # Dev-only plugin
 composer require wpackagist-plugin/debug-bar --dev      # Debug tools
 ```
 
-### 🚀 Quick Start Commands
+### Quick Start Commands
 
 ```bash
 # Complete WordPress setup with sample content
@@ -554,7 +556,7 @@ composer test:wordpress                             # Run WordPress validation t
 open https://wordpress-ecommerce-starter.lndo.site
 ```
 
-### 🔧 Configuration
+### Configuration
 
 - **WordPress config** is auto-generated at `wp/wp-config.php`
 - **Content directory** is custom-named `custom/` at project root (instead of `wp-content/`)
@@ -562,7 +564,7 @@ open https://wordpress-ecommerce-starter.lndo.site
 - **Debug mode** is enabled for development
 - **File editing** is disabled for security (use Composer instead)
 
-### 📋 Important Notes
+### Important Notes
 
 - **Never edit files in `wp/`** - they're managed by Composer
 - **Your content lives in `custom/`** at the project root, separate from WordPress core
@@ -570,7 +572,7 @@ open https://wordpress-ecommerce-starter.lndo.site
 - **The `wp/` directory is gitignored** - WordPress is installed via Composer
 - **Uploads and cache** in `custom/` are preserved but not version controlled
 
-### 🧪 WordPress Installation Testing
+### WordPress Installation Testing
 
 Validate your WordPress installation with comprehensive tests:
 
@@ -589,19 +591,19 @@ npm run test:e2e:wordpress                 # Playwright browser tests
 
 **What gets tested:**
 
-- ✅ WordPress directory structure
-- ✅ Core files and directories exist
-- ✅ wp-config.php is properly configured
-- ✅ Database connection works
-- ✅ Plugin and theme directory structure
-- ✅ Composer installation integrity
-- ✅ File permissions and security
-- ✅ WordPress version validation
-- ✅ Browser accessibility tests
+- WordPress directory structure
+- Core files and directories exist
+- wp-config.php is properly configured
+- Database connection works
+- Plugin and theme directory structure
+- Composer installation integrity
+- File permissions and security
+- WordPress version validation
+- Browser accessibility tests
 
 ## Development Workflow
 
-### 🐙 GitHub CLI Integration
+### GitHub CLI Integration
 
 This project includes comprehensive GitHub CLI integration for enhanced development workflow:
 
@@ -695,9 +697,9 @@ gh run rerun <run-id>            # Rerun failed workflow
 might not be available or needed. The system detects CI/CD environments using common environment
 variables (`CI`, `GITHUB_ACTIONS`, `GITLAB_CI`, etc.).
 
-- ✅ **Local Development**: All GitHub CLI tests and functionality available
-- ⏭️ **CI/CD Pipelines**: GitHub CLI tests skipped automatically
-- 🔧 **Override**: Set `WQS_CI_MODE=0` to force GitHub CLI tests in CI/CD
+- **Local Development**: All GitHub CLI tests and functionality available
+- ⏭ **CI/CD Pipelines**: GitHub CLI tests skipped automatically
+- **Override**: Set `WQS_CI_MODE=0` to force GitHub CLI tests in CI/CD
 
 ### Code Quality & Linting
 
@@ -832,30 +834,30 @@ lando logs                    # View application logs
 
 ```
 wordpress-ecommerce-starter/
-├── .config/                  # 🔧 Configuration files
+├── .config/                  # Configuration files
 │   ├── linting/             # PHPCS, ESLint, Stylelint configs
 │   ├── testing/             # PHPUnit configuration
 │   └── formatting/          # Prettier configuration
-├── .github/workflows/        # 🚀 GitHub Actions CI/CD pipelines
-├── .vscode/                  # 💻 VS Code workspace settings
-├── docs/                     # 📚 Project documentation
+├── .github/workflows/        # GitHub Actions CI/CD pipelines
+├── .vscode/                  # VS Code workspace settings
+├── docs/                     # Project documentation
 │   ├── CONTRIBUTING.md      # How to contribute
 │   └── CHANGELOG.md         # Version history
-├── scripts/setup/            # 🛠️ Setup and installation scripts
+├── scripts/setup/            # Setup and installation scripts
 │   ├── install-lando-docker.* # Automated dependency installation
 │   ├── env-setup.*          # Development environment configuration
 │   ├── test-setup.*         # Setup verification
 │   └── git-hooks.*          # Git hook installation
-├── src/                      # 🏗️ Custom PHP classes (PSR-4 autoloaded)
+├── src/                      # Custom PHP classes (PSR-4 autoloaded)
 │   └── WQS_Sample_Utility.php # Example utility class
-├── tests/                    # ✅ PHPUnit test suite
+├── tests/                    # PHPUnit test suite
 │   ├── bootstrap.php        # Test environment setup
 │   └── unit/                # Unit tests
-├── .bashrc                   # 🐚 Terminal aliases and functions
-├── .lando.yml                # 🐳 Lando development environment config
-├── composer.json             # 🐘 PHP dependencies and scripts
-├── package.json              # 📦 Node.js dependencies and scripts
-└── README.md                 # 📖 This documentation
+├── .bashrc                   # Terminal aliases and functions
+├── .lando.yml                # Lando development environment config
+├── composer.json             # PHP dependencies and scripts
+├── package.json              # Node.js dependencies and scripts
+└── README.md                 # This documentation
 ```
 
 ### Key Files Explained
@@ -989,11 +991,11 @@ PAYMENT_GATEWAY_TEST_MODE=true
 
 All pull requests must:
 
-- ✅ Pass all automated tests
-- ✅ Meet coding standards (automated checks)
-- ✅ Include appropriate documentation
-- ✅ Have meaningful commit messages
-- ✅ Be reviewed by at least one maintainer
+- Pass all automated tests
+- Meet coding standards (automated checks)
+- Include appropriate documentation
+- Have meaningful commit messages
+- Be reviewed by at least one maintainer
 
 ## License
 
@@ -1105,11 +1107,11 @@ development environment:
 
 **Features:**
 
-- ✅ Downloads latest versions automatically
-- ✅ Handles different operating systems
-- ✅ Verifies installations
-- ✅ Provides post-install instructions
-- ✅ Interactive prompts for user control
+- Downloads latest versions automatically
+- Handles different operating systems
+- Verifies installations
+- Provides post-install instructions
+- Interactive prompts for user control
 
 ### Environment Setup Scripts
 
@@ -1168,7 +1170,7 @@ lando start                                 # Start development server
 .\scripts\setup\test-setup.bat             # Verify everything works
 ```
 
-## 🔧 Maintenance & Monitoring
+## Maintenance & Monitoring
 
 ### Performance Monitoring
 
@@ -1213,13 +1215,27 @@ Monitor your development environment:
 docker system info
 ```
 
-## Support
+## Documentation
 
-- 📖 [Documentation](https://github.com/rfair404/WordPress-QuickStart/wiki)
-- 🐛 [Bug Reports](https://github.com/rfair404/WordPress-QuickStart/issues)
-- 💬 [Discussions](https://github.com/rfair404/WordPress-QuickStart/discussions)
-- 🐳 [Lando Documentation](https://docs.lando.dev/)
-- 🐋 [Docker Documentation](https://docs.docker.com/)
+### Project Guides
+
+- [Project Structure Guide](docs/PROJECT_STRUCTURE.md) - Comprehensive architecture overview
+- [GitHub CLI Integration Guide](docs/GITHUB_CLI_GUIDE.md) - Complete GitHub workflow management
+- [Lando Wrapper System Guide](docs/LANDO_WRAPPER_GUIDE.md) - Cross-platform development environment
+- [CI/CD Pipeline Guide](docs/CICD_PIPELINE_GUIDE.md) - Enhanced CI/CD pipeline documentation
+- [Environment Configuration Guide](docs/ENVIRONMENT_CONFIG_GUIDE.md) - Environment-aware
+  configuration
+- [VS Code Integration Guide](docs/VSCODE_INTEGRATION_GUIDE.md) - Professional development workflow
+- [Playwright E2E Testing Guide](docs/PLAYWRIGHT_GUIDE.md) - End-to-end testing with Playwright
+- [Contributing Guidelines](docs/CONTRIBUTING.md) - How to contribute to the project
+- [Changelog](docs/CHANGELOG.md) - Version history and release notes
+
+### External Resources
+
+- [Bug Reports](https://github.com/rfair404/WordPress-QuickStart/issues)
+- [Discussions](https://github.com/rfair404/WordPress-QuickStart/discussions)
+- [Lando Documentation](https://docs.lando.dev/)
+- [Docker Documentation](https://docs.docker.com/)
 
 ## Acknowledgments
 

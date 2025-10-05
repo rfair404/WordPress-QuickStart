@@ -94,42 +94,29 @@ test('my WordPress test', async ({ page }) => {
 
 ### Using Test Utilities
 
-```javascript
+````javascript
 const { test, expect } = require('@playwright/test');
 const { WordPressAdmin } = require('./utils/wordpress-admin');
 // Optional storefront helpers can be added if using a storefront plugin
 // const { Storefront } = require("./utils/storefront");
 const { TestUtils } = require('./utils/test-utils');
 
-test('complete storefront flow (optional)', async ({ page }) => {
-  const admin = new WordPressAdmin(page);
-  // const shop = new Storefront(page); // Uncomment when a storefront plugin is present
-  const testUtils = new TestUtils(page);
+## Test Examples
 
-  // Generate test data
-  const testData = testUtils.generateTestData();
+### WordPress Core Functionality Test
 
-  // Test shop functionality
-  await shop.goToShop();
-  await shop.searchProducts('test');
+```javascript
+test('WordPress admin access', async ({ page }) => {
+  // Navigate to WordPress admin
+  await page.goto('/wp-admin');
 
-  // Add product to cart (if products exist)
-  try {
-    await shop.addToCart('Test Product', 1);
+  // Check login page loads
+  await expect(page).toHaveTitle(/Log In/);
 
-    // Complete checkout
-    await shop.completeCheckout({
-      billing: {
-        firstName: testData.firstName,
-        lastName: testData.lastName,
-        email: testData.email,
-      },
-    });
-  } catch (error) {
-    console.log('No products available for testing');
-  }
+  // Verify WordPress branding
+  await expect(page.locator('#login')).toBeVisible();
 });
-```
+````
 
 ## Configuration
 
@@ -349,5 +336,5 @@ In your CI/CD pipeline:
 - Admin dashboard
 - Mobile/tablet responsiveness
 
-This comprehensive testing setup ensures your WordPress e-commerce site works reliably across
-different browsers and devices!
+This testing setup ensures your WordPress e-commerce site works reliably across different browsers
+and devices!

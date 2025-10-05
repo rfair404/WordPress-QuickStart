@@ -10,8 +10,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Complete development environment setup with Lando
-- Comprehensive linting and code quality tools
-- Git hooks for automated code formatting and testing
+- Linting and code quality tools
+- Git hooks for code formatting and testing
 - VS Code workspace configuration
 - Custom .bashrc with development aliases and functions
 - Organized project directory structure
@@ -43,7 +43,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Security
 
-- Added automated security scanning with Composer audit
+- Added security scanning with Composer audit
 - Added npm audit for JavaScript dependencies
 
 ## [1.0.0] - 2025-10-02
@@ -53,7 +53,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Initial project structure
 - Basic WordPress quickstart foundation
 - Development environment configuration
-- Comprehensive tooling setup
+- Tooling setup
 
 ---
 
