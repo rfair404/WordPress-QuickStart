@@ -42,19 +42,15 @@ on:
 ```yaml
 strategy:
   matrix:
-    php-version: ['8.1', '8.2', '8.3']
-    node-version: ['18', '20']
+    php-version: ['8.1', '8.2']
+    node-version: ['20']
   fail-fast: false
 ```
 
-This creates **6 parallel jobs** testing all combinations:
+This creates **2 parallel jobs** testing all combinations:
 
-- PHP 8.1 + Node 18
 - PHP 8.1 + Node 20
-- PHP 8.2 + Node 18
 - PHP 8.2 + Node 20
-- PHP 8.3 + Node 18
-- PHP 8.3 + Node 20
 
 #### Job Steps Breakdown
 

@@ -47,7 +47,7 @@ services:
       - appserver
 
   node:
-    type: node:18
+    type: node:20
     build:
       - npm install -g wp-cli
 

@@ -129,7 +129,7 @@ The project includes environment detection for configuration:
 
 - **Configuration**: Minimal resource usage and faster execution
 - **Playwright Setup**: List reporter for clean CI logs, webServer disabled
-- **GitHub Actions Matrix**: Parallel execution across PHP 8.1/8.2/8.3 and Node 18/20
+- **GitHub Actions Matrix**: Parallel execution across PHP 8.1/8.2 and Node 20
 - **Validation Focus**: Essential functionality testing with optional components disabled
 
 ### Local Development
