@@ -71,13 +71,8 @@ run_test "vendor directory exists" "[ -d '$PROJECT_ROOT/vendor' ]"
 # Test 5: WordPress is NOT in project root (proper Composer setup)
 run_test "WordPress NOT in project root" "[ ! -d '$PROJECT_ROOT/wp-admin' ]"
 
-# Test 6: WooCommerce plugin is installed
-run_test "WooCommerce plugin installed" "[ -d '$PROJECT_ROOT/custom/plugins/woocommerce' ]"
-run_test "WooCommerce main file exists" "[ -f '$PROJECT_ROOT/custom/plugins/woocommerce/woocommerce.php' ]"
-
-# Test 7: Default theme is installed
-run_test "Twenty Twenty-Four theme installed" "[ -d '$PROJECT_ROOT/custom/themes/twentytwentyfour' ]"
-run_test "Theme style.css exists" "[ -f '$PROJECT_ROOT/custom/themes/twentytwentyfour/style.css' ]"
+# Test 6: Custom directories structure (plugins and themes directories exist)
+# Note: WooCommerce and default themes removed in Phase 2 - validating structure only
 
 # Test 8: WordPress version validation
 if [ -f "$WP_PATH/wp-includes/version.php" ]; then
@@ -155,8 +150,7 @@ run_test "custom/uploads directory writable" "[ -w '$PROJECT_ROOT/custom/uploads
 # Test 11: Composer packages validation
 if [ -f "$PROJECT_ROOT/composer.lock" ]; then
     run_test "WordPress core in composer.lock" "grep -q 'johnpbloch/wordpress-core' '$PROJECT_ROOT/composer.lock'"
-    run_test "WooCommerce in composer.lock" "grep -q 'wpackagist-plugin/woocommerce' '$PROJECT_ROOT/composer.lock'"
-    run_test "Twenty Twenty-Four in composer.lock" "grep -q 'wpackagist-theme/twentytwentyfour' '$PROJECT_ROOT/composer.lock'"
+    # Note: WooCommerce and default themes removed in Phase 2 - only validating WordPress core
 fi
 
 # Test 12: Script utilities
