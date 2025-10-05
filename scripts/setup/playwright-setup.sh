@@ -18,8 +18,9 @@ NC='\033[0m' # No Color
 
 # Configuration
 INSTALL_ALL_BROWSERS="${WQS_PLAYWRIGHT_ALL_BROWSERS:-0}"
-INSTALL_DEPS="${WQS_PLAYWRIGHT_INSTALL_DEPS:-1}"
+INSTALL_DEPS="${WQS_PLAYWRIGHT_INSTALL_DEPS:-0}"  # Default to no system deps to avoid sudo issues
 SKIP_CONFIRMATION="${WQS_AUTO:-0}"
+USE_SUDO="${WQS_PLAYWRIGHT_USE_SUDO:-auto}"  # auto, yes, no
 
 # Check if we're in the right directory
 if [[ ! -f "package.json" ]] || [[ ! -f "tests/playwright.config.js" ]]; then
@@ -68,20 +69,47 @@ check_playwright_installation() {
     fi
 }
 
+# Function to check if sudo is available and needed
+check_sudo_availability() {
+    if [[ "$USE_SUDO" == "no" ]] || [[ "$INSTALL_DEPS" == "0" ]]; then
+        return 1  # Don't use sudo
+    fi
+    
+    if [[ "$USE_SUDO" == "yes" ]]; then
+        return 0  # Force use sudo
+    fi
+    
+    # Auto-detect: check if sudo is available
+    if command -v sudo >/dev/null 2>&1; then
+        return 0  # Use sudo
+    else
+        echo -e "${YELLOW}⚠️  sudo not available, installing without system dependencies${NC}"
+        return 1  # Don't use sudo
+    fi
+}
+
 # Function to install Playwright browsers
 install_playwright_browsers() {
     echo -e "${BLUE}📦 Installing Playwright browsers...${NC}"
     
     if [[ "$INSTALL_ALL_BROWSERS" == "1" ]]; then
         echo -e "${CYAN}🌐 Installing all browsers (Chrome, Firefox, Safari)...${NC}"
-        if [[ "$INSTALL_DEPS" == "1" ]]; then
+        if [[ "$INSTALL_DEPS" == "1" ]] && check_sudo_availability; then
+            echo -e "${YELLOW}🔒 Installing with system dependencies (requires sudo)...${NC}"
             run_npm run test:e2e:install:ci
         else
-            run_npm run test:e2e:install
+            echo -e "${CYAN}📦 Installing browsers only (no system dependencies)...${NC}"
+            run_npm run test:e2e:install:ci:nodeps
         fi
     else
         echo -e "${CYAN}🔥 Installing Chromium only (recommended for development)...${NC}"
-        run_npm run test:e2e:install:chromium
+        if [[ "$INSTALL_DEPS" == "1" ]] && check_sudo_availability; then
+            echo -e "${YELLOW}🔒 Installing with system dependencies (requires sudo)...${NC}"
+            run_npm run test:e2e:install:chromium:deps
+        else
+            echo -e "${CYAN}📦 Installing Chromium only (no system dependencies)...${NC}"
+            run_npm run test:e2e:install:chromium
+        fi
     fi
 }
 
@@ -121,7 +149,8 @@ show_usage() {
     echo ""
     echo "  Environment variables:"
     echo "    WQS_PLAYWRIGHT_ALL_BROWSERS=1  # Install all browsers"
-    echo "    WQS_PLAYWRIGHT_INSTALL_DEPS=0  # Skip system dependencies"
+    echo "    WQS_PLAYWRIGHT_INSTALL_DEPS=1  # Install system dependencies (requires sudo)"
+    echo "    WQS_PLAYWRIGHT_USE_SUDO=yes    # Force use of sudo (auto/yes/no)"
     echo "    WQS_AUTO=1                     # Skip confirmations"
 }
 
@@ -132,7 +161,8 @@ main() {
     # Show current configuration
     echo -e "${CYAN}Configuration:${NC}"
     echo "  Install all browsers: $([[ "$INSTALL_ALL_BROWSERS" == "1" ]] && echo "Yes" || echo "No (Chromium only)")"
-    echo "  Install system deps:  $([[ "$INSTALL_DEPS" == "1" ]] && echo "Yes" || echo "No")"
+    echo "  Install system deps:  $([[ "$INSTALL_DEPS" == "1" ]] && echo "Yes (requires sudo)" || echo "No (browsers only)")"
+    echo "  Use sudo:            ${USE_SUDO}"
     echo "  Auto mode:           $([[ "$SKIP_CONFIRMATION" == "1" ]] && echo "Yes" || echo "No")"
     echo ""
     

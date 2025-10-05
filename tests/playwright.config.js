@@ -31,13 +31,34 @@ module.exports = defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   // Reporter to use
-  reporter: [
-    ['html'],
-    ['json', { outputFile: 'test-results/results.json' }],
-    ['junit', { outputFile: 'test-results/results.xml' }],
-    // Only show summary in CI
-    process.env.CI ? ['github'] : ['list'],
-  ],
+  reporter: process.env.CI
+    ? [
+        // CI reporters: minimal output + integrations
+        [
+          'html',
+          {
+            open: 'never',
+            outputFolder: 'playwright-report',
+          },
+        ],
+        ['json', { outputFile: 'test-results/results.json' }],
+        ['junit', { outputFile: 'test-results/results.xml' }],
+        ['dot'], // Minimal dots output for CI
+        ['github'], // GitHub Actions integration
+      ]
+    : [
+        // Local development reporters: detailed output
+        [
+          'html',
+          {
+            open: 'on-failure',
+            outputFolder: 'playwright-report',
+          },
+        ],
+        ['json', { outputFile: 'test-results/results.json' }],
+        ['junit', { outputFile: 'test-results/results.xml' }],
+        ['list'], // Detailed list output for local development
+      ],
 
   // Shared settings for all the projects below
   use: {

@@ -32,6 +32,13 @@ wp-config-sample.php
 *.php
 **/*.php
 
+# Test artifacts and reports
+test-results/
+tests/test-results/
+tests/test-results-*/
+playwright-report/
+tests/playwright-report/
+
 # Log files and temp files
 *.log
 *.tmp

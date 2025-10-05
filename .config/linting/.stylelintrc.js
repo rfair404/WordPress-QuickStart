@@ -52,5 +52,11 @@ module.exports = {
     'build/**/*.css',
     'dist/**/*.css',
     'coverage/**/*.css',
+    // Test artifacts and reports
+    'test-results/**/*.css',
+    'tests/test-results/**/*.css',
+    'tests/test-results-*/**/*.css',
+    'playwright-report/**/*.css',
+    'tests/playwright-report/**/*.css',
   ],
 };

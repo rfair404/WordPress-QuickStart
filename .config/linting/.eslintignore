@@ -13,5 +13,12 @@ build/**
 dist/**
 *.min.js
 
+# Test artifacts and reports
+test-results/**
+tests/test-results/**
+tests/test-results-*/**
+playwright-report/**
+tests/playwright-report/**
+
 # Configuration files that should be ignored
 webpack.config.js

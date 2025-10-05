@@ -114,9 +114,9 @@ echo "--------------------------------"
 if [ -f "tests/playwright.config.js" ]; then
     # Check if Playwright setup script exists and run it
     if [ -f "scripts/setup/playwright-setup.sh" ]; then
-        run_test "playwright setup" "WQS_AUTO=1 WQS_PLAYWRIGHT_INSTALL_DEPS=0 ./scripts/setup/playwright-setup.sh" 60
+        run_test "playwright setup" "WQS_AUTO=1 WQS_PLAYWRIGHT_INSTALL_DEPS=0 WQS_PLAYWRIGHT_USE_SUDO=no ./scripts/setup/playwright-setup.sh" 60
     else
-        # Fallback to direct installation
+        # Fallback to direct installation (no system deps to avoid sudo issues)
         run_test "playwright browsers install" "npm run test:e2e:install:chromium" 30
     fi
 
