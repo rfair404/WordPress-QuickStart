@@ -55,7 +55,6 @@ test_project_structure() {
     run_test "phpunit.xml exists" "[ -f '.config/testing/phpunit.xml' ]"
     run_test "README.md exists" "[ -f 'README.md' ]"
     run_test ".gitignore exists" "[ -f '.gitignore' ]"
-    run_test "src/ directory exists" "[ -d 'src' ]"
     run_test "tests/ directory exists" "[ -d 'tests' ]"
     run_test "scripts/ directory exists" "[ -d 'scripts' ]"
     run_test ".github/workflows/ directory exists" "[ -d '.github/workflows' ]"

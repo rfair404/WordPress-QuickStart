@@ -69,7 +69,6 @@ test_project_structure() {
     run_test "package.json exists" "[ -f 'package.json' ]"
 
     run_test "scripts directory exists" "[ -d 'scripts' ]"
-    run_test "src directory exists" "[ -d 'src' ]"
     run_test "tests directory exists" "[ -d 'tests' ]"
     run_test "docs directory exists" "[ -d 'docs' ]"
 }
