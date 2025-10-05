@@ -36,6 +36,7 @@ expected to uphold this code.
 ## Development Workflow
 
 1. **Create a branch** for your feature or fix:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -46,6 +47,7 @@ expected to uphold this code.
    - All code must pass linting and tests
 
 3. **Test your changes**:
+
    ```bash
    # Run all tests
    lando composer analyze
@@ -56,6 +58,7 @@ expected to uphold this code.
    ```
 
 4. **Commit your changes** using conventional commit format:
+
    ```bash
    git commit -m "feat(auth): add user login functionality"
    ```
@@ -65,18 +68,21 @@ expected to uphold this code.
 ## Coding Standards
 
 ### PHP
+
 - Follow [WordPress VIP Coding Standards](https://docs.wpvip.com/technical-references/code-quality-and-best-practices/code-review/)
 - Use PHPDoc comments for all functions and classes
 - Write unit tests for new functionality
 - Run `lando composer lint` before committing
 
 ### JavaScript
+
 - Follow [WordPress JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-javascript/)
 - Use JSDoc comments for functions
 - Write tests for new functionality
 - Run `lando npm run lint:js` before committing
 
 ### CSS
+
 - Follow [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-css/)
 - Use meaningful class names
 - Run `lando npm run lint:css` before committing
@@ -94,6 +100,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/) format:
 ```
 
 ### Types:
+
 - `feat`: A new feature
 - `fix`: A bug fix
 - `docs`: Documentation only changes
@@ -103,6 +110,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/) format:
 - `chore`: Changes to the build process or auxiliary tools
 
 ### Examples:
+
 ```
 feat(auth): add user registration functionality
 fix(cart): resolve quantity update issue

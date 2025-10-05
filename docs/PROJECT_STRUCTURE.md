@@ -26,6 +26,7 @@ wordpress-ecommerce-starter/
 ## Core Directories
 
 ### `/docs/` - Documentation
+
 ```
 docs/
 ├── CHANGELOG.md              # Version history and changes
@@ -34,6 +35,7 @@ docs/
 ```
 
 ### `/scripts/` - Automation Scripts
+
 ```
 scripts/
 └── setup/                    # Environment setup scripts
@@ -51,12 +53,14 @@ scripts/
 ```
 
 ### `/src/` - Source Code
+
 ```
 src/
 └── WQS_Sample_Utility.php    # Sample WordPress utility class
 ```
 
 ### `/tests/` - Testing Infrastructure
+
 ```
 tests/
 ├── playwright.config.js      # Playwright E2E test configuration
@@ -83,6 +87,7 @@ tests/
 ## Configuration Files
 
 ### Root Level Configuration
+
 - **`.bashrc`** - Bash environment with custom functions and aliases
 - **`.editorconfig`** - Consistent coding style across editors
 - **`.gitignore`** - Files and directories to ignore in version control
@@ -91,6 +96,7 @@ tests/
 - **`package.json`** - Node.js dependencies and npm scripts
 
 ### Directory-Specific Configuration
+
 - **`.github/workflows/`** - CI/CD pipeline definitions
 - **`.vscode/settings.json`** - VS Code workspace settings
 - **`tests/playwright.config.js`** - E2E testing configuration
@@ -98,16 +104,19 @@ tests/
 ## File Naming Conventions
 
 ### Scripts
+
 - **`.sh`** - Unix/Linux/Mac shell scripts
 - **`.bat`** - Windows batch files
 - **`.ps1`** - PowerShell scripts (if needed)
 
 ### Tests
+
 - **`*.spec.js`** - Playwright E2E test files
 - **`*.test.php`** - PHPUnit test files
 - **`*Test.php`** - PHPUnit test classes
 
 ### Documentation
+
 - **`*.md`** - Markdown documentation files
 - **UPPERCASE.md** - Major documentation files (README, CHANGELOG, etc.)
 
@@ -127,14 +136,17 @@ coverage/                     # Code coverage reports
 ## Development Workflow Integration
 
 ### Setup Scripts Location
+
 All setup and automation scripts are organized in `/scripts/setup/` for easy discovery and maintenance.
 
 ### Test Organization
+
 - **Unit tests** → `/tests/unit/` (PHP)
 - **E2E tests** → `/tests/e2e/` (JavaScript/Playwright)
 - **Test config** → `/tests/playwright.config.js`
 
 ### Documentation Structure
+
 - **User docs** → `/docs/` (guides, API docs)
 - **Code docs** → Inline comments and docblocks
 - **Project docs** → Root level (README, CONTRIBUTING)

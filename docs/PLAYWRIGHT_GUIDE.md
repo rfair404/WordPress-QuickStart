@@ -75,32 +75,32 @@ tests/
 
 ```javascript
 // tests/e2e/my-test.spec.js
-const { test, expect } = require('@playwright/test');
-const { WordPressAdmin } = require('./utils/wordpress-admin');
+const { test, expect } = require("@playwright/test");
+const { WordPressAdmin } = require("./utils/wordpress-admin");
 
-test('my WordPress test', async ({ page }) => {
+test("my WordPress test", async ({ page }) => {
   const admin = new WordPressAdmin(page);
 
   // Login to WordPress admin
   await admin.login();
 
   // Navigate to posts
-  await admin.navigateToAdminPage('edit.php');
+  await admin.navigateToAdminPage("edit.php");
 
   // Verify posts page loaded
-  await expect(page.locator('.wp-list-table')).toBeVisible();
+  await expect(page.locator(".wp-list-table")).toBeVisible();
 });
 ```
 
 ### Using Test Utilities
 
 ```javascript
-const { test, expect } = require('@playwright/test');
-const { WordPressAdmin } = require('./utils/wordpress-admin');
-const { WooCommerceShop } = require('./utils/woocommerce-shop');
-const { TestUtils } = require('./utils/test-utils');
+const { test, expect } = require("@playwright/test");
+const { WordPressAdmin } = require("./utils/wordpress-admin");
+const { WooCommerceShop } = require("./utils/woocommerce-shop");
+const { TestUtils } = require("./utils/test-utils");
 
-test('complete e-commerce flow', async ({ page }) => {
+test("complete e-commerce flow", async ({ page }) => {
   const admin = new WordPressAdmin(page);
   const shop = new WooCommerceShop(page);
   const testUtils = new TestUtils(page);
@@ -110,22 +110,22 @@ test('complete e-commerce flow', async ({ page }) => {
 
   // Test shop functionality
   await shop.goToShop();
-  await shop.searchProducts('test');
+  await shop.searchProducts("test");
 
   // Add product to cart (if products exist)
   try {
-    await shop.addToCart('Test Product', 1);
+    await shop.addToCart("Test Product", 1);
 
     // Complete checkout
     await shop.completeCheckout({
       billing: {
         firstName: testData.firstName,
         lastName: testData.lastName,
-        email: testData.email
-      }
+        email: testData.email,
+      },
     });
   } catch (error) {
-    console.log('No products available for testing');
+    console.log("No products available for testing");
   }
 });
 ```
@@ -157,15 +157,15 @@ PLAYWRIGHT_DEBUG=1
 Use tags to organize and filter tests:
 
 ```javascript
-test.describe('WordPress Admin @wordpress @admin', () => {
+test.describe("WordPress Admin @wordpress @admin", () => {
   // Admin tests
 });
 
-test.describe('WooCommerce Shop @woocommerce @shop', () => {
+test.describe("WooCommerce Shop @woocommerce @shop", () => {
   // Shop tests
 });
 
-test.describe('Visual Tests @visual @regression', () => {
+test.describe("Visual Tests @visual @regression", () => {
   // Visual regression tests
 });
 ```
@@ -193,11 +193,11 @@ Organize your test code using the provided utilities:
 // Good: Using utility classes
 const admin = new WordPressAdmin(page);
 await admin.login();
-await admin.createPost({ title: 'Test Post' });
+await admin.createPost({ title: "Test Post" });
 
 // Avoid: Direct page interactions everywhere
-await page.goto('/wp-login.php');
-await page.fill('#user_login', 'admin');
+await page.goto("/wp-login.php");
+await page.fill("#user_login", "admin");
 // ... lots of repetitive code
 ```
 
@@ -209,7 +209,7 @@ await page.addStyleTag({
   content: `
     .wp-admin-bar { display: none !important; }
     .widget_calendar { display: none !important; }
-  `
+  `,
 });
 ```
 
@@ -217,10 +217,10 @@ await page.addStyleTag({
 
 ```javascript
 // Good: Wait for specific elements
-await page.waitForSelector('.woocommerce-message');
+await page.waitForSelector(".woocommerce-message");
 
 // Good: Wait for network to be idle
-await page.waitForLoadState('networkidle');
+await page.waitForLoadState("networkidle");
 
 // Avoid: Fixed timeouts
 await page.waitForTimeout(5000);
@@ -236,7 +236,7 @@ const testData = testUtils.generateTestData();
 // Use the generated data
 await admin.createPost({
   title: testData.postTitle,
-  content: 'Test content'
+  content: "Test content",
 });
 ```
 
@@ -324,6 +324,7 @@ In your CI/CD pipeline:
 ## Example Test Scenarios
 
 ### WordPress Functionality
+
 - Admin login and navigation
 - Post/page creation and editing
 - Plugin and theme management
@@ -331,6 +332,7 @@ In your CI/CD pipeline:
 - User management
 
 ### WooCommerce Functionality
+
 - Product catalog browsing
 - Search functionality
 - Add to cart workflow
@@ -338,6 +340,7 @@ In your CI/CD pipeline:
 - Customer account management
 
 ### Visual Regression
+
 - Homepage appearance
 - Shop page layout
 - Cart and checkout pages

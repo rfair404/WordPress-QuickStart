@@ -12,20 +12,14 @@
         "url": "https://github.com/rfair404/WordPress-QuickStart/issues"
     },
     "scripts": {
-        "build": "wp-scripts build",
-        "build:production": "wp-scripts build --mode=production",
-        "start": "wp-scripts start",
-        "dev": "wp-scripts start",
         "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx --config .config/linting/.eslintrc.js",
         "lint:js:fix": "eslint . --ext .js,.jsx,.ts,.tsx --config .config/linting/.eslintrc.js --fix",
-        "lint:css": "find . -name '*.css' -o -name '*.scss' -o -name '*.pcss' | head -1 | grep -q . && wp-scripts lint-style || echo 'No CSS files found to lint'",
-        "lint:css:fix": "find . -name '*.css' -o -name '*.scss' -o -name '*.pcss' | head -1 | grep -q . && wp-scripts lint-style --fix || echo 'No CSS files found to lint'",
-        "format": "wp-scripts format",
-        "format:check": "npm run lint:js && npm run lint:css",
-        "format:all": "npm run lint:js:fix && npm run lint:css:fix",
+        "lint:css": "stylelint 'custom/**/*.css' 'custom/**/*.scss'",
+        "lint:css:fix": "stylelint 'custom/**/*.css' 'custom/**/*.scss' --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
         "lint-staged": "lint-staged",
-        "test": "wp-scripts test-unit-js --passWithNoTests",
-        "test:watch": "wp-scripts test-unit-js --watch",
+        "test": "npm run test:e2e",
         "test:e2e": "playwright test --config=tests/playwright.config.js",
         "test:e2e:headed": "playwright test --config=tests/playwright.config.js --headed",
         "gh:check": "bash scripts/gh-wrapper.sh --version || echo 'GitHub CLI not installed. Run: npm run gh:install'",
@@ -42,9 +36,6 @@
         "test:e2e:wordpress": "playwright test --config=tests/playwright.config.js --grep @wordpress",
         "test:e2e:woocommerce": "playwright test --config=tests/playwright.config.js --grep @woocommerce",
         "test:e2e:visual": "playwright test --config=tests/playwright.config.js --grep @visual",
-        "packages-update": "wp-scripts packages-update",
-        "check-engines": "wp-scripts check-engines",
-        "check-licenses": "wp-scripts check-licenses",
         "hooks:setup": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\git-hooks.bat' : './scripts/setup/git-hooks.sh', {stdio: 'inherit'})\"",
         "setup:env": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\env-setup.bat' : './scripts/setup/env-setup.sh', {stdio: 'inherit'})\"",
         "validate:deps": "node -e \"require('child_process').execSync('./scripts/setup/dependency-validator.sh', {stdio: 'inherit'})\"",
@@ -63,34 +54,28 @@
     "devDependencies": {
         "@playwright/test": "^1.40.0",
         "@types/node": "^20.0.0",
-        "@wordpress/browserslist-config": "^6.32.0",
-        "@wordpress/scripts": "^30.25.0",
-        "@wordpress/stylelint-config": "^21.0.0",
         "eslint": "^8.0.0",
         "husky": "^8.0.0",
         "lint-staged": "^13.0.0",
-        "stylelint": "^14.16.0"
-    },
-    "dependencies": {
-        "@wordpress/blocks": "^12.0.0",
-        "@wordpress/components": "^25.0.0",
-        "@wordpress/element": "^5.0.0",
-        "@wordpress/i18n": "^4.0.0"
+        "prettier": "^3.6.2",
+        "stylelint": "^14.16.0",
+        "stylelint-config-standard": "^29.0.0"
     },
     "browserslist": [
-        "extends @wordpress/browserslist-config"
+        "defaults",
+        "not IE 11"
     ],
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [
-            "wp-scripts format",
-            "wp-scripts lint-js --fix"
+            "prettier --write",
+            "eslint --fix"
         ],
         "*.{css,scss,sass}": [
-            "wp-scripts format",
-            "wp-scripts lint-style --fix"
+            "prettier --write",
+            "stylelint --fix"
         ],
         "*.{json,yml,yaml,md,html}": [
-            "wp-scripts format"
+            "prettier --write"
         ],
         "*.php": [
             "composer run lint:fix"

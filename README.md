@@ -43,6 +43,7 @@ We provide automated installation scripts that download and install both Docker 
 ```
 
 **What the installer does:**
+
 - ✅ Downloads latest versions of Docker Desktop and Lando
 - ✅ Runs official installers with proper configurations
 - ✅ Verifies installations and provides next steps
@@ -98,12 +99,14 @@ If you prefer to install manually:
 1. **Verify Prerequisites**
 
    Make sure Docker Desktop is installed and running:
+
    ```bash
    docker --version
    docker compose version    # Modern Docker includes compose
    ```
 
    Make sure Lando is installed:
+
    ```bash
    lando version
    ```
@@ -144,6 +147,7 @@ If you prefer to install manually:
 5. **Set up development environment** (Optional but Recommended)
 
    Configure your terminal and VS Code with project-specific shortcuts and settings:
+
    ```bash
    # Windows (PowerShell/Command Prompt)
    .\scripts\setup\env-setup.bat
@@ -161,6 +165,7 @@ If you prefer to install manually:
 6. **Test the setup**
 
    Run the setup test to verify everything is working:
+
    ```bash
    # On Windows
    .\scripts\setup\test-setup.bat
@@ -189,7 +194,6 @@ If you prefer to install manually:
    - 📈 **Repository Tools**: Visual git history, branch management, issue tracking
 
    **GitHub Authentication** (Required after running the script):
-
    1. **Create Personal Access Token**:
       - Go to: [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
       - Click "Generate new token (classic)"
@@ -217,12 +221,12 @@ If you prefer to install manually:
 
    Once `lando start` completes, your site will be available at these URLs:
 
-   | Service | URL | Notes |
-   |---------|-----|-------|
-   | **Main Site** | https://wordpress-quickstart.lndo.site | Your WordPress front-end |
+   | Service             | URL                                             | Notes                                |
+   | ------------------- | ----------------------------------------------- | ------------------------------------ |
+   | **Main Site**       | https://wordpress-quickstart.lndo.site          | Your WordPress front-end             |
    | **Admin Dashboard** | https://wordpress-quickstart.lndo.site/wp-admin | Username: `admin`, Password: `admin` |
-   | **Email Testing** | https://mail.wordpress-quickstart.lndo.site | MailHog catches all emails |
-   | **Database Access** | `lando info` | Get database connection details |
+   | **Email Testing**   | https://mail.wordpress-quickstart.lndo.site     | MailHog catches all emails           |
+   | **Database Access** | `lando info`                                    | Get database connection details      |
 
    **🔧 Troubleshooting**: If URLs don't work, run `lando info` to see your actual URLs.
 
@@ -232,7 +236,7 @@ Here's the full workflow from a fresh system to a running development environmen
 
 ### 🚀 New Developer Quick Start (5-10 minutes)
 
-```bash
+````bash
 # Step 1: Install prerequisites (automated)
 ./scripts/setup/install-lando-docker.sh    # Mac/Linux/WSL
 # OR
@@ -265,7 +269,7 @@ lando npm install
 
 # Step 7: Open your site
 # Visit: https://wordpress-ecommerce-starter.lndo.site
-```
+````
 
 ### 🤖 CI/CD and Automation
 
@@ -285,6 +289,7 @@ WQS_TEST_AUTOMATION=1 ./scripts/setup/test-setup.sh
 ```
 
 **Environment Variables for Automation:**
+
 - `WQS_AUTO=1` - Enable automated mode (no prompts)
 - `WQS_QUIET=1` - Reduce output verbosity (silent mode)
 - `WQS_DEBUG=1` - Enable debug output for troubleshooting
@@ -297,7 +302,7 @@ WQS_TEST_AUTOMATION=1 ./scripts/setup/test-setup.sh
 
 **🔧 Error Tolerance & Debugging:**
 
-```bash
+````bash
 # Debug mode - shows detailed execution steps
 WQS_AUTO=1 WQS_DEBUG=1 ./scripts/setup/install-lando-docker.sh
 
@@ -324,7 +329,7 @@ lando npm run lint:js         # Check JavaScript code quality
 
 # End your day
 lando stop                     # Stop the environment (saves resources)
-```
+````
 
 ## Development Environment
 
@@ -448,18 +453,21 @@ project-root/
 ### 🛠️ WordPress Installation Methods
 
 **Option 1: Full Installation (Recommended)**
+
 ```bash
 lando start                                        # Start development environment
 ./scripts/wp-manager.sh install:full              # Complete installation with sample content
 ```
 
 **Option 2: Basic Installation**
+
 ```bash
 ./scripts/wp-manager.sh install                   # Install WordPress files only
 # Then visit your site to complete setup manually
 ```
 
 **What's included in Full Installation:**
+
 - ✅ WordPress core installation and configuration
 - ✅ Database setup and admin user creation
 - ✅ Sample pages (Home, About, Contact, Shop, Blog)
@@ -575,6 +583,7 @@ npm run test:e2e:wordpress                 # Playwright browser tests
 ```
 
 **What gets tested:**
+
 - ✅ WordPress directory structure
 - ✅ Core files and directories exist
 - ✅ wp-config.php is properly configured
@@ -612,6 +621,7 @@ brew install gh
 #### Available Commands
 
 **Composer shortcuts:**
+
 ```bash
 lando composer gh:check      # Check GitHub CLI installation status
 lando composer gh:actions    # List recent workflow runs
@@ -619,6 +629,7 @@ lando composer gh:auth       # Check authentication status
 ```
 
 **npm shortcuts:**
+
 ```bash
 lando npm run gh:check           # Check GitHub CLI installation
 lando npm run gh:actions:latest  # View latest workflow run details
@@ -626,6 +637,7 @@ lando npm run gh:actions:logs    # View failed workflow logs
 ```
 
 **Direct GitHub CLI commands:**
+
 ```bash
 gh run list                      # List recent workflow runs
 gh run view --log-failed         # View failed run logs
@@ -814,15 +826,15 @@ wordpress-ecommerce-starter/
 
 ### Key Files Explained
 
-| File/Directory | Purpose | When You'll Use It |
-|---------------|---------|-------------------|
-| `.lando.yml` | Development environment configuration | Modify for custom PHP/Node versions or add services |
-| `composer.json` | PHP dependencies and development scripts | Add new PHP packages or custom scripts |
-| `package.json` | Node.js tools and frontend dependencies | Add new JavaScript tools or frontend packages |
-| `src/` | Your custom PHP classes | Add business logic, utilities, or WordPress customizations |
-| `tests/` | Automated tests | Ensure your code works correctly |
-| `scripts/setup/` | Automation scripts | One-time setup and maintenance tasks |
-| `.config/` | Tool configurations | Customize linting rules, test settings, formatting |
+| File/Directory   | Purpose                                  | When You'll Use It                                         |
+| ---------------- | ---------------------------------------- | ---------------------------------------------------------- |
+| `.lando.yml`     | Development environment configuration    | Modify for custom PHP/Node versions or add services        |
+| `composer.json`  | PHP dependencies and development scripts | Add new PHP packages or custom scripts                     |
+| `package.json`   | Node.js tools and frontend dependencies  | Add new JavaScript tools or frontend packages              |
+| `src/`           | Your custom PHP classes                  | Add business logic, utilities, or WordPress customizations |
+| `tests/`         | Automated tests                          | Ensure your code works correctly                           |
+| `scripts/setup/` | Automation scripts                       | One-time setup and maintenance tasks                       |
+| `.config/`       | Tool configurations                      | Customize linting rules, test settings, formatting         |
 
 ## Coding Standards
 
@@ -959,7 +971,9 @@ This project is licensed under the GPL-2.0-or-later License - see the
 ### First-Time Setup Issues
 
 #### Prerequisites Not Installed
+
 **Problem**: `docker: command not found` or `lando: command not found`
+
 ```bash
 # Solution: Use our automated installer
 ./scripts/setup/install-lando-docker.sh    # Mac/Linux/WSL
@@ -969,7 +983,9 @@ This project is licensed under the GPL-2.0-or-later License - see the
 ```
 
 #### Docker Desktop Not Running
+
 **Problem**: `Cannot connect to the Docker daemon`
+
 ```bash
 # Solution: Start Docker Desktop
 # Windows: Start Menu → Docker Desktop
@@ -982,7 +998,9 @@ docker ps
 ```
 
 #### Lando First Start Taking Too Long
+
 **Problem**: `lando start` seems stuck or very slow
+
 ```bash
 # This is normal! First-time setup downloads several GB of Docker images
 # Expected time: 5-10 minutes depending on internet speed
@@ -995,7 +1013,9 @@ lando start
 ```
 
 #### Site URLs Not Working
+
 **Problem**: https://wordpress-ecommerce-starter.lndo.site returns connection error
+
 ```bash
 # Solution: Check your actual URLs
 lando info
@@ -1007,6 +1027,7 @@ lando info
 ### Common Development Issues
 
 #### Docker/Lando Issues
+
 - **"Cannot connect to the Docker daemon"**: Make sure Docker Desktop is running
 - **"lando: command not found"**: Restart terminal after installation or use our installer
 - **Slow performance**: Allocate more memory to Docker Desktop (4GB+ recommended)
@@ -1014,11 +1035,13 @@ lando info
 - **"No space left on device"**: Clean up Docker with `docker system prune -a`
 
 #### Windows-Specific Issues
+
 - **File permission errors**: Run PowerShell as Administrator
 - **Path issues**: Use forward slashes in file paths when possible
 - **Line ending issues**: Configure Git to handle line endings: `git config --global core.autocrlf true`
 
 #### Getting Help
+
 ```bash
 # View Lando logs
 lando logs
@@ -1039,12 +1062,13 @@ The `scripts/setup/` directory contains several automated setup scripts to strea
 
 ### Installation Scripts
 
-| Script | Purpose | Platform |
-|--------|---------|----------|
-| `install-lando-docker.sh` | Auto-install Docker Desktop + Lando | macOS, Linux, Windows (Git Bash) |
-| `install-lando-docker.bat` | Auto-install Docker Desktop + Lando | Windows (PowerShell/CMD) |
+| Script                     | Purpose                             | Platform                         |
+| -------------------------- | ----------------------------------- | -------------------------------- |
+| `install-lando-docker.sh`  | Auto-install Docker Desktop + Lando | macOS, Linux, Windows (Git Bash) |
+| `install-lando-docker.bat` | Auto-install Docker Desktop + Lando | Windows (PowerShell/CMD)         |
 
 **Features:**
+
 - ✅ Downloads latest versions automatically
 - ✅ Handles different operating systems
 - ✅ Verifies installations
@@ -1053,12 +1077,13 @@ The `scripts/setup/` directory contains several automated setup scripts to strea
 
 ### Environment Setup Scripts
 
-| Script | Purpose | Platform |
-|--------|---------|----------|
-| `env-setup.sh` | Configure terminal environment & VS Code | Unix-like systems |
-| `env-setup.bat` | Configure terminal environment & VS Code | Windows |
+| Script          | Purpose                                  | Platform          |
+| --------------- | ---------------------------------------- | ----------------- |
+| `env-setup.sh`  | Configure terminal environment & VS Code | Unix-like systems |
+| `env-setup.bat` | Configure terminal environment & VS Code | Windows           |
 
 **What they do:**
+
 - Configure `.bashrc` with project aliases and functions
 - Set up VS Code workspace settings
 - Configure Git Bash integration
@@ -1066,12 +1091,13 @@ The `scripts/setup/` directory contains several automated setup scripts to strea
 
 ### Testing Scripts
 
-| Script | Purpose | Platform |
-|--------|---------|----------|
-| `test-setup.sh` | Verify development environment | Unix-like systems |
-| `test-setup.bat` | Verify development environment | Windows |
+| Script           | Purpose                        | Platform          |
+| ---------------- | ------------------------------ | ----------------- |
+| `test-setup.sh`  | Verify development environment | Unix-like systems |
+| `test-setup.bat` | Verify development environment | Windows           |
 
 **Verification includes:**
+
 - Docker and Lando installation
 - Project configuration files
 - Development dependencies
@@ -1079,12 +1105,13 @@ The `scripts/setup/` directory contains several automated setup scripts to strea
 
 ### Git Hook Scripts
 
-| Script | Purpose | Platform |
-|--------|---------|----------|
-| `git-hooks.sh` | Install automated git hooks | Unix-like systems |
-| `git-hooks.bat` | Install automated git hooks | Windows |
+| Script          | Purpose                     | Platform          |
+| --------------- | --------------------------- | ----------------- |
+| `git-hooks.sh`  | Install automated git hooks | Unix-like systems |
+| `git-hooks.bat` | Install automated git hooks | Windows           |
 
 **Hook features:**
+
 - Pre-commit: Prettier formatting + linting
 - Pre-push: Full test suite execution
 - Commit-msg: Conventional commit validation

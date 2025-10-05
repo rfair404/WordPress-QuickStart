@@ -44,12 +44,14 @@ tests/
 ## Script Categories
 
 ### 📊 Analysis Scripts (`analysis/`)
+
 Tools for analyzing test coverage, structure, and quality metrics.
 
 - **`analyze-unit-tests.sh`** - Provides detailed analysis of PHP unit test files, including method counts,
   test patterns, dependencies, and coverage information.
 
 ### ✅ Validation Scripts (`validation/`)
+
 Scripts that validate environment setup and configuration.
 
 - **`validate-wordpress-installation.sh`** - Validates WordPress installation via Composer, directory structure,
@@ -57,6 +59,7 @@ Scripts that validate environment setup and configuration.
 - **`validate-woocommerce-setup.sh`** - Verifies WooCommerce plugin installation, configuration, and dependencies.
 
 ### 🏃 Test Runners (`runners/`)
+
 Scripts that execute various test suites.
 
 - **`run-unit-tests-standalone.sh`** - Executes PHPUnit tests without requiring Docker/Lando environment.
@@ -64,6 +67,7 @@ Scripts that execute various test suites.
   code quality checks, and optional E2E tests.
 
 ### 🔗 Integration Tests (`integration/`)
+
 Scripts that test complete workflows and system integration.
 
 - **`test-project-setup.sh`** - Tests all project functionality including file structure, script syntax,
@@ -73,12 +77,14 @@ Scripts that test complete workflows and system integration.
 ## Usage Examples
 
 ### Run All Tests
+
 ```bash
 # From project root
 ./tests/runners/run-wordpress-tests.sh
 ```
 
 ### Validate Environment
+
 ```bash
 # Check WordPress installation
 ./tests/validation/validate-wordpress-installation.sh
@@ -88,12 +94,14 @@ Scripts that test complete workflows and system integration.
 ```
 
 ### Analyze Test Coverage
+
 ```bash
 # Analyze PHP unit tests
 ./tests/analysis/analyze-unit-tests.sh
 ```
 
 ### Run Specific Test Types
+
 ```bash
 # Unit tests only
 ./tests/runners/run-unit-tests-standalone.sh
