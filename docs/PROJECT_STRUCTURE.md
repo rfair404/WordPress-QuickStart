@@ -136,7 +136,8 @@ coverage/                     # Code coverage reports
 
 ### Setup Scripts Location
 
-All setup and automation scripts are organized in `/scripts/setup/` for easy discovery and maintenance.
+All setup and automation scripts are organized in `/scripts/setup/` for easy discovery and
+maintenance.
 
 ### Test Organization
 

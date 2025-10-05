@@ -44,30 +44,33 @@ tests/
 
 Tools for analyzing test coverage, structure, and quality metrics.
 
-- **`analyze-unit-tests.sh`** - Provides detailed analysis of PHP unit test files, including method counts,
-  test patterns, dependencies, and coverage information.
+- **`analyze-unit-tests.sh`** - Provides detailed analysis of PHP unit test files, including method
+  counts, test patterns, dependencies, and coverage information.
 
 ### ✅ Validation Scripts (`validation/`)
 
 Scripts that validate environment setup and configuration.
 
-- **`validate-wordpress-installation.sh`** - Comprehensive WordPress installation validation including directory structure, file permissions, configuration, and composer dependencies.
+- **`validate-wordpress-installation.sh`** - Comprehensive WordPress installation validation
+  including directory structure, file permissions, configuration, and composer dependencies.
 
 ### 🏃 Test Runners (`runners/`)
 
 Scripts that execute various test suites.
 
-- **`run-unit-tests-standalone.sh`** - Executes PHPUnit tests without requiring Docker/Lando environment.
-- **`run-wordpress-tests.sh`** - Comprehensive test runner that executes shell scripts, PHPUnit tests,
-  code quality checks, and optional E2E tests.
+- **`run-unit-tests-standalone.sh`** - Executes PHPUnit tests without requiring Docker/Lando
+  environment.
+- **`run-wordpress-tests.sh`** - Comprehensive test runner that executes shell scripts, PHPUnit
+  tests, code quality checks, and optional E2E tests.
 
 ### 🔗 Integration Tests (`integration/`)
 
 Scripts that test complete workflows and system integration.
 
-- **`test-project-setup.sh`** - Tests all project functionality including file structure, script syntax,
-  permissions, and WordPress manager commands.
-- **`test-wp-installation.sh`** - Tests the WordPress installation process, sample content creation, and configuration.
+- **`test-project-setup.sh`** - Tests all project functionality including file structure, script
+  syntax, permissions, and WordPress manager commands.
+- **`test-wp-installation.sh`** - Tests the WordPress installation process, sample content creation,
+  and configuration.
 
 ## Usage Examples
 
@@ -124,24 +127,20 @@ lando npm test              # Runs JavaScript/E2E tests
 
 ## Best Practices
 
-1. **Run validation scripts first** before executing tests to ensure
-   environment is properly configured
+1. **Run validation scripts first** before executing tests to ensure environment is properly
+   configured
 2. **Use analysis scripts** to understand test coverage and identify gaps
 3. **Execute integration tests** to verify complete workflows
-4. **Run the comprehensive test suite** (`run-wordpress-tests.sh`) for full
-   project validation
+4. **Run the comprehensive test suite** (`run-wordpress-tests.sh`) for full project validation
 
 ## Environment Requirements
 
-- **Lando/Docker** - Required for WordPress integration tests
-  tests
+- **Lando/Docker** - Required for WordPress integration tests tests
 - **PHP 8.1+** - Required for unit tests
-- **Composer** - Required for dependency management and test
-  execution
+- **Composer** - Required for dependency management and test execution
 - **Node.js/npm** - Required for E2E tests and JavaScript testing
 
 ## Continuous Integration
 
-All test scripts are designed to work in CI/CD environments. The GitHub
-Actions workflows in `.github/workflows/` utilize these organized test
-scripts for automated testing.
+All test scripts are designed to work in CI/CD environments. The GitHub Actions workflows in
+`.github/workflows/` utilize these organized test scripts for automated testing.

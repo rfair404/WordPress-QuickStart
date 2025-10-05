@@ -209,7 +209,7 @@ class WordPressInstallationTest extends TestCase {
 	 * Test that default theme is installed
 	 */
 	public function test_default_theme_is_installed() {
-		$themes_dir = $this->project_root . '/custom/themes';
+		$themes_dir = $this->project_root . '/wp/wp-content/themes';
 
 		// Check for Twenty Twenty-Four theme (from composer.json)
 		$theme_dir = $themes_dir . '/twentytwentyfour';

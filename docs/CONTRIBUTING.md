@@ -1,6 +1,7 @@
 # Contributing to WordPress Quickstart
 
-We love your input! We want to make contributing to this project as easy and transparent as possible.
+We love your input! We want to make contributing to this project as easy and transparent as
+possible.
 
 ## Development Process
 
@@ -8,8 +9,8 @@ We use GitHub to host code, to track issues and feature requests, as well as acc
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by our Code of Conduct. By participating, you are
-expected to uphold this code.
+This project and everyone participating in it is governed by our Code of Conduct. By participating,
+you are expected to uphold this code.
 
 ## Getting Started
 
@@ -72,21 +73,24 @@ expected to uphold this code.
 
 ### PHP
 
-- Follow [WordPress VIP Coding Standards](https://docs.wpvip.com/technical-references/code-quality-and-best-practices/code-review/)
+- Follow
+  [WordPress VIP Coding Standards](https://docs.wpvip.com/technical-references/code-quality-and-best-practices/code-review/)
 - Use PHPDoc comments for all functions and classes
 - Write unit tests for new functionality
 - Run `lando composer lint` before committing
 
 ### JavaScript
 
-- Follow [WordPress JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-javascript/)
+- Follow
+  [WordPress JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-javascript/)
 - Use JSDoc comments for functions
 - Write tests for new functionality
 - Run `lando npm run lint:js` before committing (ESLint config is under `.config/linting/`)
 
 ### CSS
 
-- Follow [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-css/)
+- Follow
+  [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-css/)
 - Use meaningful class names
 - Run `lando npm run lint:css` before committing (Stylelint config is under `.config/linting/`)
 
@@ -205,4 +209,5 @@ Feel free to open an issue with the "question" label, or reach out to the mainta
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the GPL-2.0-or-later License.
+By contributing, you agree that your contributions will be licensed under the GPL-2.0-or-later
+License.

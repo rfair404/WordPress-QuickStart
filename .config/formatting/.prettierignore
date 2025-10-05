@@ -28,6 +28,10 @@ wp-config-sample.php
 # Third-party plugins and themes
 # (WooCommerce removed in Phase 2 - add future third-party plugins here)
 
+# PHP files (use PHP-specific formatters)
+*.php
+**/*.php
+
 # Log files and temp files
 *.log
 *.tmp

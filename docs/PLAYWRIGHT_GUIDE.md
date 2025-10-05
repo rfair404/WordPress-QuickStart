@@ -1,6 +1,7 @@
 # Playwright E2E Testing Guide
 
-This guide helps you get started with end-to-end testing using Playwright in the WordPress Quickstart project.
+This guide helps you get started with end-to-end testing using Playwright in the WordPress
+Quickstart project.
 
 ## Quick Start
 
@@ -74,33 +75,33 @@ tests/
 
 ```javascript
 // tests/e2e/my-test.spec.js
-const { test, expect } = require("@playwright/test");
-const { WordPressAdmin } = require("./utils/wordpress-admin");
+const { test, expect } = require('@playwright/test');
+const { WordPressAdmin } = require('./utils/wordpress-admin');
 
-test("my WordPress test", async ({ page }) => {
+test('my WordPress test', async ({ page }) => {
   const admin = new WordPressAdmin(page);
 
   // Login to WordPress admin
   await admin.login();
 
   // Navigate to posts
-  await admin.navigateToAdminPage("edit.php");
+  await admin.navigateToAdminPage('edit.php');
 
   // Verify posts page loaded
-  await expect(page.locator(".wp-list-table")).toBeVisible();
+  await expect(page.locator('.wp-list-table')).toBeVisible();
 });
 ```
 
 ### Using Test Utilities
 
 ```javascript
-const { test, expect } = require("@playwright/test");
-const { WordPressAdmin } = require("./utils/wordpress-admin");
+const { test, expect } = require('@playwright/test');
+const { WordPressAdmin } = require('./utils/wordpress-admin');
 // Optional storefront helpers can be added if using a storefront plugin
 // const { Storefront } = require("./utils/storefront");
-const { TestUtils } = require("./utils/test-utils");
+const { TestUtils } = require('./utils/test-utils');
 
-test("complete storefront flow (optional)", async ({ page }) => {
+test('complete storefront flow (optional)', async ({ page }) => {
   const admin = new WordPressAdmin(page);
   // const shop = new Storefront(page); // Uncomment when a storefront plugin is present
   const testUtils = new TestUtils(page);
@@ -110,11 +111,11 @@ test("complete storefront flow (optional)", async ({ page }) => {
 
   // Test shop functionality
   await shop.goToShop();
-  await shop.searchProducts("test");
+  await shop.searchProducts('test');
 
   // Add product to cart (if products exist)
   try {
-    await shop.addToCart("Test Product", 1);
+    await shop.addToCart('Test Product', 1);
 
     // Complete checkout
     await shop.completeCheckout({
@@ -125,15 +126,15 @@ test("complete storefront flow (optional)", async ({ page }) => {
       },
     });
   } catch (error) {
-    console.log("No products available for testing");
+    console.log('No products available for testing');
   }
 });
 ```
 
 ## Configuration
 
-// Optional storefront helpers can be added if using an e-commerce plugin
-// const { Storefront } = require("./utils/storefront");
+// Optional storefront helpers can be added if using an e-commerce plugin // const { Storefront } =
+require("./utils/storefront");
 
 Create a `.env` file in your project root:
 
@@ -154,12 +155,14 @@ PLAYWRIGHT_BASE_URL=https://wordpress-quickstart.lndo.site
     // await shop.addToCart("Test Product", 1);
 ```
 
-    // await shop.completeCheckout({
+```javascript
+// await shop.completeCheckout({
+```
 
 Use tags to organize and filter tests:
 
 ```javascript
-test.describe("WordPress Admin @wordpress @admin", () => {
+test.describe('WordPress Admin @wordpress @admin', () => {
   // Admin tests
 });
 
@@ -168,7 +171,7 @@ test.describe("WordPress Admin @wordpress @admin", () => {
 //   // Shop tests
 // });
 
-test.describe("Visual Tests @visual @regression", () => {
+test.describe('Visual Tests @visual @regression', () => {
   // Visual regression tests
 });
 ```
@@ -197,7 +200,7 @@ Organize your test code using the provided utilities:
 // Good: Using utility classes
 const admin = new WordPressAdmin(page);
 await admin.login();
-await admin.createPost({ title: "Test Post" });
+await admin.createPost({ title: 'Test Post' });
 
 // Avoid: Direct page interactions everywhere
 // Optional storefront tests can be tagged if using an e-commerce plugin
@@ -206,26 +209,20 @@ await admin.createPost({ title: "Test Post" });
 // });
 ```
 
-npm run test:e2e:wordpress    # WordPress functionality
-npm run test:e2e:visual       # Visual regression tests
-// Optional storefront tests can be run if needed by a project-specific plugin
-// Hide dynamic elements in visual tests
-await page.addStyleTag({
-  content: `
-    .wp-admin-bar { display: none !important; }
-    .widget_calendar { display: none !important; }
-  `,
-});
-// npx playwright test --grep @woocommerce
+npm run test:e2e:wordpress # WordPress functionality npm run test:e2e:visual # Visual regression
+tests // Optional storefront tests can be run if needed by a project-specific plugin // Hide dynamic
+elements in visual tests await page.addStyleTag({ content:
+`.wp-admin-bar { display: none !important; }     .widget_calendar { display: none !important; }`,
+}); // npx playwright test --grep @woocommerce
 
 ### 3. Use Proper Waits
 
 ```javascript
 // Good: Wait for specific elements
-await page.waitForSelector(".woocommerce-message");
+await page.waitForSelector('.woocommerce-message');
 
 // Good: Wait for network to be idle
-await page.waitForLoadState("networkidle");
+await page.waitForLoadState('networkidle');
 
 // Avoid: Fixed timeouts
 await page.waitForTimeout(5000);
@@ -241,7 +238,7 @@ const testData = testUtils.generateTestData();
 // Use the generated data
 await admin.createPost({
   title: testData.postTitle,
-  content: "Test content",
+  content: 'Test content',
 });
 ```
 
@@ -352,4 +349,5 @@ In your CI/CD pipeline:
 - Admin dashboard
 - Mobile/tablet responsiveness
 
-This comprehensive testing setup ensures your WordPress e-commerce site works reliably across different browsers and devices!
+This comprehensive testing setup ensures your WordPress e-commerce site works reliably across
+different browsers and devices!

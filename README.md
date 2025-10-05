@@ -7,11 +7,12 @@
 A fast, reliable, and thoroughly tested WordPress quickstart application with essential features
 such as user authentication, product management, and shopping cart system.
 
-**🔗 Repository:** [https://github.com/rfair404/WordPress-QuickStart](https://github.com/rfair404/WordPress-QuickStart)
+**🔗 Repository:**
+[https://github.com/rfair404/WordPress-QuickStart](https://github.com/rfair404/WordPress-QuickStart)
 
 ## Features
 
--  User authentication system
+- User authentication system
 - 📦 Content management and customization
 - 🎨 Custom themes and plugins support
 - 🧪 **Comprehensive testing setup** (Unit + E2E with Playwright)
@@ -27,11 +28,13 @@ such as user authentication, product management, and shopping cart system.
 
 ### Prerequisites
 
-**⚠️ Important: This project requires Lando and Docker to be installed before you can run the development environment.**
+**⚠️ Important: This project requires Lando and Docker to be installed before you can run the
+development environment.**
 
 #### Automated Installation (Recommended)
 
-We provide automated installation scripts that download and install both Docker Desktop and Lando for you:
+We provide automated installation scripts that download and install both Docker Desktop and Lando
+for you:
 
 ```bash
 # For Windows (Git Bash/PowerShell)
@@ -112,14 +115,16 @@ If you prefer to install manually:
 
 2. **Clone the repository**
 
-   **📋 Prerequisites**: Make sure you have SSH keys set up for GitHub. If not, follow [GitHub's SSH key setup guide](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
+   **📋 Prerequisites**: Make sure you have SSH keys set up for GitHub. If not, follow
+   [GitHub's SSH key setup guide](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
 
    ```bash
    git clone git@github.com:rfair404/WordPress-QuickStart.git
    cd WordPress-QuickStart
    ```
 
-   **💡 Tip**: If you forked this repository, use your fork's SSH URL instead: `git@github.com:yourusername/WordPress-QuickStart.git`
+   **💡 Tip**: If you forked this repository, use your fork's SSH URL instead:
+   `git@github.com:yourusername/WordPress-QuickStart.git`
 
 3. **Start the development environment**
 
@@ -175,8 +180,8 @@ If you prefer to install manually:
 
 7. **Set up VS Code GitHub Integration** (Recommended for Development)
 
-   Enable GitHub Actions monitoring, Pull Request management, and repository
-   integration directly in VS Code:
+   Enable GitHub Actions monitoring, Pull Request management, and repository integration directly in
+   VS Code:
 
    ```bash
    # Windows (Command Prompt/PowerShell)
@@ -194,7 +199,8 @@ If you prefer to install manually:
 
    **GitHub Authentication** (Required after running the script):
    1. **Create Personal Access Token**:
-      - Go to: [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
+      - Go to:
+        [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
       - Click "Generate new token (classic)"
       - **Required scopes**:
         - ☑️ `repo` - Full control of private repositories
@@ -421,8 +427,8 @@ goto-root         # cd to project root
 
 ## WordPress Management
 
-This project uses **Composer to manage WordPress** as a dependency, keeping it separate from your custom
-code in the `wp/` directory.
+This project uses **Composer to manage WordPress** as a dependency, keeping it separate from your
+custom code in the `wp/` directory.
 
 ### 🎯 Why Composer-managed WordPress?
 
@@ -473,7 +479,7 @@ lando start                                        # Start development environme
 - ✅ Sample blog posts
 - ✅ Navigation menu creation
 - ✅ Pretty permalinks (`/%postname%/`)
- - ✅ Optional storefront configuration (configure storefront plugins separately)
+- ✅ Optional storefront configuration (configure storefront plugins separately)
 - ✅ Professional WordPress settings
 
 ### 🛠️ WordPress Management Commands
@@ -966,8 +972,8 @@ All pull requests must:
 
 ## License
 
-This project is licensed under the GPL-2.0-or-later License - see the
-[LICENSE](LICENSE) file for details.
+This project is licensed under the GPL-2.0-or-later License - see the [LICENSE](LICENSE) file for
+details.
 
 ## Troubleshooting
 
@@ -1041,7 +1047,8 @@ lando info
 
 - **File permission errors**: Run PowerShell as Administrator
 - **Path issues**: Use forward slashes in file paths when possible
-- **Line ending issues**: Configure Git to handle line endings: `git config --global core.autocrlf true`
+- **Line ending issues**: Configure Git to handle line endings:
+  `git config --global core.autocrlf true`
 
 #### Getting Help
 
@@ -1061,7 +1068,8 @@ lando info
 
 ## Setup Scripts Reference
 
-The `scripts/setup/` directory contains several automated setup scripts to streamline your development environment:
+The `scripts/setup/` directory contains several automated setup scripts to streamline your
+development environment:
 
 ### Installation Scripts
 

@@ -1,7 +1,7 @@
 name: wordpress-quickstart
 recipe: wordpress
 config:
-  php: "8.1"
+  php: '8.1'
   webroot: wp
   database: mysql:8.0
   xdebug: false
@@ -31,8 +31,8 @@ services:
         # Set HTTP_HOST to eliminate WP-CLI warnings
         HTTP_HOST: wordpress-quickstart.lndo.site
         # Clean Xdebug 3.x configuration without deprecated settings
-        XDEBUG_CONFIG: "client_host=host.docker.internal client_port=9003 start_with_request=yes"
-        XDEBUG_MODE: "debug,develop,coverage"
+        XDEBUG_CONFIG: 'client_host=host.docker.internal client_port=9003 start_with_request=yes'
+        XDEBUG_MODE: 'debug,develop,coverage'
 
   database:
     portforward: 3308
