@@ -1,5 +1,7 @@
 module.exports = {
   extends: ['stylelint-config-standard'],
+  plugins: ['stylelint-scss'],
+  customSyntax: 'postcss-scss',
   ignoreFiles: [
     // Third-party plugins and themes (WooCommerce removed in Phase 2)
     'wp/**/*.css',
@@ -42,6 +44,7 @@ module.exports = {
   overrides: [
     {
       files: ['**/*.scss'],
+      customSyntax: 'postcss-scss',
       rules: {
         'at-rule-no-unknown': null,
         'scss/at-rule-no-unknown': true,
