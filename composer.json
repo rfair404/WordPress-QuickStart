@@ -52,8 +52,7 @@
     "dev:setup": [
       "composer install",
       "@setup:standards",
-      "@setup:hooks",
-      "@gh:check"
+      "@setup:hooks"
     ],
     "setup:hooks": ["bash scripts/setup/git-hooks.sh"],
     "setup:standards": [
@@ -66,11 +65,6 @@
     "check:wordpress": ["composer validate --strict", "@lint:phpcs"],
     "post-install-cmd": ["@setup:standards"],
     "post-update-cmd": ["@setup:standards"],
-    "gh:check": "bash scripts/gh-wrapper.sh --version || echo 'GitHub CLI not installed. Install from: https://cli.github.com/'",
-    "gh:actions": "bash scripts/gh-wrapper.sh run list --limit 10",
-    "gh:actions:latest": "bash scripts/gh-wrapper.sh run view $(bash scripts/gh-wrapper.sh run list --json databaseId --jq '.[0].databaseId')",
-    "gh:actions:logs": "bash scripts/gh-wrapper.sh run view $(bash scripts/gh-wrapper.sh run list --json databaseId --jq '.[0].databaseId') --log-failed",
-    "gh:auth": "bash scripts/gh-wrapper.sh auth status || bash scripts/gh-wrapper.sh auth login",
     "wp:install": ["@composer install", "@wp:config"],
     "wp:install:full": [
       "@composer install",
