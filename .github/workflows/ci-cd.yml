@@ -354,8 +354,8 @@ jobs:
           composer install --no-dev --prefer-dist --no-progress --no-suggest --optimize-autoloader
           npm install --legacy-peer-deps
 
-      - name: Build assets
-        run: npm run build
+      # NOTE: Build step removed - Phase 2 uses direct file serving
+      # WordPress serves files directly, no webpack build needed
 
       - name: Create deployment package
         run: |

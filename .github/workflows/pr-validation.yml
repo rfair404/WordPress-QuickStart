@@ -93,11 +93,11 @@ jobs:
       - name: Run Prettier check
         run: npm run format:check
 
-      - name: Run JavaScript tests
-        run: npm test
+      - name: Run E2E tests
+        run: npm run test:e2e
 
-      - name: Build assets
-        run: npm run build
+      # NOTE: Build step removed - Phase 2 uses direct file serving (no webpack build)
+      # Assets are served directly by WordPress, no build process needed
 
   security-scan:
     name: Security Scanning

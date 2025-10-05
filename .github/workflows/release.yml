@@ -36,8 +36,8 @@ jobs:
           composer install --no-dev --prefer-dist --no-progress --optimize-autoloader
           npm ci
 
-      - name: Build production assets
-        run: npm run build
+      # NOTE: Build step removed - Phase 2 uses direct file serving
+      # WordPress serves assets directly, no build process needed
 
       - name: Create release package
         run: |
