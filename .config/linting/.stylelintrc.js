@@ -4,7 +4,6 @@ module.exports = {
   customSyntax: 'postcss-scss',
   rules: {
     // WordPress theme specific overrides
-    'max-line-length': null,
     'declaration-property-unit-allowed-list': null,
 
     // Allow vendor prefixes (handled by autoprefixer)
