@@ -116,8 +116,8 @@ module.exports = defineConfig({
   ],
 
   // Global setup and teardown
-  globalSetup: require.resolve('./e2e/global-setup.js'),
-  globalTeardown: require.resolve('./e2e/global-teardown.js'),
+  // globalSetup: require.resolve('./e2e/global-setup.js'),
+  // globalTeardown: require.resolve('./e2e/global-teardown.js'),
 
   // Run your local dev server before starting the tests
   webServer: isLando

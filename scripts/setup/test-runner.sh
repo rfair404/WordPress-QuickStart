@@ -111,20 +111,28 @@ run_test "env - quiet + debug + tolerant" "WQS_AUTO=1 WQS_QUIET=1 WQS_DEBUG=1 WQ
 echo "🎭 Testing E2E with Playwright..."
 echo "--------------------------------"
 
-if command -v npx >/dev/null 2>&1 && [ -f "tests/playwright.config.js" ]; then
-    # Install Playwright browsers if needed
-    run_test "playwright browsers install" "npx playwright install chromium --with-deps" 30
-
-    # Run Playwright tests (skip by default - requires running WordPress)
-    if [[ "${WQS_RUN_E2E:-0}" == "1" ]]; then
-            run_test "playwright e2e tests" "npx playwright test --config=tests/playwright.config.js --reporter=line" 120
+if [ -f "tests/playwright.config.js" ]; then
+    # Check if Playwright setup script exists and run it
+    if [ -f "scripts/setup/playwright-setup.sh" ]; then
+        run_test "playwright setup" "WQS_AUTO=1 WQS_PLAYWRIGHT_INSTALL_DEPS=0 ./scripts/setup/playwright-setup.sh" 60
     else
-        echo "ℹ️  E2E tests available but skipped (set WQS_RUN_E2E=1 to run)"
+        # Fallback to direct installation
+        run_test "playwright browsers install" "npm run test:e2e:install:chromium" 30
+    fi
+
+    # Run basic smoke test (doesn't require WordPress to be running)
+    run_test "playwright smoke test" "npm run test:e2e:smoke" 30
+
+    # Run full Playwright tests (requires running WordPress)
+    if [[ "${WQS_RUN_E2E:-0}" == "1" ]]; then
+        run_test "playwright e2e tests" "npm run test:e2e -- --reporter=line" 120
+    else
+        echo "ℹ️  Full E2E tests skipped (set WQS_RUN_E2E=1 to run)"
         echo "   Make sure your WordPress site is running first:"
         echo "   lando start && WQS_RUN_E2E=1 ./scripts/setup/test-runner.sh"
     fi
 else
-    echo "ℹ️  Playwright E2E tests not available (install: npm install)"
+    echo "ℹ️  Playwright E2E tests not available (missing tests/playwright.config.js)"
 fi
 
 echo ""
