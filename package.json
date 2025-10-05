@@ -1,84 +1,84 @@
 {
-  "name": "wordpress-quickstart",
-  "version": "1.0.0",
-  "description": "A fast and reliable WordPress quickstart application with essential features",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rfair404/WordPress-QuickStart.git"
-  },
-  "homepage": "https://github.com/rfair404/WordPress-QuickStart",
-  "bugs": {
-    "url": "https://github.com/rfair404/WordPress-QuickStart/issues"
-  },
-  "scripts": {
-    "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx --config .config/linting/.eslintrc.js --ignore-path .config/linting/.eslintignore",
-    "lint:js:fix": "eslint . --ext .js,.jsx,.ts,.tsx --config .config/linting/.eslintrc.js --ignore-path .config/linting/.eslintignore --fix",
-    "lint:css": "stylelint 'custom/**/*.css' 'custom/**/*.scss' --config .config/linting/.stylelintrc.js",
-    "lint:css:fix": "stylelint 'custom/**/*.css' 'custom/**/*.scss' --fix --config .config/linting/.stylelintrc.js",
-    "lint:yaml": "yamllint -c .config/linting/.yamllint.yml .",
-    "format": "prettier --write . --config .config/formatting/.prettierrc --ignore-path .config/formatting/.prettierignore",
-    "format:check": "prettier --check . --config .config/formatting/.prettierrc --ignore-path .config/formatting/.prettierignore",
-    "lint-staged": "lint-staged",
-    "test": "npm run test:e2e",
-    "test:e2e": "playwright test --config=tests/playwright.config.js",
-    "test:e2e:headed": "playwright test --config=tests/playwright.config.js --headed",
-    "test:e2e:debug": "playwright test --config=tests/playwright.config.js --debug",
-    "test:e2e:ui": "playwright test --config=tests/playwright.config.js --ui",
-    "test:e2e:codegen": "playwright codegen --config=tests/playwright.config.js",
-    "test:e2e:report": "playwright show-report",
-    "test:e2e:install": "playwright install",
-    "test:e2e:wordpress": "playwright test --config=tests/playwright.config.js --grep @wordpress",
-    "test:e2e:visual": "playwright test --config=tests/playwright.config.js --grep @visual",
-    "hooks:setup": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\git-hooks.bat' : './scripts/setup/git-hooks.sh', {stdio: 'inherit'})\"",
-    "setup:env": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\env-setup.bat' : './scripts/setup/env-setup.sh', {stdio: 'inherit'})\"",
-    "validate:deps": "node -e \"require('child_process').execSync('./scripts/setup/dependency-validator.sh', {stdio: 'inherit'})\"",
-    "monitor:performance": "node -e \"require('child_process').execSync('./scripts/setup/performance-monitor.sh', {stdio: 'inherit'})\"",
-    "test:all": "node -e \"require('child_process').execSync('./scripts/setup/test-runner.sh', {stdio: 'inherit'})\""
-  },
-  "keywords": [
-    "wordpress",
-    "ecommerce",
-    "starter",
-    "theme",
-    "plugin"
-  ],
-  "author": "Your Name <your.email@example.com>",
-  "license": "GPL-2.0-or-later",
-  "devDependencies": {
-    "@playwright/test": "^1.40.0",
-    "@types/node": "^20.0.0",
-    "eslint": "^8.0.0",
-    "husky": "^8.0.0",
-    "lint-staged": "^13.0.0",
-    "prettier": "^3.6.2",
-    "stylelint": "^14.16.0",
-    "stylelint-config-standard": "^29.0.0"
-  },
-  "browserslist": [
-    "defaults",
-    "not IE 11"
-  ],
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint --fix"
+    "name": "wordpress-quickstart",
+    "version": "1.0.0",
+    "description": "A fast and reliable WordPress quickstart application with essential features",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rfair404/WordPress-QuickStart.git"
+    },
+    "homepage": "https://github.com/rfair404/WordPress-QuickStart",
+    "bugs": {
+        "url": "https://github.com/rfair404/WordPress-QuickStart/issues"
+    },
+    "scripts": {
+        "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx --config .config/linting/.eslintrc.js --ignore-path .config/linting/.eslintignore",
+        "lint:js:fix": "eslint . --ext .js,.jsx,.ts,.tsx --config .config/linting/.eslintrc.js --ignore-path .config/linting/.eslintignore --fix",
+        "lint:css": "stylelint 'custom/**/*.css' 'custom/**/*.scss' --config .config/linting/.stylelintrc.js",
+        "lint:css:fix": "stylelint 'custom/**/*.css' 'custom/**/*.scss' --fix --config .config/linting/.stylelintrc.js",
+        "lint:yaml": "yamllint -c .config/linting/.yamllint.yml .",
+        "format": "prettier --write . --config .config/formatting/.prettierrc --ignore-path .config/formatting/.prettierignore",
+        "format:check": "prettier --check . --config .config/formatting/.prettierrc --ignore-path .config/formatting/.prettierignore",
+        "lint-staged": "lint-staged",
+        "test": "npm run test:e2e",
+        "test:e2e": "playwright test --config=tests/playwright.config.js",
+        "test:e2e:headed": "playwright test --config=tests/playwright.config.js --headed",
+        "test:e2e:debug": "playwright test --config=tests/playwright.config.js --debug",
+        "test:e2e:ui": "playwright test --config=tests/playwright.config.js --ui",
+        "test:e2e:codegen": "playwright codegen --config=tests/playwright.config.js",
+        "test:e2e:report": "playwright show-report",
+        "test:e2e:install": "playwright install",
+        "test:e2e:wordpress": "playwright test --config=tests/playwright.config.js --grep @wordpress",
+        "test:e2e:visual": "playwright test --config=tests/playwright.config.js --grep @visual",
+        "hooks:setup": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\git-hooks.bat' : './scripts/setup/git-hooks.sh', {stdio: 'inherit'})\"",
+        "setup:env": "node -e \"require('child_process').execSync(process.platform === 'win32' ? '.\\\\scripts\\\\setup\\\\env-setup.bat' : './scripts/setup/env-setup.sh', {stdio: 'inherit'})\"",
+        "validate:deps": "node -e \"require('child_process').execSync('./scripts/setup/dependency-validator.sh', {stdio: 'inherit'})\"",
+        "monitor:performance": "node -e \"require('child_process').execSync('./scripts/setup/performance-monitor.sh', {stdio: 'inherit'})\"",
+        "test:all": "node -e \"require('child_process').execSync('./scripts/setup/test-runner.sh', {stdio: 'inherit'})\""
+    },
+    "keywords": [
+        "wordpress",
+        "ecommerce",
+        "starter",
+        "theme",
+        "plugin"
     ],
-    "*.{css,scss,sass}": [
-      "prettier --write",
-      "stylelint --fix --config .config/linting/.stylelintrc.js"
+    "author": "Your Name <your.email@example.com>",
+    "license": "GPL-2.0-or-later",
+    "devDependencies": {
+        "@playwright/test": "^1.40.0",
+        "@types/node": "^20.0.0",
+        "eslint": "^8.0.0",
+        "husky": "^8.0.0",
+        "lint-staged": "^13.0.0",
+        "prettier": "^3.6.2",
+        "stylelint": "^14.16.0",
+        "stylelint-config-standard": "^29.0.0"
+    },
+    "browserslist": [
+        "defaults",
+        "not IE 11"
     ],
-    "*.{json,yml,yaml,md,html}": [
-      "prettier --write"
-    ],
-    "*.php": [
-      "composer run lint:fix"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run test && composer run test"
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx}": [
+            "prettier --write",
+            "eslint --fix"
+        ],
+        "*.{css,scss,sass}": [
+            "prettier --write",
+            "stylelint --fix --config .config/linting/.stylelintrc.js"
+        ],
+        "*.{json,yml,yaml,md,html}": [
+            "prettier --write"
+        ],
+        "*.php": [
+            "composer run lint:fix"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged",
+            "pre-push": "npm run test && composer run test"
+        }
     }
-  }
 }
