@@ -30,15 +30,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
 
       - name: Install dependencies
         run: |
           composer install --no-dev --prefer-dist --no-progress --optimize-autoloader
           npm ci
 
-      - name: Build production assets
-        run: npm run build
+      # NOTE: Build step removed - Phase 2 uses direct file serving
+      # WordPress serves assets directly, no build process needed
 
       - name: Create release package
         run: |
@@ -182,8 +181,8 @@ jobs:
       - name: Generate documentation
         run: |
           # Generate API documentation if needed
-          npm install -g @wordpress/scripts
-          # Add documentation generation commands
+          # Documentation is generated from README.md and docs/ folder
+          echo "Documentation available in docs/"
 
       - name: Deploy documentation
         run: |

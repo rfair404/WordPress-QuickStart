@@ -1,0 +1,24 @@
+# ESLint ignore patterns
+
+# Third-party plugins and themes
+# (WooCommerce removed in Phase 2 - add future third-party plugins here)
+
+# WordPress core
+wp/**
+
+# Build artifacts and dependencies
+vendor/**
+node_modules/**
+build/**
+dist/**
+*.min.js
+
+# Test artifacts and reports
+test-results/**
+tests/test-results/**
+tests/test-results-*/**
+playwright-report/**
+tests/playwright-report/**
+
+# Configuration files that should be ignored
+webpack.config.js

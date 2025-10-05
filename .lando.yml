@@ -13,7 +13,11 @@ services:
   appserver:
     build_as_root:
       - apt-get update -y
-      - apt-get install -y git unzip
+      - apt-get install -y git unzip curl
+      - curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+      - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list
+      - apt-get update -y
+      - apt-get install -y gh
     build:
       - composer install
       - npm install
@@ -27,8 +31,8 @@ services:
         # Set HTTP_HOST to eliminate WP-CLI warnings
         HTTP_HOST: wordpress-quickstart.lndo.site
         # Clean Xdebug 3.x configuration without deprecated settings
-        XDEBUG_CONFIG: "client_host=host.docker.internal client_port=9003 start_with_request=yes"
-        XDEBUG_MODE: "debug,develop,coverage"
+        XDEBUG_CONFIG: 'client_host=host.docker.internal client_port=9003 start_with_request=yes'
+        XDEBUG_MODE: 'debug,develop,coverage'
 
   database:
     portforward: 3308
@@ -45,7 +49,6 @@ services:
   node:
     type: node:18
     build:
-      - npm install -g @wordpress/scripts
       - npm install -g wp-cli
 
 tooling:
@@ -95,6 +98,11 @@ tooling:
     service: node
     cmd: npm test
     description: Run JavaScript tests
+
+  gh:
+    service: appserver
+    cmd: gh
+    description: Run GitHub CLI commands
 
 proxy:
   appserver:

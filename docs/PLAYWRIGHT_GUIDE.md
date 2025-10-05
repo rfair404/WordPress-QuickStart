@@ -1,6 +1,7 @@
 # Playwright E2E Testing Guide
 
-This guide helps you get started with end-to-end testing using Playwright in the WordPress Quickstart project.
+This guide helps you get started with end-to-end testing using Playwright in the WordPress
+Quickstart project.
 
 ## Quick Start
 
@@ -28,8 +29,8 @@ npm run test:e2e:headed
 
 # Run specific test suites
 npm run test:e2e:wordpress    # WordPress functionality
-npm run test:e2e:woocommerce  # WooCommerce functionality
 npm run test:e2e:visual       # Visual regression tests
+// Optional storefront tests can be run if using an e-commerce plugin
 ```
 
 ### 3. Debug Tests
@@ -53,13 +54,12 @@ tests/
 ├── e2e/
 │   ├── utils/                # Reusable test utilities
 │   │   ├── wordpress-admin.js    # WordPress admin helpers
-│   │   ├── woocommerce-shop.js   # WooCommerce shop helpers
 │   │   └── test-utils.js         # General test utilities
 │   ├── wordpress/            # WordPress core tests
 │   │   ├── admin.spec.js     # Admin functionality tests
 │   │   └── frontend.spec.js  # Frontend tests
-│   ├── woocommerce/          # WooCommerce tests
-│   │   └── shop.spec.js      # Shop, cart, checkout tests
+│   ├── storefront/           # Optional storefront tests (e.g., shop/cart)
+│   │   └── shop.spec.js      # Storefront, cart, checkout tests
 │   ├── visual/               # Visual regression tests
 │   │   └── screenshots.spec.js   # Screenshot comparison tests
 │   ├── debug.spec.js         # Debugging and inspection tests
@@ -94,65 +94,57 @@ test('my WordPress test', async ({ page }) => {
 
 ### Using Test Utilities
 
-```javascript
+````javascript
 const { test, expect } = require('@playwright/test');
 const { WordPressAdmin } = require('./utils/wordpress-admin');
-const { WooCommerceShop } = require('./utils/woocommerce-shop');
+// Optional storefront helpers can be added if using a storefront plugin
+// const { Storefront } = require("./utils/storefront");
 const { TestUtils } = require('./utils/test-utils');
 
-test('complete e-commerce flow', async ({ page }) => {
-  const admin = new WordPressAdmin(page);
-  const shop = new WooCommerceShop(page);
-  const testUtils = new TestUtils(page);
+## Test Examples
 
-  // Generate test data
-  const testData = testUtils.generateTestData();
+### WordPress Core Functionality Test
 
-  // Test shop functionality
-  await shop.goToShop();
-  await shop.searchProducts('test');
+```javascript
+test('WordPress admin access', async ({ page }) => {
+  // Navigate to WordPress admin
+  await page.goto('/wp-admin');
 
-  // Add product to cart (if products exist)
-  try {
-    await shop.addToCart('Test Product', 1);
+  // Check login page loads
+  await expect(page).toHaveTitle(/Log In/);
 
-    // Complete checkout
-    await shop.completeCheckout({
-      billing: {
-        firstName: testData.firstName,
-        lastName: testData.lastName,
-        email: testData.email
-      }
-    });
-  } catch (error) {
-    console.log('No products available for testing');
-  }
+  // Verify WordPress branding
+  await expect(page.locator('#login')).toBeVisible();
 });
-```
+````
 
 ## Configuration
 
-### Environment Variables
+// Optional storefront helpers can be added if using an e-commerce plugin // const { Storefront } =
+require("./utils/storefront");
 
 Create a `.env` file in your project root:
 
 ```bash
-# WordPress admin credentials
+  // const shop = new Storefront(page);
 WP_ADMIN_USER=admin
 WP_ADMIN_PASSWORD=password
 
-# WooCommerce customer credentials
-WC_CUSTOMER_USER=customer
-WC_CUSTOMER_PASSWORD=password
-
-# Test site URL (auto-detected for Lando)
+// Storefront/customer credentials (optional)
+// WC_CUSTOMER_USER=customer
+// WC_CUSTOMER_PASSWORD=password
+// Optional storefront tests (if a storefront plugin is installed)
+// await storefront.goToShop();
+// await storefront.searchProducts("test");
 PLAYWRIGHT_BASE_URL=https://wordpress-quickstart.lndo.site
 
 # Enable debug mode
-PLAYWRIGHT_DEBUG=1
+    // await shop.addToCart("Test Product", 1);
 ```
 
-### Test Tags
+```javascript
+// await shop.completeCheckout({
+```
 
 Use tags to organize and filter tests:
 
@@ -161,9 +153,10 @@ test.describe('WordPress Admin @wordpress @admin', () => {
   // Admin tests
 });
 
-test.describe('WooCommerce Shop @woocommerce @shop', () => {
-  // Shop tests
-});
+// Optional storefront test group (uncomment if storefront tests are used)
+// test.describe("Storefront @storefront @shop", () => {
+//   // Shop tests
+// });
 
 test.describe('Visual Tests @visual @regression', () => {
   // Visual regression tests
@@ -177,8 +170,9 @@ Run specific tagged tests:
 npx playwright test --grep @wordpress
 
 # Run only WooCommerce tests
-npx playwright test --grep @woocommerce
-
+// Optional storefront customer credentials can be added if using an e-commerce plugin
+// WC_CUSTOMER_USER=customer
+// WC_CUSTOMER_PASSWORD=password
 # Run visual regression tests
 npx playwright test --grep @visual
 ```
@@ -196,22 +190,17 @@ await admin.login();
 await admin.createPost({ title: 'Test Post' });
 
 // Avoid: Direct page interactions everywhere
-await page.goto('/wp-login.php');
-await page.fill('#user_login', 'admin');
-// ... lots of repetitive code
+// Optional storefront tests can be tagged if using an e-commerce plugin
+// test.describe("Storefront @storefront @shop", () => {
+//   // Storefront tests
+// });
 ```
 
-### 2. Handle Dynamic Content
-
-```javascript
-// Hide dynamic elements in visual tests
-await page.addStyleTag({
-  content: `
-    .wp-admin-bar { display: none !important; }
-    .widget_calendar { display: none !important; }
-  `
-});
-```
+npm run test:e2e:wordpress # WordPress functionality npm run test:e2e:visual # Visual regression
+tests // Optional storefront tests can be run if needed by a project-specific plugin // Hide dynamic
+elements in visual tests await page.addStyleTag({ content:
+`.wp-admin-bar { display: none !important; }     .widget_calendar { display: none !important; }`,
+}); // npx playwright test --grep @woocommerce
 
 ### 3. Use Proper Waits
 
@@ -236,7 +225,7 @@ const testData = testUtils.generateTestData();
 // Use the generated data
 await admin.createPost({
   title: testData.postTitle,
-  content: 'Test content'
+  content: 'Test content',
 });
 ```
 
@@ -324,13 +313,15 @@ In your CI/CD pipeline:
 ## Example Test Scenarios
 
 ### WordPress Functionality
+
 - Admin login and navigation
 - Post/page creation and editing
 - Plugin and theme management
 - Settings configuration
 - User management
 
-### WooCommerce Functionality
+### Optional Storefront Functionality
+
 - Product catalog browsing
 - Search functionality
 - Add to cart workflow
@@ -338,10 +329,12 @@ In your CI/CD pipeline:
 - Customer account management
 
 ### Visual Regression
+
 - Homepage appearance
 - Shop page layout
 - Cart and checkout pages
 - Admin dashboard
 - Mobile/tablet responsiveness
 
-This comprehensive testing setup ensures your WordPress e-commerce site works reliably across different browsers and devices!
+This testing setup ensures your WordPress e-commerce site works reliably across different browsers
+and devices!

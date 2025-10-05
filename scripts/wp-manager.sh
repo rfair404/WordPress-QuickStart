@@ -74,7 +74,7 @@ show_help() {
     echo "Examples:"
     echo "  $0 install                    # Basic Composer installation"
     echo "  $0 install:full               # Full installation with sample content"
-    echo "  $0 plugin:install woocommerce # Install WooCommerce plugin"
+    echo "  $0 plugin:install <plugin-slug> # Install a plugin (e.g. contact-form-7)"
     echo "  $0 theme:install twentytwentyfour # Install default theme"
     echo "  $0 update                     # Update WordPress core"
 }
@@ -101,7 +101,7 @@ install_wordpress() {
     log_info "Next steps:"
     echo "  1. Run 'lando start' to start your development environment"
     echo "  2. Visit your site to complete WordPress setup"
-    echo "  3. Install WooCommerce: $0 plugin:install woocommerce"
+    echo "  3. Install any desired plugins: $0 plugin:install <plugin-slug>"
 }
 
 # Update WordPress

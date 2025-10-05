@@ -2,10 +2,11 @@
 /**
  * PHPUnit bootstrap file for WordPress Quickstart
  *
- * @package WordPressEcommerceStarter
+ * @package WordPressQuickstart
  */
 
-// Set the timezone to avoid warnings
+// Set the timezone to avoid warnings in test environment
+// phpcs:ignore WordPress.DateTime.RestrictedFunctions.timezone_change_date_default_timezone_set
 date_default_timezone_set( 'UTC' );
 
 // Define testing environment (constant defined in phpunit.xml)

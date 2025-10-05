@@ -3,20 +3,36 @@
 # WordPress E-commerce Starter - Environment Setup Script
 # This script sets up the development environment including .bashrc and VS Code workspace
 
-# Automated mode: Set WES_AUTO=1 to skip interactive prompts
-# Additional options:
-#   WES_SETUP_BASHRC=1/0 (default: 1)
-#   WES_SETUP_VSCODE=1/0 (default: 1)
+# Automated mode: Set WQS_AUTO=1 to skip interactive prompts
+# Control variables:
+#   WQS_SETUP_BASHRC=1/0 (default: 1)
+#   WQS_SETUP_VSCOD    if [[ "${WQS_AUTO:-0}" == "1" ]]; then
+        if [[ "${WQS_SETUP_VSCODE:-1}" == "1" ]]; then
+            echo "🔧 Automated mode: Setting up VS Code workspace (WQS_SETUP_VSCODE=1)"
+            setup_vscode
+        else
+            echo "⏭️  Automated mode: Skipping VS Code workspace setup (WQS_SETUP_VSCODE=0)"(default: 1)
 
 # Error handling and debugging options
-DEBUG_MODE="${WES_DEBUG:-0}"
-ERROR_TOLERANT="${WES_ERROR_TOLERANT:-0}"
+DEBUG_MODE="${WQS_DEBUG:-0}"
+ERROR_TOLERANT="${WQS_ERROR_TOLERANT:-0}"
 
 # Set appropriate error handling based on mode
 if [[ "$ERROR_TOLERANT" == "1" ]]; then
     set -uo pipefail  # Don't exit on errors
 else
-    set -euo pipefail  # Exit on errors (default)
+    #!/bin/bash
+
+# Enhanced Environment Setup Script
+# Configures development environment with dependency validation
+
+set -euo pipefail
+
+# Source Lando wrapper to ensure availability
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -f "$SCRIPT_DIR/lando-wrapper.sh" ]]; then
+    source "$SCRIPT_DIR/lando-wrapper.sh" >/dev/null 2>&1 || true
+fi  # Exit on errors (default)
 fi
 
 # Debug function
@@ -57,20 +73,20 @@ show_usage() {
     echo "  ./scripts/setup/env-setup.sh"
     echo ""
     echo "Automated Mode (no prompts):"
-    echo "  WES_AUTO=1 ./scripts/setup/env-setup.sh"
+    echo "  WQS_AUTO=1 ./scripts/setup/env-setup.sh"
     echo ""
     echo "Environment Variables:"
-    echo "  WES_AUTO=1           Enable automated mode (no interactive prompts)"
-    echo "  WES_QUIET=1          Reduce output verbosity"
-    echo "  WES_DEBUG=1          Enable debug output for troubleshooting"
-    echo "  WES_ERROR_TOLERANT=1 Continue on errors instead of exiting"
-    echo "  WES_SETUP_BASHRC=1   Set up .bashrc environment (default: 1)"
-    echo "  WES_SETUP_VSCODE=1   Set up VS Code workspace (default: 1)"
+    echo "  WQS_AUTO=1           Enable automated mode (no interactive prompts)"
+    echo "  WQS_QUIET=1          Reduce output verbosity"
+    echo "  WQS_DEBUG=1          Enable debug output for troubleshooting"
+    echo "  WQS_ERROR_TOLERANT=1 Continue on errors instead of exiting"
+    echo "  WQS_SETUP_BASHRC=1   Set up .bashrc environment (default: 1)"
+    echo "  WQS_SETUP_VSCODE=1   Set up VS Code workspace (default: 1)"
     echo ""
     echo "Examples:"
-    echo "  WES_AUTO=1 $0                                    # Set up both with defaults"
-    echo "  WES_AUTO=1 WES_SETUP_VSCODE=0 $0               # Only set up .bashrc"
-    echo "  WES_AUTO=1 WES_SETUP_BASHRC=0 $0               # Only set up VS Code"
+    echo "  WQS_AUTO=1 $0                                    # Set up both with defaults"
+    echo "  WQS_AUTO=1 WQS_SETUP_VSCODE=0 $0               # Only set up .bashrc"
+    echo "  WQS_AUTO=1 WQS_SETUP_BASHRC=0 $0               # Only set up VS Code"
     echo ""
     exit 0
 }
@@ -81,7 +97,7 @@ if [[ "${1:-}" == "--help" ]] || [[ "${1:-}" == "-h" ]]; then
 fi
 
 # Check for quiet mode
-QUIET_MODE="${WES_QUIET:-0}"
+QUIET_MODE="${WQS_QUIET:-0}"
 
 if [[ "$QUIET_MODE" != "1" ]]; then
     echo "🔧 Setting up WordPress E-commerce Starter environment..."
@@ -177,7 +193,7 @@ setup_vscode_workspace() {
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "eslint.workingDirectories": ["."],
-    "prettier.configPath": "./.prettierrc",
+    "prettier.configPath": "${workspaceFolder}/.config/formatting/.prettierrc",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
@@ -277,13 +293,13 @@ main() {
     fi
 
     # Offer to set up .bashrc
-    if [[ "${WES_AUTO:-0}" == "1" ]]; then
-        if [[ "${WES_SETUP_BASHRC:-1}" == "1" ]]; then
-            echo "🔧 Automated mode: Setting up .bashrc environment (WES_SETUP_BASHRC=1)"
+    if [[ "${WQS_AUTO:-0}" == "1" ]]; then
+        if [[ "${WQS_SETUP_BASHRC:-1}" == "1" ]]; then
+            echo "🔧 Automated mode: Setting up .bashrc environment (WQS_SETUP_BASHRC=1)"
             setup_bashrc_link
             setup_git_bash_profile
         else
-            echo "⏭️  Automated mode: Skipping .bashrc setup (WES_SETUP_BASHRC=0)"
+            echo "⏭️  Automated mode: Skipping .bashrc setup (WQS_SETUP_BASHRC=0)"
         fi
     else
         echo "Would you like to set up the .bashrc environment? (y/n)"
@@ -299,12 +315,12 @@ main() {
         echo ""
     fi
 
-    if [[ "${WES_AUTO:-0}" == "1" ]]; then
-        if [[ "${WES_SETUP_VSCODE:-1}" == "1" ]]; then
-            echo "🔧 Automated mode: Setting up VS Code workspace (WES_SETUP_VSCODE=1)"
+    if [[ "${WQS_AUTO:-0}" == "1" ]]; then
+        if [[ "${WQS_SETUP_VSCODE:-1}" == "1" ]]; then
+            echo "🔧 Automated mode: Setting up VS Code workspace (WQS_SETUP_VSCODE=1)"
             setup_vscode_workspace
         else
-            echo "⏭️  Automated mode: Skipping VS Code workspace setup (WES_SETUP_VSCODE=0)"
+            echo "⏭️  Automated mode: Skipping VS Code workspace setup (WQS_SETUP_VSCODE=0)"
         fi
     else
         echo "Would you like to set up VS Code workspace settings? (y/n)"
@@ -314,15 +330,36 @@ main() {
         fi
     fi
 
+    # Offer to set up GitHub CLI
+    if [[ "$QUIET_MODE" != "1" ]]; then
+        echo ""
+    fi
+
+    if [[ "${WQS_AUTO:-0}" == "1" ]]; then
+        if [[ "${WQS_SETUP_GHCLI:-1}" == "1" ]]; then
+            echo "🔧 Automated mode: Setting up GitHub CLI (WQS_SETUP_GHCLI=1)"
+            ./scripts/setup/github-cli-setup.sh
+        else
+            echo "⏭️  Automated mode: Skipping GitHub CLI setup (WQS_SETUP_GHCLI=0)"
+        fi
+    else
+        echo "Would you like to set up GitHub CLI for development workflow? (y/n)"
+        read -r response
+        if [[ "$response" =~ ^[Yy]$ ]]; then
+            bash "$PROJECT_ROOT/scripts/setup/github-cli-setup.sh"
+        fi
+    fi
+
     if [[ "$QUIET_MODE" != "1" ]]; then
         echo ""
         echo "🎉 Environment setup complete!"
         echo ""
         echo "Next steps:"
         echo "1. Restart your terminal or run: source ~/.bashrc"
-        echo "2. Run: wes_help (to see available commands)"
-        echo "3. Run: wes_setup (to set up the development environment)"
+        echo "2. Run: wqs_help (to see available commands)"
+        echo "3. Run: wqs_setup (to set up the development environment)"
         echo "4. Open VS Code in this directory for enhanced experience"
+        echo "5. If you installed GitHub CLI, run: gh auth login (if not done already)"
         echo ""
     fi
 }

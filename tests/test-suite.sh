@@ -38,7 +38,6 @@ show_help() {
     echo ""
     echo -e "${PURPLE}Validation:${NC}"
     echo "  validate-wordpress    - Validate WordPress installation"
-    echo "  validate-woocommerce  - Validate WooCommerce setup"
     echo ""
     echo -e "${PURPLE}Runners:${NC}"
     echo "  run-unit-standalone   - Run PHPUnit tests standalone"
@@ -75,7 +74,7 @@ run_script() {
         "validation")
             case "$script" in
                 "validate-wordpress") script_path="$SCRIPT_DIR/validation/validate-wordpress-installation.sh" ;;
-                "validate-woocommerce") script_path="$SCRIPT_DIR/validation/validate-woocommerce-setup.sh" ;;
+
                 *) echo -e "${RED}Unknown validation script: $script${NC}"; exit 1 ;;
             esac
             ;;
@@ -111,8 +110,7 @@ run_script() {
 run_all_validation() {
     echo -e "${BLUE}Running all validation scripts...${NC}"
     run_script "validation" "validate-wordpress"
-    echo ""
-    run_script "validation" "validate-woocommerce"
+
 }
 
 run_all_analysis() {

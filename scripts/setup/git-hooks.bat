@@ -91,7 +91,7 @@ echo     $NPM_CMD test
 echo fi
 echo.
 echo # Run PHP tests if they exist
-echo if [ -f "composer.json" ] ^&^& [ -f "phpunit.xml" ]; then
+echo if [ -f "composer.json" ] ^&^& [ -f ".config/testing/phpunit.xml" ]; then
 echo     echo "🟡 Running PHP tests..."
 echo     $COMPOSER_CMD run test
 echo fi

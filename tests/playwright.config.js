@@ -8,7 +8,11 @@ const { defineConfig, devices } = require('@playwright/test');
 
 // Detect if running in Lando environment
 const isLando = process.env.LANDO === 'ON';
-const baseURL = process.env.PLAYWRIGHT_BASE_URL || (isLando ? 'https://wordpress-quickstart.lndo.site' : 'http://localhost:8080');
+const baseURL =
+  process.env.PLAYWRIGHT_BASE_URL ||
+  (isLando
+    ? 'https://wordpress-quickstart.lndo.site'
+    : 'http://localhost:8080');
 
 module.exports = defineConfig({
   // Test directory
@@ -27,13 +31,34 @@ module.exports = defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   // Reporter to use
-  reporter: [
-    ['html'],
-    ['json', { outputFile: 'test-results/results.json' }],
-    ['junit', { outputFile: 'test-results/results.xml' }],
-    // Only show summary in CI
-    process.env.CI ? ['github'] : ['list']
-  ],
+  reporter: process.env.CI
+    ? [
+        // CI reporters: minimal output + integrations
+        [
+          'html',
+          {
+            open: 'never',
+            outputFolder: 'playwright-report',
+          },
+        ],
+        ['json', { outputFile: 'test-results/results.json' }],
+        ['junit', { outputFile: 'test-results/results.xml' }],
+        ['dot'], // Minimal dots output for CI
+        ['github'], // GitHub Actions integration
+      ]
+    : [
+        // Local development reporters: detailed output
+        [
+          'html',
+          {
+            open: 'on-failure',
+            outputFolder: 'playwright-report',
+          },
+        ],
+        ['json', { outputFile: 'test-results/results.json' }],
+        ['junit', { outputFile: 'test-results/results.xml' }],
+        ['list'], // Detailed list output for local development
+      ],
 
   // Shared settings for all the projects below
   use: {
@@ -108,41 +133,33 @@ module.exports = defineConfig({
       testMatch: '**/admin/**/*.spec.js',
     },
 
-    // WooCommerce-specific tests
-    {
-      name: 'woocommerce-tests',
-      use: {
-        ...devices['Desktop Chrome'],
-        // E-commerce might need more time for payment processing
-        actionTimeout: 20000,
-      },
-      testMatch: '**/woocommerce/**/*.spec.js',
-    },
+    // (storefront tests removed)
   ],
 
   // Global setup and teardown
-  globalSetup: require.resolve('./e2e/global-setup.js'),
-  globalTeardown: require.resolve('./e2e/global-teardown.js'),
+  // globalSetup: require.resolve('./e2e/global-setup.js'),
+  // globalTeardown: require.resolve('./e2e/global-teardown.js'),
 
   // Run your local dev server before starting the tests
-  webServer: isLando ? undefined : {
-    command: 'npm run start',
-    url: baseURL,
-    reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000, // 2 minutes for WordPress to start
-  },
+  // Only run webServer for local development, not in CI or Lando
+  webServer:
+    process.env.CI || isLando
+      ? undefined
+      : {
+          command: 'npm run start',
+          url: baseURL,
+          reuseExistingServer: !process.env.CI,
+          timeout: 120 * 1000, // 2 minutes for WordPress to start
+        },
 
   // Expect options
   expect: {
     // Maximum time expect() should wait for the condition to be met
     timeout: 5000,
 
-    // Threshold for visual comparisons
-    threshold: 0.2,
-
     // Screenshot comparison options
     toHaveScreenshot: {
-      mode: 'css',
+      scale: 'css',
       animations: 'disabled',
     },
     toMatchSnapshot: {
@@ -156,32 +173,5 @@ module.exports = defineConfig({
   // Test timeout
   timeout: 60000,
 
-  // Global test setup
-  testOptions: {
-    // WordPress-specific test data
-    wordpress: {
-      adminUrl: '/wp-admin',
-      loginUrl: '/wp-login.php',
-      adminUser: process.env.WP_ADMIN_USER || 'admin',
-      adminPassword: process.env.WP_ADMIN_PASSWORD || 'password',
-      siteUrl: baseURL,
-    },
-
-    // WooCommerce-specific test data
-    woocommerce: {
-      shopUrl: '/shop',
-      cartUrl: '/cart',
-      checkoutUrl: '/checkout',
-      myAccountUrl: '/my-account',
-      customerUser: process.env.WC_CUSTOMER_USER || 'customer',
-      customerPassword: process.env.WC_CUSTOMER_PASSWORD || 'password',
-    },
-
-    // Test environment
-    environment: {
-      isLando,
-      isCI: !!process.env.CI,
-      debug: process.env.PLAYWRIGHT_DEBUG === '1',
-    },
-  },
+  // Global test setup done via 'use' and environment variables
 });

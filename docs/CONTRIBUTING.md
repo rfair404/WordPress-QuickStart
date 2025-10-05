@@ -1,6 +1,7 @@
 # Contributing to WordPress Quickstart
 
-We love your input! We want to make contributing to this project as easy and transparent as possible.
+We love your input! We want to make contributing to this project as easy and transparent as
+possible.
 
 ## Development Process
 
@@ -8,7 +9,8 @@ We use GitHub to host code, to track issues and feature requests, as well as acc
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by our Code of Conduct. By participating, you are expected to uphold this code.
+This project and everyone participating in it is governed by our Code of Conduct. By participating,
+you are expected to uphold this code.
 
 ## Getting Started
 
@@ -22,7 +24,7 @@ This project and everyone participating in it is governed by our Code of Conduct
 3. **Start the development environment**:
    ```bash
    lando start
-   lando composer dev:setup
+   lando composer install
    lando npm install
    ```
 4. **Run tests** to ensure everything works:
@@ -35,6 +37,7 @@ This project and everyone participating in it is governed by our Code of Conduct
 ## Development Workflow
 
 1. **Create a branch** for your feature or fix:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -45,16 +48,21 @@ This project and everyone participating in it is governed by our Code of Conduct
    - All code must pass linting and tests
 
 3. **Test your changes**:
-   ```bash
-   # Run all tests
-   lando composer analyze
-   lando npm test
 
-   # Check code formatting
+   ```bash
+   # Run PHP tests
+   lando composer test
+
+   # Run JavaScript/E2E tests (Playwright)
+   lando npm run test:e2e
+
+   # Check code formatting and linters (configs live under .config/)
    lando npm run format:check
+   lando npm run lint:js
    ```
 
 4. **Commit your changes** using conventional commit format:
+
    ```bash
    git commit -m "feat(auth): add user login functionality"
    ```
@@ -64,21 +72,27 @@ This project and everyone participating in it is governed by our Code of Conduct
 ## Coding Standards
 
 ### PHP
-- Follow [WordPress VIP Coding Standards](https://docs.wpvip.com/technical-references/code-quality-and-best-practices/code-review/)
+
+- Follow
+  [WordPress VIP Coding Standards](https://docs.wpvip.com/technical-references/code-quality-and-best-practices/code-review/)
 - Use PHPDoc comments for all functions and classes
 - Write unit tests for new functionality
 - Run `lando composer lint` before committing
 
 ### JavaScript
-- Follow [WordPress JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-javascript/)
+
+- Follow
+  [WordPress JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-javascript/)
 - Use JSDoc comments for functions
 - Write tests for new functionality
-- Run `lando npm run lint:js` before committing
+- Run `lando npm run lint:js` before committing (ESLint config is under `.config/linting/`)
 
 ### CSS
-- Follow [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-css/)
+
+- Follow
+  [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards-for-css/)
 - Use meaningful class names
-- Run `lando npm run lint:css` before committing
+- Run `lando npm run lint:css` before committing (Stylelint config is under `.config/linting/`)
 
 ## Commit Message Format
 
@@ -93,6 +107,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/) format:
 ```
 
 ### Types:
+
 - `feat`: A new feature
 - `fix`: A bug fix
 - `docs`: Documentation only changes
@@ -102,6 +117,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/) format:
 - `chore`: Changes to the build process or auxiliary tools
 
 ### Examples:
+
 ```
 feat(auth): add user registration functionality
 fix(cart): resolve quantity update issue
@@ -140,14 +156,12 @@ lando composer test
 # Run PHP tests with coverage
 lando composer test:coverage
 
-# Run JavaScript tests
-lando npm test
-
-# Run JavaScript tests in watch mode
-lando npm run test:watch
-
-# Run end-to-end tests
+# Run JavaScript/E2E tests (Playwright)
 lando npm run test:e2e
+
+# Run linters and format checks
+lando npm run format:check
+lando npm run lint:js
 ```
 
 ### Writing Tests
@@ -195,4 +209,5 @@ Feel free to open an issue with the "question" label, or reach out to the mainta
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the GPL-2.0-or-later License.
+By contributing, you agree that your contributions will be licensed under the GPL-2.0-or-later
+License.

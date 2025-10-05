@@ -128,33 +128,31 @@ create_sample_pages() {
     lando wp --path=wp post delete 2 --force --allow-root  # Sample Page
 
     # Create Home page
-    local home_content="<h1>Welcome to WordPress E-commerce Starter</h1>
-<p>This is your new WordPress e-commerce website built with modern development tools.</p>
+    local home_content="<h1>Welcome to WordPress Quickstart</h1>
+<p>This is a sample WordPress site created for development and testing.</p>
 
 <h2>Features</h2>
 <ul>
 <li>WordPress managed via Composer</li>
 <li>Custom content directory structure</li>
 <li>Lando development environment</li>
-<li>WooCommerce ready</li>
 <li>Comprehensive testing suite</li>
 </ul>
 
 <h2>Getting Started</h2>
 <p>Visit the <a href=\"/about/\">About page</a> to learn more about this project.</p>
-<p>Check out our <a href=\"/shop/\">Shop</a> to see WooCommerce in action.</p>
+<p>Check out our <a href=\"/shop/\">Shop</a> to view sample content.</p>
 <p>Read our <a href=\"/blog/\">Blog</a> for the latest updates.</p>"
 
     local home_page_id=$(lando wp --path=wp post create --post_type=page --post_status=publish --post_title="Home" --post_content="$home_content" --allow-root --porcelain)
 
     # Create About page
-    local about_content="<h1>About WordPress E-commerce Starter</h1>
-<p>WordPress E-commerce Starter is a professional development framework for building modern WordPress e-commerce websites.</p>
+    local about_content="<h1>About WordPress Quickstart</h1>
+<p>WordPress Quickstart is a development scaffold designed to bootstrap WordPress projects with modern tooling and testing.</p>
 
 <h2>Technology Stack</h2>
 <ul>
 <li><strong>WordPress:</strong> Latest version managed via Composer</li>
-<li><strong>WooCommerce:</strong> Complete e-commerce solution</li>
 <li><strong>Lando:</strong> Local development environment</li>
 <li><strong>PHP 8.1+:</strong> Modern PHP with strict typing</li>
 <li><strong>Node.js:</strong> JavaScript tooling and build processes</li>
@@ -201,8 +199,8 @@ create_sample_pages() {
     # Create Blog page for posts
     lando wp --path=wp post create --post_type=page --post_status=publish --post_title="Blog" --post_content="<h1>Latest Updates</h1><p>Stay updated with the latest news and developments.</p>" --allow-root
 
-    # Create Shop page (WooCommerce will use this)
-    local shop_page_id=$(lando wp --path=wp post create --post_type=page --post_status=publish --post_title="Shop" --post_content="<h1>Our Products</h1><p>Browse our collection of quality products.</p>" --allow-root --porcelain)
+    # Create Shop page (for storefronts/plugins)
+    local shop_page_id=$(lando wp --path=wp post create --post_type=page --post_status=publish --post_title="Shop" --post_content="<h1>Our Products</h1><p>Browse our collection of sample products.</p>" --allow-root --porcelain)
 
     # Set Home page as front page
     lando wp --path=wp option update show_on_front 'page' --allow-root
@@ -220,13 +218,12 @@ create_sample_posts() {
     log_step "Creating sample blog posts..."
 
     # Create first blog post
-    local post1_content="Welcome to your new WordPress e-commerce website! This post demonstrates the blogging capabilities of your site.
+    local post1_content="Welcome to your new WordPress site! This post demonstrates the blogging capabilities of your site.
 
 <h2>What's Included</h2>
 Your development environment includes:
 <ul>
 <li>WordPress latest version</li>
-<li>WooCommerce for e-commerce functionality</li>
 <li>Modern development tools</li>
 <li>Automated testing suite</li>
 </ul>
@@ -234,17 +231,17 @@ Your development environment includes:
 <h2>Next Steps</h2>
 <ol>
 <li>Customize your theme</li>
-<li>Add your products to the shop</li>
-<li>Configure your payment methods</li>
-<li>Launch your online store!</li>
+<li>Add your content to the site</li>
+<li>Configure any storefront plugins or extensions as needed</li>
+<li>Launch your site!</li>
 </ol>
 
-<p>Happy blogging and selling!</p>"
+<p>Happy blogging!</p>"
 
     lando wp --path=wp post create --post_status=publish --post_title="Welcome to WordPress E-commerce Starter" --post_content="$post1_content" --post_category="1" --allow-root
 
     # Create second blog post
-    local post2_content="Setting up an e-commerce website has never been easier with this WordPress starter kit.
+    local post2_content="Setting up a website has never been easier with this WordPress starter kit.
 
 <h2>Development Features</h2>
 This starter includes professional development tools:
@@ -255,16 +252,7 @@ This starter includes professional development tools:
 <li><strong>Testing:</strong> Automated PHPUnit and E2E tests</li>
 </ul>
 
-<h2>E-commerce Ready</h2>
-WooCommerce is pre-configured and ready to use:
-<ul>
-<li>Product catalog management</li>
-<li>Shopping cart and checkout</li>
-<li>Payment gateway integration</li>
-<li>Order management system</li>
-</ul>
-
-<p>Start building your online store today!</p>"
+<p>Start building your site today!</p>"
 
     lando wp --path=wp post create --post_status=publish --post_title="E-commerce Development Made Easy" --post_content="$post2_content" --post_category="1" --allow-root
 
@@ -291,37 +279,11 @@ create_navigation_menus() {
     log_success "Navigation menus created!"
 }
 
-# Configure WooCommerce if available
-configure_woocommerce() {
-    # Check if WooCommerce is installed
-    if lando wp --path=wp plugin is-installed woocommerce --allow-root 2>/dev/null; then
-        log_step "Configuring WooCommerce..."
-
-        # Activate WooCommerce
-        lando wp --path=wp plugin activate woocommerce --allow-root
-
-        # Set WooCommerce pages
-        local shop_page_id=$(lando wp --path=wp post list --post_type=page --name=shop --field=ID --allow-root)
-        if [ -n "$shop_page_id" ]; then
-            lando wp --path=wp option update woocommerce_shop_page_id "$shop_page_id" --allow-root
-        fi
-
-        # Run WooCommerce setup
-        lando wp --path=wp wc tool run install_pages --user=admin --allow-root 2>/dev/null || true
-
-        # Configure basic WooCommerce settings
-        lando wp --path=wp option update woocommerce_store_address "123 E-commerce Street" --allow-root
-        lando wp --path=wp option update woocommerce_store_city "Commerce City" --allow-root
-        lando wp --path=wp option update woocommerce_default_country "US:NY" --allow-root
-        lando wp --path=wp option update woocommerce_store_postcode "12345" --allow-root
-        lando wp --path=wp option update woocommerce_currency "USD" --allow-root
-        lando wp --path=wp option update woocommerce_product_type "both" --allow-root
-        lando wp --path=wp option update woocommerce_allow_tracking "no" --allow-root
-
-        log_success "WooCommerce configured!"
-    else
-        log_warning "WooCommerce not installed. Run 'composer require wpackagist-plugin/woocommerce' to install."
-    fi
+# Storefront configuration is intentionally out of scope for this script.
+# Keep a small informational function so callers remain stable.
+configure_storefront() {
+    log_step "Storefront configuration skipped (out of project scope)."
+    log_info "If you require storefront functionality, install and configure a storefront plugin (for example, via Composer) separately."
 }
 
 # Main installation function
@@ -355,7 +317,7 @@ main() {
     create_sample_pages
     create_sample_posts
     create_navigation_menus
-    configure_woocommerce
+    configure_storefront
 
     echo ""
     echo -e "${GREEN}🎉 WordPress installation completed successfully!${NC}"
@@ -371,14 +333,14 @@ main() {
     echo "• About page"
     echo "• Contact page"
     echo "• Blog page (for posts)"
-    echo "• Shop page (for WooCommerce)"
+    echo "• Shop page (for storefronts/plugins)"
     echo "• Sample blog posts"
     echo "• Navigation menu"
     echo ""
     echo "Next steps:"
     echo "1. Visit your site: $SITE_URL"
     echo "2. Login to admin: $SITE_URL/wp-admin/"
-    echo "3. Install WooCommerce: composer require wpackagist-plugin/woocommerce"
+    echo "3. Install and configure any storefront plugins or integrations as needed"
     echo "4. Customize your theme and content"
     echo ""
 }

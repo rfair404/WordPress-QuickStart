@@ -1,29 +1,55 @@
 # Prettier ignore patterns
+
+# Build artifacts and dependencies
 node_modules/
+node_modules/**
 vendor/
+vendor/**
 coverage/
 build/
+build/**
 dist/
-wp-content/uploads/
+dist/**
 *.min.js
 *.min.css
 *.map
 
-# WordPress core files
+# WordPress core files - exclude entire wp directory
+wp/
+wp/**
 wp-admin/
 wp-includes/
-wp-content/themes/twenty*/
+wp-content/
+wp-content/uploads/
 wp-config.php
 wp-config-sample.php
 .htaccess
 
-# Build artifacts
+# Third-party plugins and themes
+# (WooCommerce removed in Phase 2 - add future third-party plugins here)
+
+# PHP files (use PHP-specific formatters)
+*.php
+**/*.php
+
+# Test artifacts and reports
+test-results/
+tests/test-results/
+tests/test-results-*/
+playwright-report/
+tests/playwright-report/
+
+# Log files and temp files
 *.log
 *.tmp
 *.cache
 
-# IDE files
+# IDE and editor files
 .vscode/
 .idea/
 *.swp
 *.swo
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -122,6 +122,7 @@ define('WP_PLUGIN_URL', WP_CONTENT_URL . '/plugins');
 
 // Memory limits
 ini_set('memory_limit', '256M');
+ini_set('max_execution_time', 300);
 
 ";
 
@@ -153,7 +154,7 @@ if (file_put_contents($configPath, $config)) {
     echo "🚀 Next steps:\n";
     echo "   1. Run 'lando start' to start your development environment\n";
     echo "   2. Visit your site to complete WordPress installation\n";
-    echo "   3. Install WooCommerce: composer require wpackagist-plugin/woocommerce\n";
+    echo "   3. (Optional) Install a storefront plugin as needed (install via Composer or other methods)\n";
 } else {
     echo "❌ Failed to write wp-config.php\n";
     exit(1);
