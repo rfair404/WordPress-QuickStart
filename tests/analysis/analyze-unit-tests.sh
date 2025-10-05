@@ -153,8 +153,6 @@ else
     echo "❌ WordPressInstallationTest.php not found"
 fi
 
-## WooCommerce tests removed in Phase 2 - storefront tests are optional and handled in e2e test suites
-
 # Analyze test dependencies and imports
 echo ""
 print_header "🔗 Test Dependencies Analysis"
@@ -243,7 +241,6 @@ TOTAL_TESTS=$((TOTAL_SAMPLE_TESTS + TOTAL_WP_TESTS))
 print_info "Total Test Methods: $TOTAL_TESTS"
 print_detail "SampleTest.php: $TOTAL_SAMPLE_TESTS methods"
 print_detail "WordPressInstallationTest.php: $TOTAL_WP_TESTS methods"
-## WooCommerce tests removed - skipping WooCommerceTest.php summary
 
 echo ""
 print_info "Test Categories Covered:"
@@ -253,9 +250,6 @@ print_detail "✅ Environment validation"
 print_detail "✅ PHP version compatibility"
 print_detail "✅ WordPress installation structure"
 print_detail "✅ Composer integration"
-if [ $TOTAL_WC_TESTS -gt 0 ]; then
-    print_detail "✅ WooCommerce integration testing"
-fi
 
 echo ""
 print_header "🎯 Recommended Test Execution"

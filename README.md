@@ -650,15 +650,39 @@ gh auth login                    # Authenticate with GitHub
 gh repo view                     # View repository information
 ```
 
-#### Troubleshooting GitHub Actions
+#### GitHub Actions Monitoring & Troubleshooting
 
-When GitHub Actions fail, use these commands to diagnose issues:
+This project includes a custom `gh-wrapper.sh` script that provides consistent GitHub CLI operations with validation.
+
+**Using the GitHub CLI Wrapper:**
 
 ```bash
-# Quick diagnosis
+# View recent workflow runs
+bash scripts/gh-wrapper.sh run list --limit 5
+
+# Check latest build status
+bash scripts/gh-wrapper.sh run list --json databaseId --limit 1 --jq '.[0].databaseId'
+
+# View detailed build information
+bash scripts/gh-wrapper.sh run view <run-id>
+
+# View failed logs for troubleshooting
+bash scripts/gh-wrapper.sh run view <run-id> --log-failed
+
+# Rerun failed workflows
+bash scripts/gh-wrapper.sh run rerun <run-id>
+
+# View repository information
+bash scripts/gh-wrapper.sh repo view
+```
+
+**Legacy Composer Commands (for reference):**
+
+```bash
+# Quick diagnosis (if GitHub CLI is available)
 lando npm run gh:actions:logs    # View latest failed logs
 
-# Detailed investigation
+# Direct GitHub CLI usage
 gh run list --status failure     # List all failed runs
 gh run view <run-id> --log-failed # View specific failure logs
 gh run rerun <run-id>            # Rerun failed workflow

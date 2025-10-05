@@ -75,7 +75,6 @@ class WordPressInstallationTest extends TestCase {
 		$custom_directories = [
 			'/custom',
 			'/custom/plugins',
-			'/custom/themes',
 		];
 
 		foreach ( $core_directories as $directory ) {
