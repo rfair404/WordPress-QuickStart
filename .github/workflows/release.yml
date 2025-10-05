@@ -181,8 +181,8 @@ jobs:
       - name: Generate documentation
         run: |
           # Generate API documentation if needed
-          npm install -g @wordpress/scripts
-          # Add documentation generation commands
+          # Documentation is generated from README.md and docs/ folder
+          echo "Documentation available in docs/"
 
       - name: Deploy documentation
         run: |

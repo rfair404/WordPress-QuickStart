@@ -1,5 +1,7 @@
+// Jest configuration for potential JavaScript unit tests
+// Currently using Playwright for E2E testing
 module.exports = {
-  ...require("@wordpress/scripts/config/jest-unit.config.js"),
+  testEnvironment: "node",
   testMatch: [
     "<rootDir>/src/**/__tests__/**/*.js",
     "<rootDir>/src/**/?(*.)+(spec|test).js",
@@ -14,5 +16,10 @@ module.exports = {
     "/tests/integration/",
     "/tests/validation/",
     "\\.min\\.js$",
+  ],
+  collectCoverageFrom: [
+    "src/**/*.js",
+    "!src/**/*.min.js",
+    "!**/node_modules/**",
   ],
 };

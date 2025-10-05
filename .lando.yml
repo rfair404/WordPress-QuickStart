@@ -49,7 +49,6 @@ services:
   node:
     type: node:18
     build:
-      - npm install -g @wordpress/scripts
       - npm install -g wp-cli
 
 tooling:

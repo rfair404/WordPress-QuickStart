@@ -767,15 +767,22 @@ WQS_RUN_E2E=1                                    # Enable E2E tests in test runn
 PLAYWRIGHT_DEBUG=1                               # Enable Playwright debug mode
 ```
 
-### Building Assets
+### Development Tools
 
 ```bash
-# Development build
-lando npm run dev              # Start development server with hot reload
-lando npm run start            # Alternative way to start development server
+# Code quality and formatting
+lando npm run lint:js          # Check JavaScript for linting issues
+lando npm run lint:js:fix      # Fix JavaScript linting issues automatically
+lando npm run lint:css         # Check CSS/SCSS for style issues
+lando npm run lint:css:fix     # Fix CSS/SCSS style issues automatically
+lando npm run format           # Format all files with Prettier
+lando npm run format:check     # Check if files are properly formatted
 
-# Production build
-lando npm run build:production # Build optimized assets for production
+# Testing
+lando npm run test             # Run E2E tests (default)
+lando npm run test:e2e         # Run Playwright E2E tests
+lando npm run test:e2e:headed  # Run E2E tests with browser UI
+lando npm run test:e2e:debug   # Debug E2E tests step-by-step
 ```
 
 ### Useful Lando Commands
