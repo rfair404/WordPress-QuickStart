@@ -652,7 +652,8 @@ gh repo view                     # View repository information
 
 #### GitHub Actions Monitoring & Troubleshooting
 
-This project includes a custom `gh-wrapper.sh` script that provides consistent GitHub CLI operations with validation.
+This project includes a custom `gh-wrapper.sh` script that provides consistent GitHub CLI operations
+with validation.
 
 **Using the GitHub CLI Wrapper:**
 
