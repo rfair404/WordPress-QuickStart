@@ -11,8 +11,9 @@ permissions:
   issues: write
 
 env:
-  PHP_VERSION: '8.1'
-  NODE_VERSION: '18'
+  PHP_VERSION: 8.1
+  NODE_VERSION: '20'
+  COMPOSER_PROCESS_TIMEOUT: 0
 
 jobs:
   # Quick validation for pull requests
