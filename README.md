@@ -23,6 +23,7 @@ A WordPress quickstart application with features for modern WordPress developmen
 - **WordPress VIP coding standards** compliance
 - **Frontend tooling** (ESLint, Prettier, Stylelint)
 - **Performance monitoring** and health checks
+- **Automated dependency management** (Dependabot for Composer, npm, and GitHub Actions)
 - **Setup** and environment management
 - **Environment-aware configuration** (local vs CI optimization)
 
@@ -1227,6 +1228,7 @@ docker system info
   configuration
 - [VS Code Integration Guide](docs/VSCODE_INTEGRATION_GUIDE.md) - Professional development workflow
 - [Playwright E2E Testing Guide](docs/PLAYWRIGHT_GUIDE.md) - End-to-end testing with Playwright
+- [Dependabot Configuration Guide](docs/DEPENDABOT_GUIDE.md) - Automated dependency management
 - [Contributing Guidelines](docs/CONTRIBUTING.md) - How to contribute to the project
 - [Changelog](docs/CHANGELOG.md) - Version history and release notes
 
