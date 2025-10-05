@@ -2,15 +2,6 @@ module.exports = {
   extends: ['stylelint-config-standard'],
   plugins: ['stylelint-scss'],
   customSyntax: 'postcss-scss',
-  ignoreFiles: [
-    // Third-party plugins and themes (WooCommerce removed in Phase 2)
-    'wp/**/*.css',
-    'vendor/**/*.css',
-    'node_modules/**/*.css',
-    '*.min.css',
-    'build/**/*.css',
-    'dist/**/*.css',
-  ],
   rules: {
     // WordPress theme specific overrides
     'max-line-length': null,
@@ -52,9 +43,12 @@ module.exports = {
     },
   ],
   ignoreFiles: [
+    // Third-party plugins and themes (WooCommerce removed in Phase 2)
+    'wp/**/*.css',
     'vendor/**/*.css',
     'node_modules/**/*.css',
     'wp-content/uploads/**/*.css',
+    '*.min.css',
     'build/**/*.css',
     'dist/**/*.css',
     'coverage/**/*.css',
