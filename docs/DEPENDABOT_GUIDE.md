@@ -1,13 +1,14 @@
 # Dependabot Configuration Guide
 
-This document explains the Dependabot configuration for the WordPress QuickStart project, which automatically monitors and updates dependencies across multiple ecosystems.
+This document explains the Dependabot configuration for the WordPress QuickStart project, which
+automatically monitors and updates dependencies across multiple ecosystems.
 
 ## Overview
 
 Dependabot is configured to monitor three types of dependencies:
 
 1. **Composer packages** (PHP dependencies)
-2. **npm packages** (JavaScript/Node.js dependencies) 
+2. **npm packages** (JavaScript/Node.js dependencies)
 3. **GitHub Actions** (CI/CD workflow dependencies)
 
 ## Configuration Details
@@ -15,8 +16,9 @@ Dependabot is configured to monitor three types of dependencies:
 ### Schedule
 
 All dependency checks run weekly on **Mondays**:
+
 - **09:00 PT** - Composer (PHP) packages
-- **09:30 PT** - npm (JavaScript) packages  
+- **09:30 PT** - npm (JavaScript) packages
 - **10:00 PT** - GitHub Actions
 
 ### Pull Request Limits
@@ -67,16 +69,19 @@ To reduce noise and make reviews easier, related dependencies are grouped togeth
 Certain updates are ignored to prevent breaking changes:
 
 ### Composer
+
 - **WordPress Core major versions**: Only minor and patch updates are automatically proposed
   - Major WordPress updates require manual review and testing
 
 ### npm
+
 - **ESLint major versions**: Can introduce breaking configuration changes
 - **Playwright major versions**: May require test updates and infrastructure changes
 
 ### Why These Are Ignored
 
 These packages are ignored for major version updates because:
+
 - They often introduce breaking changes
 - They require careful testing and potential configuration updates
 - They may impact the entire development workflow
@@ -84,6 +89,7 @@ These packages are ignored for major version updates because:
 ## Labels and Reviewers
 
 All Dependabot PRs are automatically:
+
 - **Labeled** with appropriate tags (`dependencies`, `php`, `javascript`, etc.)
 - **Assigned** to `rfair404` for review
 - **Set as reviewer** for `rfair404`
@@ -91,6 +97,7 @@ All Dependabot PRs are automatically:
 ## Commit Message Format
 
 Commit messages follow a consistent format:
+
 - **Composer**: `composer: update package-name to v1.2.3`
 - **npm**: `npm: update package-name to v1.2.3`
 - **GitHub Actions**: `github-actions: update action-name to v1.2.3`
@@ -98,6 +105,7 @@ Commit messages follow a consistent format:
 ## Workflow Integration
 
 Dependabot PRs automatically trigger all CI/CD workflows:
+
 - PHP linting and testing
 - JavaScript linting and testing
 - Security scanning
@@ -108,17 +116,20 @@ This ensures all dependency updates are properly validated before merging.
 ## Manual Override
 
 If you need to update ignored dependencies or want to bypass the schedule:
+
 1. Use `@dependabot rebase` in PR comments to update an existing PR
 2. Create manual PRs for major version updates
 3. Use `@dependabot ignore` to skip specific updates
 
 ## Security Updates
 
-Dependabot automatically creates PRs for security vulnerabilities regardless of the schedule or ignore rules. These should be prioritized and reviewed immediately.
+Dependabot automatically creates PRs for security vulnerabilities regardless of the schedule or
+ignore rules. These should be prioritized and reviewed immediately.
 
 ## Monitoring
 
 Check the **Insights > Dependency graph > Dependabot** section in GitHub to:
+
 - View the update schedule
 - See failed update attempts
 - Monitor security alerts
