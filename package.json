@@ -19,6 +19,8 @@
     "lint:md": "markdownlint \"**/*.md\" --ignore node_modules --ignore vendor --ignore wp --config .config/linting/.markdownlint.json",
     "lint:md:fix": "markdownlint \"**/*.md\" --ignore node_modules --ignore vendor --ignore wp --config .config/linting/.markdownlint.json --fix",
     "lint:yaml": "yamllint -c .config/linting/.yamllint.yml .",
+    "lint:json": "prettier --check \"**/*.json\" --config .config/formatting/.prettierrc --ignore-path .config/formatting/.prettierignore",
+    "lint:json:fix": "prettier --write \"**/*.json\" --config .config/formatting/.prettierrc --ignore-path .config/formatting/.prettierignore",
     "format": "prettier --write . --config .config/formatting/.prettierrc --ignore-path .config/formatting/.prettierignore",
     "format:check": "prettier --check . --config .config/formatting/.prettierrc --ignore-path .config/formatting/.prettierignore",
     "lint-staged": "lint-staged",
