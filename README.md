@@ -897,8 +897,13 @@ All code is automatically formatted using:
 The project includes comprehensive git hooks that automatically:
 
 - **Pre-commit**: Run Prettier on all staged files and fix linting issues
-- **Pre-push**: Execute full test suite before pushing to remote
+- **Pre-push**: Execute optimized test suite for fast validation (smoke tests, WordPress validation,
+  linting)
 - **Commit-msg**: Validate commit message format (conventional commits)
+
+> **Note**: The pre-push hook runs only essential fast checks. The complete test suite (PHPUnit,
+> full E2E tests) runs in CI/CD pipelines to ensure thorough validation without slowing down local
+> development.
 
 #### Setting Up Git Hooks
 
@@ -1152,8 +1157,11 @@ development environment:
 **Hook features:**
 
 - Pre-commit: Prettier formatting + linting
-- Pre-push: Full test suite execution
+- Pre-push: Optimized test suite (smoke tests, WordPress validation, linting)
 - Commit-msg: Conventional commit validation
+
+> **Note**: Full test suite (PHPUnit, complete E2E tests) runs in CI/CD for comprehensive
+> validation.
 
 ### Usage Examples
 
