@@ -25,7 +25,7 @@
     "wp-coding-standards/wpcs": "^3.0",
     "automattic/vipwpcs": "^3.0",
     "phpunit/phpunit": "^9.5",
-    "yoast/phpunit-polyfills": "^1.0",
+    "yoast/phpunit-polyfills": "^4.0",
     "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
     "phpcompatibility/php-compatibility": "^9.3",
     "phpcompatibility/phpcompatibility-paragonie": "^1.3",
