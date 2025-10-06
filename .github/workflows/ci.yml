@@ -136,7 +136,8 @@ jobs:
       - name: Setup WordPress database
         run: |
           mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS wordpress;"
-          mysql -h 127.0.0.1 -u root -proot -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress';"
+          mysql -h 127.0.0.1 -u root -proot -e "CREATE USER IF NOT EXISTS 'wordpress'@'localhost' IDENTIFIED BY 'wordpress';"
+          mysql -h 127.0.0.1 -u root -proot -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost';"
           mysql -h 127.0.0.1 -u root -proot -e "FLUSH PRIVILEGES;"
 
       - name: Generate wp-config.php for CI
