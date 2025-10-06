@@ -65,7 +65,10 @@ jobs:
         run: composer run analyze
 
       - name: JavaScript/TypeScript Linting
-        run: npm run lint
+        run: npm run lint:js
+
+      - name: CSS Linting
+        run: npm run lint:css
 
       - name: Security audit (Composer)
         run: composer audit --no-dev || true
