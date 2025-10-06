@@ -76,6 +76,13 @@ jobs:
       - name: YAML Linting
         run: npm run lint:yaml
 
+      - name: JSON Syntax Validation
+        run: |
+          find . -name "*.json" -not -path "./node_modules/*" -not -path "./vendor/*" -not -path "./wp/*" | while read file; do
+            echo "Validating $file"
+            node -e "JSON.parse(require('fs').readFileSync('$file', 'utf8'))" || exit 1
+          done
+
       - name: Prettier Format Check
         run: npm run format:check
 
