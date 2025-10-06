@@ -87,8 +87,12 @@
       "prettier --write --config .config/formatting/.prettierrc",
       "stylelint --fix --config .config/linting/.stylelintrc.js"
     ],
-    "*.{json,yml,yaml,md,html}": [
+    "*.{json,yml,yaml,html}": [
       "prettier --write --config .config/formatting/.prettierrc"
+    ],
+    "*.md": [
+      "prettier --write --config .config/formatting/.prettierrc",
+      "markdownlint --config .config/linting/.markdownlint.json --fix"
     ],
     "*.php": ["composer run lint:fix"]
   }
