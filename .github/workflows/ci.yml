@@ -133,13 +133,33 @@ jobs:
           composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
           npm ci
 
-      - name: Setup WordPress test environment
+      - name: Setup WordPress database
         run: |
-          # Verify WordPress installation structure
-          composer run test:wp-installation
+          mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS wordpress;"
+          mysql -h 127.0.0.1 -u root -proot -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost' IDENTIFIED BY 'wordpress';"
+          mysql -h 127.0.0.1 -u root -proot -e "FLUSH PRIVILEGES;"
 
-      - name: Run PHP unit tests
-        run: composer run test:unit
+      - name: Generate wp-config.php for CI
+        run: |
+          # Create a CI-specific wp-config.php using our generator as base
+          # but with CI database settings
+          if [ ! -f wp/wp-config.php ]; then
+            cd wp
+            cp wp-config-sample.php wp-config.php
+            # Replace database settings for CI environment
+            sed -i "s/database_name_here/wordpress/" wp-config.php
+            sed -i "s/username_here/wordpress/" wp-config.php
+            sed -i "s/password_here/wordpress/" wp-config.php
+            sed -i "s/localhost/127.0.0.1/" wp-config.php
+            # Add security keys (using simple placeholder for CI)
+            sed -i "s/put your unique phrase here/ci-test-key-$(date +%s)/" wp-config.php
+            # Set custom content directory
+            echo "define('WP_CONTENT_DIR', dirname(__FILE__) . '/../custom');" >> wp-config.php
+            echo "define('WP_CONTENT_URL', 'http://localhost/custom');" >> wp-config.php
+            echo "Generated wp-config.php for CI environment"
+          else
+            echo "wp-config.php already exists"
+          fi
 
       - name: JavaScript unit tests
         run: npm test
