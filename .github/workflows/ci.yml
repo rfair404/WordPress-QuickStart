@@ -67,8 +67,17 @@ jobs:
       - name: JavaScript/TypeScript Linting
         run: npm run lint:js
 
-      - name: CSS Linting
+      - name: CSS/SCSS Linting
         run: npm run lint:css
+
+      - name: Markdown Linting
+        run: npm run lint:md
+
+      - name: YAML Linting
+        run: npm run lint:yaml
+
+      - name: Prettier Format Check
+        run: npm run format:check
 
       - name: Security audit (Composer)
         run: composer audit --no-dev || true
