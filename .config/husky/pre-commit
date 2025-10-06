@@ -1,2 +1,2 @@
 #!/bin/sh
-lando npm run lint-staged
+/c/Users/Reuseum/.local/bin/lando npm run lint-staged
