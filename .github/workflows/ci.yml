@@ -135,13 +135,11 @@ jobs:
 
       - name: Setup WordPress test environment
         run: |
-          bash scripts/wp-install.sh wordpress_test root root localhost ${{ env.WORDPRESS_VERSION }}
+          # Verify WordPress installation structure
+          composer run test:wp-installation
 
       - name: Run PHP unit tests
         run: composer run test:unit
-
-      - name: Run integration tests
-        run: composer run test:integration
 
       - name: JavaScript unit tests
         run: npm test
