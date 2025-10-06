@@ -89,20 +89,9 @@ jobs:
         run: npm audit --audit-level=moderate || true
 
   test:
-    name: Run Tests
     runs-on: ubuntu-latest
     needs: validate
-    if: ${{ !inputs.skip_tests }}
-
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: wordpress_test
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
 
     steps:
       - name: Checkout code
@@ -111,63 +100,38 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.PHP_VERSION }}
-          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
+          php-version: '8.3'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql, pdo_mysql
           coverage: xdebug
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          node-version: '20'
 
-      - name: Cache Composer dependencies
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
-          restore-keys: composer-${{ runner.os }}-
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Install dependencies
+      - name: Install npm dependencies
+        run: npm ci || npm install
+
+      - name: Setup WordPress for testing
         run: |
-          composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
-          npm ci
+          # Create wp-config.php for testing using the generator
+          php scripts/wp-config-generator.php
+          # Create test directories
+          mkdir -p custom/plugins custom/themes custom/uploads
+          # Make wp-manager.sh executable
+          chmod +x scripts/wp-manager.sh
+        env:
+          WP_ENV: testing
 
-      - name: Setup WordPress database
-        run: |
-          mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS wordpress;"
-          mysql -h 127.0.0.1 -u root -proot -e "CREATE USER IF NOT EXISTS 'wordpress'@'localhost' IDENTIFIED BY 'wordpress';"
-          mysql -h 127.0.0.1 -u root -proot -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost';"
-          mysql -h 127.0.0.1 -u root -proot -e "FLUSH PRIVILEGES;"
-
-      - name: Generate wp-config.php for CI
-        run: |
-          # Create a CI-specific wp-config.php using our generator as base
-          # but with CI database settings
-          if [ ! -f wp/wp-config.php ]; then
-            cd wp
-            cp wp-config-sample.php wp-config.php
-            # Replace database settings for CI environment
-            sed -i "s/database_name_here/wordpress/" wp-config.php
-            sed -i "s/username_here/wordpress/" wp-config.php
-            sed -i "s/password_here/wordpress/" wp-config.php
-            sed -i "s/localhost/127.0.0.1/" wp-config.php
-            # Add security keys (using simple placeholder for CI)
-            sed -i "s/put your unique phrase here/ci-test-key-$(date +%s)/" wp-config.php
-            # Set custom content directory
-            echo "define('WP_CONTENT_DIR', dirname(__FILE__) . '/../custom');" >> wp-config.php
-            echo "define('WP_CONTENT_URL', 'http://localhost/custom');" >> wp-config.php
-            echo "Generated wp-config.php for CI environment"
-          else
-            echo "wp-config.php already exists"
-          fi
-
-      - name: JavaScript unit tests
-        run: npm test
+      - name: Run PHPUnit tests
+        run: composer run test
 
       - name: Upload test results
-        if: always()
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: test-results
           path: |
