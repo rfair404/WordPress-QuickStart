@@ -174,7 +174,7 @@ jobs:
   deploy:
     name: Deploy Application
     runs-on: ubuntu-latest
-    needs: [php-validation, js-validation, test]
+    needs: [test-php]
     if: ${{ github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' }}
     environment: ${{ inputs.environment || 'staging' }}
 
@@ -220,7 +220,7 @@ jobs:
   e2e-full:
     name: End-to-End Tests
     runs-on: ubuntu-latest
-    needs: [php-validation, js-validation, test]
+    needs: [deploy]
     if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
 
     steps:
