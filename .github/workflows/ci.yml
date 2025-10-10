@@ -55,15 +55,6 @@ jobs:
       - name: PHP Code Standards
         run: composer run analyze
 
-      - name: Markdown Linting
-        run: npm run lint:md
-
-      - name: YAML Linting
-        run: npm run lint:yaml
-
-      - name: JSON Linting
-        run: npm run lint:json
-
       - name: Security audit (Composer)
         run: composer audit --no-dev || true
 
@@ -83,6 +74,15 @@ jobs:
 
       - name: Install NPM dependencies
         run: npm ci
+
+      - name: Markdown Linting
+        run: npm run lint:md
+
+      - name: YAML Linting
+        run: npm run lint:yaml
+
+      - name: JSON Linting
+        run: npm run lint:json
 
       - name: JavaScript/TypeScript Linting
         run: npm run lint:js
