@@ -27,6 +27,37 @@ env:
   WORDPRESS_VERSION: 'latest'
 
 jobs:
+  other-validation:
+    name: Other Filetype Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install NPM dependencies
+        run: npm ci
+
+      - name: Markdown Linting
+        run: npm run lint:md
+
+      - name: YAML Linting
+        run: npm run lint:yaml
+
+      - name: JSON Linting
+        run: npm run lint:json
+
+      - name: CSS/SCSS Linting
+        run: npm run lint:css
+
+      - name: Prettier Format Check
+        run: npm run format:check
   php-validation:
     name: PHP Validation
     runs-on: ubuntu-latest
@@ -75,23 +106,8 @@ jobs:
       - name: Install NPM dependencies
         run: npm ci
 
-      - name: Markdown Linting
-        run: npm run lint:md
-
-      - name: YAML Linting
-        run: npm run lint:yaml
-
-      - name: JSON Linting
-        run: npm run lint:json
-
       - name: JavaScript/TypeScript Linting
         run: npm run lint:js
-
-      - name: CSS/SCSS Linting
-        run: npm run lint:css
-
-      - name: Prettier Format Check
-        run: npm run format:check
 
       - name: Security audit (NPM)
         run: npm audit --audit-level=moderate || true
