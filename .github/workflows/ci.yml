@@ -154,7 +154,7 @@ jobs:
 
       - name: Setup WordPress for testing
         run: |
-          # Create wp-config.php for testing using the generator
+          chmod +x scripts/wp-config-generator-wpcli.sh
           ./scripts/wp-config-generator-wpcli.sh
         env:
           WP_ENV: testing
