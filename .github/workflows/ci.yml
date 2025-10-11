@@ -73,6 +73,13 @@ jobs:
           extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
           coverage: xdebug
 
+      - name: Install WP-CLI
+        run: |
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          sudo mv wp-cli.phar /usr/local/bin/wp
+          wp --info
+
       - name: Cache Composer dependencies
         uses: actions/cache@v3
         with:
