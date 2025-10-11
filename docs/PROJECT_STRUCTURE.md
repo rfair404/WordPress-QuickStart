@@ -88,9 +88,8 @@ Cross-platform development environment management:
 │   └── PROJECT_STRUCTURE.md  # This architecture guide
 ├── scripts/                  # Automation and utility scripts
 │   ├── gh-wrapper.sh         # GitHub CLI wrapper with cross-platform support
-│   ├── wp-config-generator.php # WordPress configuration generator
-│   ├── wp-install.sh         # WordPress installation automation
-│   ├── wp-manager.sh         # WordPress management utilities
+│   ├── wp-config-generator-wpcli.sh # WordPress configuration generator
+│   ├── wp-core-install-wpcli.sh     # WordPress installation automation
 │   └── setup/                # Environment setup and configuration
 │       ├── dependency-validator.sh
 │       ├── env-setup.sh      # Environment setup for Unix systems

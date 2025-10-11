@@ -16,8 +16,8 @@ services:
       - apt-get install -y git unzip curl
     build:
       - composer install
-      - npm install
-      - php scripts/wp-config-generator.php
+      # - npm install
+      # - php scripts/wp-config-generator.php
     overrides:
       environment:
         WORDPRESS_DEBUG: true
@@ -44,8 +44,8 @@ services:
 
   node:
     type: node:20
-    build:
-      - npm install -g wp-cli
+    # build:
+    #   - npm install -g wp-cli
 
 tooling:
   composer:
@@ -100,7 +100,6 @@ proxy:
     - wordpress-quickstart.lndo.site
   mailhog:
     - mail.wordpress-quickstart.lndo.site
-
-events:
-  post-start:
-    - appserver: echo "🚀 Lando started! Run './scripts/wp-manager.sh install:full' for complete WordPress setup."
+# events:
+#   post-start:
+#     - appserver: echo "Lando started!."

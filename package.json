@@ -54,7 +54,8 @@
     "validate:deps": "node -e \"require('child_process').execSync('./scripts/setup/dependency-validator.sh', {stdio: 'inherit'})\"",
     "monitor:performance": "node -e \"require('child_process').execSync('./scripts/setup/performance-monitor.sh', {stdio: 'inherit'})\"",
     "test:all": "node -e \"require('child_process').execSync('./scripts/setup/test-runner.sh', {stdio: 'inherit'})\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build": "echo \"No build step defined\""
   },
   "keywords": ["wordpress", "ecommerce", "starter", "theme", "plugin"],
   "author": "Your Name <your.email@example.com>",

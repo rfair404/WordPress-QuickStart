@@ -369,9 +369,6 @@ module.exports = {
 
     # NPM dependency security audit
     npm audit --audit-level moderate --json > security-audit-npm.json
-
-    # Custom security checks
-    ./scripts/security-scan.sh
 ```
 
 #### WordPress Security Hardening
@@ -395,8 +392,6 @@ define('SCRIPT_DEBUG', false);
     # Lighthouse CI
     npm run lighthouse:ci
 
-    # WordPress performance tests
-    ./scripts/performance-test.sh
 
     # Database query analysis
     composer run analyze:queries
@@ -463,13 +458,11 @@ docker system df
   run: |
     # Collect error information
     echo "::group::Error Classification"
-    ./scripts/classify-error.sh
     echo "::endgroup::"
 
     # Attempt automatic recovery
     if [[ "$ERROR_TYPE" == "infrastructure" ]]; then
       echo "Attempting infrastructure recovery..."
-      ./scripts/recover-infrastructure.sh
     fi
 ```
 
@@ -613,8 +606,6 @@ npm install
 ```bash
 # WordPress installation problems
 echo "Checking WordPress installation..."
-./scripts/wp-manager.sh status
-./scripts/wp-manager.sh reinstall
 
 # Database connection issues
 echo "Testing database connection..."

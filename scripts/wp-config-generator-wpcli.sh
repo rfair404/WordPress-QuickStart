@@ -15,7 +15,7 @@ DB_COLLATE=""
 
 # Check if wp-cli is available
 if ! command -v wp &> /dev/null; then
-    echo "wp-cli not found. Please install wp-cli or run inside Lando."
+    echo "wp-cli not found. Please install wp-cli."
     exit 1
 fi
 
