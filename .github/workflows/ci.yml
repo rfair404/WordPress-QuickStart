@@ -167,7 +167,7 @@ jobs:
           WP_ENV: testing
 
       - name: Run PHPUnit tests
-        run: composer run test
+        run: composer run test:coverage
 
       - name: Upload test results
         uses: actions/upload-artifact@v4

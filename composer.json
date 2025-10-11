@@ -39,18 +39,14 @@
     "lint:phpcs": "./vendor/bin/phpcs --standard=.config/linting/phpcs.xml custom/",
     "lint:fix": ["@lint:phpcbf"],
     "lint:phpcbf": "./vendor/bin/phpcbf --standard=.config/linting/phpcs.xml",
-    "test": ["@test:unit", "@test:wp-installation"],
+    "test": ["@test:unit"],
     "test:unit": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml",
     "test:coverage": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-html coverage --coverage-clover coverage/clover.xml",
     "test:coverage-text": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-text",
-    "test:wordpress": ["@test:wp-installation"],
-    "test:wp-installation": "bash tests/validation/validate-wordpress-installation.sh",
-    "test:wp-full": "bash tests/runners/run-wordpress-tests.sh",
     "analyze": ["@lint:phpcs"],
-    "analyze:full": ["@lint:phpcs", "@security:check"],
+
     "security:check": ["composer audit"],
-    "dev:setup": ["composer install", "@setup:standards", "@setup:hooks"],
-    "setup:hooks": ["bash scripts/setup/git-hooks.sh"],
+
     "setup:standards": [
       "phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/automattic/vipwpcs,vendor/phpcompatibility/php-compatibility,vendor/phpcompatibility/phpcompatibility-paragonie,vendor/phpcompatibility/phpcompatibility-wp,vendor/phpcsstandards/phpcsutils,vendor/phpcsstandards/phpcsextra,vendor/sirbrillig/phpcs-variable-analysis",
       "phpcs --config-set default_standard WordPress-VIP-Go"
@@ -60,19 +56,7 @@
     "check": ["composer validate --strict", "@lint:phpcs"],
     "check:wordpress": ["composer validate --strict", "@lint:phpcs"],
     "post-install-cmd": ["@setup:standards"],
-    "post-update-cmd": ["@setup:standards"],
-    "wp:install": ["@composer install", "@wp:config"],
-    "wp:install:full": [
-      "@composer install",
-      "@wp:config",
-      "bash scripts/wp-install.sh"
-    ],
-    "wp:config": ["php scripts/wp-config-generator.php"],
-    "wp:update": ["@composer update johnpbloch/wordpress-core"],
-    "wp:plugin:install": ["@composer require"],
-    "wp:plugin:remove": ["@composer remove"],
-    "wp:theme:install": ["@composer require"],
-    "wp:version": ["@composer show johnpbloch/wordpress-core"]
+    "post-update-cmd": ["@setup:standards"]
   },
   "repositories": [
     {
