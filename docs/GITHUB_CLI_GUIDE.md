@@ -61,17 +61,14 @@ The project provides GitHub CLI setup through multiple installation methods:
 .\scripts\setup\github-cli-setup.bat
 
 # Git Bash
-./scripts/setup/github-cli-setup.sh
 ```
 
 #### Mac/Linux Setup
 
 ```bash
 # Unix systems
-./scripts/setup/github-cli-setup.sh
 
 # Using the main setup script
-./scripts/setup/env-setup.sh
 ```
 
 #### Manual Installation Verification

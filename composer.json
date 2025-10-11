@@ -44,9 +44,7 @@
     "test:coverage": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-html coverage --coverage-clover coverage/clover.xml",
     "test:coverage-text": "./vendor/bin/phpunit --configuration .config/testing/phpunit.xml --coverage-text",
     "analyze": ["@lint:phpcs"],
-
     "security:check": ["composer audit"],
-
     "setup:standards": [
       "phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/automattic/vipwpcs,vendor/phpcompatibility/php-compatibility,vendor/phpcompatibility/phpcompatibility-paragonie,vendor/phpcompatibility/phpcompatibility-wp,vendor/phpcsstandards/phpcsutils,vendor/phpcsstandards/phpcsextra,vendor/sirbrillig/phpcs-variable-analysis",
       "phpcs --config-set default_standard WordPress-VIP-Go"
