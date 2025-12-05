@@ -71,7 +71,7 @@
     "eslint": "^9.37.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.3",
-    "markdownlint-cli": "^0.45.0",
+    "markdownlint-cli": "^0.46.0",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.6.2",
     "stylelint": "^16.25.0",
